@@ -1,0 +1,45 @@
+<ion-app>
+  <ion-split-pane [when]="menuDurum">
+    <ion-menu type="overlay">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Menü</ion-title>
+          <ion-icon *ngIf="platform.width()>640" (click)="menuyuKapat()" slot="end" name="attach" style="zoom: 1.5"></ion-icon>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+          <ion-card>
+              <ion-card-header class="ion-text-center">
+                  <ion-avatar style="margin:auto">
+                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9Ry3j1IMhdhukL3SXCTW-q5MtEBDHu-oNlydFh-vMaY8h8LJYug">
+                    </ion-avatar>
+                <ion-card-subtitle>{{currentUser.fullName}}</ion-card-subtitle>
+                <!--<ion-card-title>{{currentUser.fullName}}</ion-card-title>-->
+              </ion-card-header>        
+              <ion-card-content>
+                  <ion-menu-toggle auto-hide="false">
+                  <ion-item [routerLink]="['/sifre-degistir']"><ion-icon name="settings"></ion-icon>Hesabım</ion-item>
+                  </ion-menu-toggle>
+               <!-- Keep close to Nature's heart... and break clear away, once in awhile,
+                and climb a mountain or spend a week in the woods. Wash your spirit clean.-->
+              </ion-card-content>
+            </ion-card>
+        <ion-list>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item *ngIf="getAktifRol(p.role)||p.role==0" [routerDirection]="'root'" [routerLink]="[p.url]">
+              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+              <ion-label>
+                {{p.title}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-button *ngIf="currentUser.isLogged" (click)="logOut()" expand="full" color="danger">
+            <ion-icon name="power"></ion-icon>
+            <ion-label> Çıkış Yap</ion-label>
+          </ion-button>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

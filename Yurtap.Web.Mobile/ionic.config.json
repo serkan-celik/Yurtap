@@ -1,0 +1,7 @@
+{
+  "name": "Yurtap.Web.Mobile",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

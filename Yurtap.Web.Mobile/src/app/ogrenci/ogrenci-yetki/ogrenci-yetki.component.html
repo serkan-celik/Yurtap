@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Yetki Düzenle
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list> 
+    <ion-item>
+  <ion-select [(ngModel)]="rol.rolId" okText="Tamam" cancelText="Vazgeç" placeholder="Yetki Seçiniz">
+              <ion-select-option [value]="1">Genel Yönetici</ion-select-option>
+              <ion-select-option [value]="4">Personel Yöneticisi</ion-select-option>
+              <ion-select-option [value]="3">Öğrenci Yöneticisi</ion-select-option>
+              <ion-select-option [value]="2">Yoklama Yöneticisi</ion-select-option>
+            </ion-select>
+         <ion-button style="z-index: 2;" (click)="rolEkle(rol)">Kaydet</ion-button>   
+    </ion-item> 
+
+    <ion-item *ngFor="let yetki of roller; index as i">
+    
+      <ion-grid>
+        <ion-row>
+           <ion-col>
+                  <ion-label><b>{{i+1}}.</b>{{yetki.ad}}</ion-label>
+              </ion-col>
+        </ion-row>
+        <ion-row *ngIf="false">
+          <ion-col>
+            <ion-checkbox [(ngModel)]="yetki.ekleme" (ionChange)="rolGuncelle(yetki)"></ion-checkbox>
+            <ion-label>Ekleme</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-checkbox [(ngModel)]="yetki.silme" (ionChange)="rolGuncelle(yetki)"></ion-checkbox>
+            <ion-label>Silme</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-checkbox [(ngModel)]="yetki.guncelleme" (ionChange)="rolGuncelle(yetki)"></ion-checkbox>
+            <ion-label>Güncel</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-checkbox [(ngModel)]="yetki.listeleme" (ionChange)="rolGuncelle(yetki)"></ion-checkbox>
+            <ion-label>Listele</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-checkbox [(ngModel)]="yetki.arama" (ionChange)="rolGuncelle(yetki)"></ion-checkbox>
+            <ion-label>Arama</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-button (click)="rolSil(yetki)" color="danger" title="Sil"><ion-icon name="close"></ion-icon></ion-button>
+    </ion-item>
+  </ion-list>
+  <div style="line-height: 20">
+    <ion-card-subtitle mode="md" class="ion-text-center" *ngIf="roller.length==0">Kullanıcının hiçbir yetkisi yoktur.</ion-card-subtitle>
+  </div>
+</ion-content>

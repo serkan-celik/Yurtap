@@ -1,0 +1,60 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>
+        Yoklama Detayı
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <form #yoklamaForm="ngForm">
+      <ion-list>
+        <ion-item>
+          <ion-select name="yoklamaBaslikId" style="max-width:100%;margin:auto" [(ngModel)]="yoklama.yoklamaBaslikId"
+            placeholder="Yoklama başlığı seçiniz" okText="Tamam" cancelText="Vazgeç" required ngModel>
+            <ion-select-option [value]="2" [selected]="yoklama.yoklamaBaslikId==2">Sabah Yoklaması</ion-select-option>
+            <ion-select-option [value]="3" [selected]="yoklama.yoklamaBaslikId==3">Öğle Yoklaması</ion-select-option>
+            <ion-select-option [value]="5" [selected]="yoklama.yoklamaBaslikId==5">Akşam Yoklaması</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col class="ion-text-center">
+                <ion-label style="font-weight :bold">Yoklama Tarihi</ion-label>
+                <ion-datetime name="tarih" style="padding-left:0px" displayFormat="DD.MM.YYYY" [(ngModel)]="yoklama.tarih"
+                  doneText="Tamam" cancelText="Vazgeç" ngModel></ion-datetime>
+              </ion-col>
+              <ion-col class="ion-text-center">
+                <ion-label style="font-weight :bold">Yoklama Saati</ion-label>
+                <ion-datetime name="tarih2" style="padding-left:0px" displayFormat="HH:mm" [(ngModel)]="yoklama.tarih"
+                  doneText="Tamam" cancelText="Vazgeç" ngModel></ion-datetime>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-searchbar name="search" [(ngModel)]="filterText" (ionChange)="filteredList()" placeholder="Ara" ngModel>
+        </ion-searchbar>
+        <ion-card-subtitle class="ion-text-center" *ngIf="yoklama.yoklamaListesi.length==0 && filterText.length>0">Sonuç bulunamadı.
+        </ion-card-subtitle>
+        <ion-item #item [color]="changeItemColor(item,yoklamaListesi)"  *ngFor="let yoklamaListesi of yoklama.yoklamaListesi; index as i">
+          <b>{{i+1}}.</b>{{yoklamaListesi.ad}} {{yoklamaListesi.soyad}}
+          <ion-select [id]="yoklamaListesi.kisiId" [name]="yoklamaListesi.kisiId" [(ngModel)]="yoklamaListesi.yoklamaDurum"
+            (ionChange)="changeItemColor(item,yoklamaListesi)"  slot="end" okText="Tamam" cancelText="Vazgeç">
+            <ion-select-option [value]="1" [selected]="yoklamaListesi.yoklamaDurum==1">Var</ion-select-option>
+            <ion-select-option [value]="0" [selected]="yoklamaListesi.yoklamaDurum==0">Yok</ion-select-option>
+            <ion-select-option [value]="2" [selected]="yoklamaListesi.yoklamaDurum==2">İzinli</ion-select-option>
+            <ion-select-option [value]="3" [selected]="yoklamaListesi.yoklamaDurum==3">Görevli</ion-select-option>
+            <ion-select-option [value]="4" [selected]="yoklamaListesi.yoklamaDurum==4">Rahatsız</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </form>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="yoklamaKaydet()" [disabled]="yoklamaForm.invalid">
+        <ion-icon name="checkmark"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ion-content>

@@ -1,0 +1,111 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button *ngIf="duzenlemeModu==false"></ion-menu-button>
+      <ion-back-button *ngIf="duzenlemeModu==true"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{baslik}}
+    </ion-title>
+    <ion-icon *ngIf="duzenlemeModu" name="download" class="ion-margin-end" style="zoom:1.5" slot="end"
+      (click)="exportToExcel()">
+    </ion-icon>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form #yoklamaForm="ngForm">
+    <ion-list>
+      <ion-item class="ion-text-center">
+        <ion-label *ngIf="this.duzenlemeModu" style="font-weight :bold">{{yoklama.baslik}}</ion-label>
+        <ion-select *ngIf="!this.duzenlemeModu" name="yoklamaBaslikId" style="max-width:100%;margin:auto"
+          [(ngModel)]="yoklama.yoklamaBaslikId" placeholder="Yoklama başlığı seçiniz" okText="Tamam" cancelText="Vazgeç"
+          required ngModel>
+          <ion-select-option *ngFor="let baslik of yoklamaBaslikListesi" [value]="baslik.id"
+            [selected]="yoklama.yoklamaBaslikId==baslik.id">{{baslik.baslik}}</ion-select-option>
+          <ion-label *ngIf="yoklamaBaslikListesi.length==0">Yoklama başlığı tanımlamadan yoklama alamazsınız.
+          </ion-label>
+        </ion-select>
+        <ion-icon style="z-index: 2;" name="add" [routerLink]="['/yoklama-baslik-listesi']"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <ion-label style="font-weight :bold">Yoklama Tarihi</ion-label>
+              <ion-datetime [disabled]="this.duzenlemeModu" name="tarih" style="padding-left:0px"
+                displayFormat="DD.MM.YYYY" [(ngModel)]="yoklama.tarih" doneText="Tamam" cancelText="Vazgeç" ngModel>
+              </ion-datetime>
+            </ion-col>
+            <ion-col class="ion-text-center">
+              <ion-label style="font-weight :bold">Yoklama Saati</ion-label>
+              <ion-datetime [disabled]="this.duzenlemeModu" name="tarih2" style="padding-left:0px" displayFormat="HH:mm"
+                [(ngModel)]="yoklama.tarih" doneText="Tamam" cancelText="Vazgeç" ngModel>
+              </ion-datetime>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-searchbar name="search" [(ngModel)]="filterText" (ionChange)="filteredList()" placeholder="Ara" ngModel>
+      </ion-searchbar>
+      <ion-card-subtitle class="ion-text-center" *ngIf="yoklama.yoklamaListesi.length==0 && filterText.length>0">
+        Sonuç
+        bulunamadı.
+      </ion-card-subtitle>
+      <ion-item #item [color]="changeItemColor(item,yoklamaListesi)"
+        *ngFor="let yoklamaListesi of yoklama.yoklamaListesi; index as i">
+        <b>{{i+1}}.</b>{{yoklamaListesi.ad}} {{yoklamaListesi.soyad}}
+        <ion-select [id]="yoklamaListesi.kisiId" [name]="yoklamaListesi.kisiId"
+          [(ngModel)]="yoklamaListesi.yoklamaDurum" (ionChange)="changeItemColor(item,yoklamaListesi)" slot="end"
+          okText="Tamam" cancelText="Vazgeç">
+          <ion-select-option [value]="1" [selected]="yoklamaListesi.yoklamaDurum==1">Var</ion-select-option>
+          <ion-select-option [value]="0" [selected]="yoklamaListesi.yoklamaDurum==0">Yok</ion-select-option>
+          <ion-select-option [value]="2" [selected]="yoklamaListesi.yoklamaDurum==2">İzinli</ion-select-option>
+          <ion-select-option [value]="3" [selected]="yoklamaListesi.yoklamaDurum==3">Görevli</ion-select-option>
+          <ion-select-option [value]="4" [selected]="yoklamaListesi.yoklamaDurum==4">Rahatsız</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <!-- Skeleton screen -->
+    <ion-list *ngIf="yoklama.yoklamaListesi.length==0" class="ion-padding custom-skeleton">
+      <ion-item>
+        <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-item>
+      <ion-item>
+        <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-item>
+      <ion-item>
+        <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-item>
+      <ion-item>
+        <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-item>
+      <ion-item>
+        <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-item>
+      <ion-item>
+        <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-item>
+      <ion-item>
+        <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-item>
+      <ion-item>
+        <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-item>
+      <ion-item>
+        <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-item>
+      <ion-item>
+        <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-item>
+    </ion-list>
+  </form>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="yoklamaKaydet(yoklamaForm)" [disabled]="filterText.length>0">
+      <ion-icon name="checkmark"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <div style="line-height: 20">
+    <ion-card-subtitle style="white-space: nowrap" class="ion-text-center" *ngIf="!yoklama.yoklamaListesi"
+      [innerHTML]="veriYok"></ion-card-subtitle>
+  </div>
+</ion-content>

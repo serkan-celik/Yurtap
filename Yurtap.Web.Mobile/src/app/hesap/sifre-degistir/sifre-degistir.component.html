@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Şifre Değiştir
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <form #sifreForm="ngForm" (ngSubmit)=sifreKaydet(sifreForm)>
+      <ion-item>
+        <ion-label position="floating">Kullanıcı Adı</ion-label>
+        <ion-input type="text" name="ad" #ad="ngModel" (ionBlur)="kullaniciAdDogrula()" [(ngModel)]="kullanici.ad"
+          required ngModel disabled></ion-input>
+        <div style="color:#f25454" *ngIf="kullaniciAd">
+          Kullanıcı adını giriniz
+        </div>
+        <div style="color:#f25454" *ngIf="ad.invalid&&ad.touched">
+          Kullanıcı adı gereklidir
+        </div>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Mevcut Şifre</ion-label>
+        <ion-input type="text" name="mevcutSifre" #mevcutSifre="ngModel" ngModel required></ion-input>
+        <div style="color:#f25454" *ngIf="mevcutSifre.touched&&mevcutSifre.value!=currentUser.password">
+          Mevcut şifrenizi giriniz
+        </div>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Yeni Şifre</ion-label>
+        <ion-input type="text" name="yeniSifre" #yeniSifre="ngModel" [(ngModel)]="kullanici.sifre" minlength="4"
+          required></ion-input>
+        <div style="color:#f25454" *ngIf="yeniSifre.invalid&&yeniSifre.touched">
+          Yeni şifreniz en az 4 karakter olmalıdır
+        </div>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Yeni Şifre Tekrar</ion-label>
+        <ion-input type="text" name="yeniSifreTekrar" #yeniSifreTekrar="ngModel" ngModel required></ion-input>
+        <div style="color:#f25454" *ngIf="yeniSifreTekrar.touched&&yeniSifreTekrar.value!=yeniSifre.value">
+          Şifrenizi tekrarlayınız
+        </div>
+      </ion-item>
+      <ion-button type="submit" [disabled]="sifreForm.invalid||yeniSifreTekrar.value!=yeniSifre.value" [class]="platform.is('mobile')==true?'button-full':''">Kaydet
+      </ion-button>
+    </form>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{baslik}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <form #personelForm="ngForm" (ngSubmit)=personelKaydet(personelForm)>
+      <ion-item>
+        <ion-label position="floating">Ad</ion-label>
+        <ion-input type="text" #ad name="ad" [(ngModel)]="personel.ad" required ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Soyad</ion-label>
+        <ion-input type="text" name="soyad" [(ngModel)]="personel.soyad" required ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Tc Kimlik No</ion-label>
+        <ion-input type="text" (keyup)="tcKimlikNoDogrula(personel.tcKimlikNo)" inputmode="numeric" name="tcKimlikNo"
+          minlength="11" maxlength="11" [(ngModel)]="personel.tcKimlikNo" required ngModel [disabled]="personel.kisiId>0"></ion-input>
+        <span style="color:#f25454" *ngIf="hataMetni">{{hataMetni}}</span>
+      </ion-item>
+      <ion-item>
+          <ion-checkbox name="hesap" [(ngModel)]="personel.hesap" color="dark" ngModel></ion-checkbox >
+            <ion-label>&nbsp;Kullanıcı hesabı oluştur</ion-label>
+        </ion-item>
+      <ion-button type="submit" [disabled]="personelForm.invalid" expand="full">Kaydet</ion-button>
+    </form>
+  </ion-list>
+</ion-content>
+<ion-footer *ngIf="hesap">
+  <ion-toolbar class="ion-text-center" [routerLink]="['/ogrenci-yetki/' + paramKisiId]">
+    <ion-icon name="settings"></ion-icon>
+    <ion-label>Kullanıcı Ayarları</ion-label>
+  </ion-toolbar>
+</ion-footer>

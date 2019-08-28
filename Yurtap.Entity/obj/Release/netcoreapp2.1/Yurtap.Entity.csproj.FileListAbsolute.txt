@@ -1,0 +1,16 @@
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Entity\bin\Release\netcoreapp2.1\Yurtap.Entity.deps.json
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Entity\bin\Release\netcoreapp2.1\Yurtap.Entity.dll
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Entity\bin\Release\netcoreapp2.1\Yurtap.Entity.pdb
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Entity\bin\Release\netcoreapp2.1\Newtonsoft.Json.dll
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Entity\bin\Release\netcoreapp2.1\Yurtap.Core.dll
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Entity\bin\Release\netcoreapp2.1\Microsoft.AspNetCore.Mvc.Core.dll
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Entity\bin\Release\netcoreapp2.1\Yurtap.Core.pdb
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Entity\bin\Release\netcoreapp2.1\Newtonsoft.Json.xml
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Entity\bin\Release\netcoreapp2.1\Microsoft.AspNetCore.Mvc.Core.xml
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Entity\obj\Release\netcoreapp2.1\Yurtap.Entity.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Entity\obj\Release\netcoreapp2.1\Yurtap.Entity.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Entity\obj\Release\netcoreapp2.1\Yurtap.Entity.AssemblyInfoInputs.cache
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Entity\obj\Release\netcoreapp2.1\Yurtap.Entity.AssemblyInfo.cs
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Entity\obj\Release\netcoreapp2.1\Yurtap.Entity.csproj.CopyComplete
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Entity\obj\Release\netcoreapp2.1\Yurtap.Entity.dll
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Entity\obj\Release\netcoreapp2.1\Yurtap.Entity.pdb

@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Yoklama Başlık Listesi
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let yoklamaBaslik of yoklamaBaslikListesi; index as i">
+      <ion-label><b>{{i+1}}.</b>{{yoklamaBaslik.baslik}}</ion-label>
+      <ion-button (click)="yoklamaBaslikDuzenle(yoklamaBaslik)" title="Düzenle"><ion-icon name="create"></ion-icon></ion-button>
+      <ion-button (click)="yoklamaBaslikSil(yoklamaBaslik)" color="danger" title="Sil"><ion-icon name="close"></ion-icon></ion-button>
+    </ion-item>
+  </ion-list>
+  <div style="line-height: 20">
+    <ion-card-subtitle mode="md" class="ion-text-center" *ngIf="yoklamaBaslikListesi.length==0">Hiç yoklama başlığı yoktur.</ion-card-subtitle>
+  </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="yoklamaBaslikDuzenle(yoklamaBaslik)">
+        <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

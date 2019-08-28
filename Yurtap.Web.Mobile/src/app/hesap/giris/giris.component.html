@@ -1,0 +1,22 @@
+<ion-grid>
+	<ion-row justify-content-center>
+		<ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+			<div text-center>
+				<h4>Giriş</h4>
+      </div>
+      <form #formLogin="ngForm" (ngSubmit)="login()">
+			<div padding>
+				<ion-item>
+					<ion-input type="text" name="userName"  [(ngModel)]="user.ad"  placeholder="Kullanıcı Adı" required></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-input type="password" name="password" [(ngModel)]="user.sifre" placeholder="Parola" required></ion-input>
+				</ion-item>
+			</div>
+			<div padding>
+				<ion-button type="submit" [disabled]="formLogin.invalid" size="large" expand="block">Giriş Yap</ion-button>
+      </div>
+    </form>
+		</ion-col>
+	</ion-row>
+</ion-grid>

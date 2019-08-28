@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Yoklamalar
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-grid class="ion-no-margin">
+        <ion-row>
+          <ion-col (click)="oncekiTarih()" style="zoom: 1.5" size="2">
+            <ion-icon name="arrow-back">Geri</ion-icon>
+          </ion-col>
+          <ion-col class="ion-text-center" size="8">
+            <ion-label style="font-weight :bold">Yoklama Tarihi</ion-label>
+            <ion-datetime name="tarih" style="padding-left:0px" displayFormat="DD.MM.YYYY" [(ngModel)]="secilenTarih"
+              (ionChange)="getYoklamaListesi()" doneText="Tamam" cancelText="Vazgeç"></ion-datetime>
+          </ion-col>
+          <ion-col (click)="sonrakiTarih()" style="zoom: 1.5"  class="ion-text-right" size="2">
+            <ion-icon name="arrow-forward">İleri</ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item *ngFor="let yoklama of yoklamalar" [routerLink]="['/yoklama-detay/' + yoklama.id]">
+      <ion-icon name="menu"></ion-icon>
+      <ion-label style="font-weight :bold">{{yoklama.baslik}}</ion-label>
+      <ion-label style="font-weight :bold" class="ion-text-end">{{yoklama.tarih | date:'HH:mm'}}</ion-label>
+      <ion-icon slot="end" name="time"></ion-icon>
+    </ion-item>  
+  </ion-list>
+  <div style="line-height: 20">
+    <ion-card-subtitle mode="md" class="ion-text-center" *ngIf="yoklamalar.length==0">Bu tarihte alınmış bir yoklama yoktur.</ion-card-subtitle>
+  </div>
+</ion-content>
