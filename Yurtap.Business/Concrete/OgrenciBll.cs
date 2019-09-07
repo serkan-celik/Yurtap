@@ -42,8 +42,8 @@ namespace Yurtap.Business.Concrete
                     new KisiEntity
                     {
                         Ad = ogrenciModel.Ad,
-                        Soyad = ogrenciModel.Soyad,
-                        TcKimlikNo = ogrenciModel.TcKimlikNo,
+                        Soyad = ogrenciModel.Soyad
+                        //TcKimlikNo = ogrenciModel.TcKimlikNo,
                     });
                 var ogrenci = _ogrenciDal.Add(new OgrenciEntity
                 {

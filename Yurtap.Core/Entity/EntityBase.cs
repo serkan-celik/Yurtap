@@ -30,7 +30,7 @@ namespace Yurtap.Core.Entity
                 value = _currentUserId;
             }
         }
-        public DateTime EklemeTarihi { get; set; } = DateTime.Now;
+        public DateTime EklemeTarihi { get; set; } =  DateTime.Now;
         public int? SonGuncelleyenId
         {
             get;

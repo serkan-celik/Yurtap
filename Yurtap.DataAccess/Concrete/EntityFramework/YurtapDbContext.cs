@@ -21,8 +21,8 @@ namespace Yurtap.DataAccess.Concrete.EntityFramework
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer(@"Server=(LocalDB)\MSSQLLocalDB;database=YurtapDb;Integrated Security=true;AttachDbFileName=C:\Users\Administrator\YurtapDbv11.mdf");
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\v11.0;database=YurtapDbv11;Integrated Security=true;");
+            optionsBuilder.UseSqlServer(@"Server=(LocalDB)\MSSQLLocalDB;database=YurtapDb;Integrated Security=true;AttachDbFileName=C:\Users\Administrator\YurtapDbv11.mdf");
+            //optionsBuilder.UseSqlServer(@"Server=(localdb)\v11.0;database=YurtapDbv11;Integrated Security=true;");
             //optionsBuilder.UseSqlServer(@"Server=tcp:yurtap.database.windows.net,1433;Initial Catalog=YurtapDb;Persist Security Info=False;User ID=yurtap;Password=yrtp_0832;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout = 30;");
             //DbContextOptionsBuilder<YurtapDbContext> options = new DbContextOptionsBuilder<YurtapDbContext>();
             // new YurtapDbContext(options.Options);

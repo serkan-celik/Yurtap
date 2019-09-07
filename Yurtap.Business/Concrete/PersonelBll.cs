@@ -39,8 +39,8 @@ namespace Yurtap.Business.Concrete
                     new KisiEntity
                     {
                         Ad = personelModel.Ad,
-                        Soyad = personelModel.Soyad,
-                        TcKimlikNo = personelModel.TcKimlikNo
+                        Soyad = personelModel.Soyad
+                        //TcKimlikNo = personelModel.TcKimlikNo
                     });
                 var personel = _personelDal.Add(new PersonelEntity
                 {
@@ -139,9 +139,15 @@ namespace Yurtap.Business.Concrete
 
         public bool IsPersonel(PersonelModel personelModel)
         {
-            if (_kisiDal.Any(k => k.TcKimlikNo == personelModel.TcKimlikNo))
+            bool isPersonel = _kisiDal.Any(k => k.Ad == personelModel.Ad && k.Soyad == personelModel.Soyad && k.Durum == DurumEnum.Aktif);
+            bool isKisi = _kisiDal.Any(k => k.TcKimlikNo == personelModel.TcKimlikNo);
+            if (isPersonel)
             {
                 throw new Exception("Personel daha önceden kayıtlıdır!");
+            }
+            if (isKisi && personelModel.KisiId == 0)
+            {
+                throw new Exception("Tc kimlik no daha önceden tanımlıdır!");
             }
             return true;
         }
