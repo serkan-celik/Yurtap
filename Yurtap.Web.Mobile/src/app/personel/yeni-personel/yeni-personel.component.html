@@ -19,7 +19,7 @@
         <ion-label position="floating">Soyad</ion-label>
         <ion-input type="text" name="soyad" [(ngModel)]="personel.soyad" required ngModel></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="false">
         <ion-label position="floating">Tc Kimlik No</ion-label>
         <ion-input type="text" (keyup)="tcKimlikNoDogrula(personel.tcKimlikNo)" inputmode="numeric" name="tcKimlikNo"
           minlength="11" maxlength="11" [(ngModel)]="personel.tcKimlikNo" required ngModel [disabled]="personel.kisiId>0"></ion-input>

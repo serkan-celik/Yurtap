@@ -34,7 +34,7 @@ export class PersonelListesiComponent implements OnInit {
         if(data.length == 0){
           this.veriYok = "Kayıtlı personel yok. Eklemek için butona tıklayınız.";
           return;
-        }
+        }  
         this.personelListesi = data; 
         this.filteredPersonelListesi = data;
       });

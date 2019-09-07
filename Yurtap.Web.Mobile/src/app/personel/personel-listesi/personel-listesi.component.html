@@ -12,6 +12,9 @@
 <ion-content>
     <ion-searchbar [(ngModel)]="filterText" (ionChange)="filteredList()" placeholder="Ara"></ion-searchbar>
   <ion-card-subtitle class="ion-text-center" *ngIf="personelListesi.length==0 && filterText.length>0">Sonuç bulunamadı. </ion-card-subtitle>
+  <div style="line-height: 20">
+    <ion-card-subtitle style="white-space: nowrap" class="ion-text-center" *ngIf="personelListesi.length==0" [innerHtml]="veriYok"></ion-card-subtitle>
+  </div>
   <ion-list>
     <ion-item-sliding *ngFor="let personel of personelListesi; index as i">
       <ion-item-options side="start">
@@ -26,7 +29,7 @@
     </ion-item-sliding>
   </ion-list>
    <!-- Skeleton screen -->
-   <ion-list *ngIf="personelListesi.length==0" class="ion-padding custom-skeleton">
+   <ion-list *ngIf="personelListesi.length==0&&filterText.length==0" class="ion-padding custom-skeleton">
       <ion-item>
         <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
       </ion-item>
@@ -63,7 +66,4 @@
         <ion-icon name="person-add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <div style="line-height: 20">
-    <ion-card-subtitle style="white-space: nowrap" class="ion-text-center" *ngIf="personelListesi.length==0" [innerHtml]="veriYok"></ion-card-subtitle>
-  </div>
 </ion-content>

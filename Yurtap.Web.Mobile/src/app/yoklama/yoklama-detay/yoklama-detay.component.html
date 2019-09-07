@@ -52,7 +52,7 @@
         </ion-item>
       </ion-list>
          <!-- Skeleton screen -->
-   <ion-list *ngIf="yoklama.yoklamaListesi.length==0" class="ion-padding custom-skeleton">
+   <ion-list *ngIf="yoklama.yoklamaListesi.length==0&&filterText.length==0" class="ion-padding custom-skeleton">
       <ion-item>
         <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
       </ion-item>

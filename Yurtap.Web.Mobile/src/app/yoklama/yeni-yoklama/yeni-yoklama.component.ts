@@ -36,6 +36,7 @@ export class YeniYoklamaComponent implements OnInit {
   baslik: string;
   duzenlemeModu: boolean;
   veriYok: string = "";
+  yoklamaDurum: number=-1;
 
   ngOnInit() {
     this.getYoklama();
@@ -150,5 +151,17 @@ export class YeniYoklamaComponent implements OnInit {
           console.log("Something went wrong");
         }
       );
+  }
+
+  changeYoklamaDurum() {
+    if (this.yoklamaDurum == -1) {
+      this.getYoklama();
+      return;
+    }
+    this.yoklama.yoklamaListesi = this.filteredOgrenciListesi.filter(item => {
+      let result = item.yoklamaDurum == this.yoklamaDurum
+      if (result)
+        return result
+    });
   }
 }
