@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Yurtap.Entity.Enums
 {
     public enum RolEnum : byte
     {
-        Admin = 1,
-        YoklamaYonetimi=2,
-        OgrenciYonetimi = 3,
-        PersonelYonetimi=4
+        [Display(Name = "Genel Yönetici")]
+        GenelYonetici = 1,
+        [Display(Name = "Yoklama Yöneticisi")]
+        YoklamaYoneticisi = 2,
+        [Display(Name = "Öğrenci Yöneticisi")]
+        OgrenciYoneticisi = 3,
+        [Display(Name = "Personel Yöneticisi")]
+        PersonelYoneticisi = 4
     }
 }

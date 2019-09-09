@@ -4,18 +4,19 @@ import { AlertInput, AlertButton } from '@ionic/core';
 import { HttpService } from '../http.service';
 import { Observable } from 'rxjs';
 import { ToastService } from '../toast/toast.service';
+import { NgForm } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
 
-  constructor(private alertController: AlertController,private toastService:ToastService) { }
+  constructor(private alertController: AlertController, private toastService: ToastService) { }
 
   async basicAlert(message: string) {
     const alert = await this.alertController.create(
       {
-        header : "Uyarı",
+        header: "Uyarı",
         message: message,
         buttons: [
           {
@@ -27,7 +28,7 @@ export class AlertService {
     await alert.present()
   }
 
-  async confirmDeleteAlert(message: string, method:Observable<any>, modelList:any[], model:any, successMessage:string) {
+  async confirmDeleteAlert(message: string, method: Observable<any>, modelList: any[], model: any, successMessage: string) {
     const alert = await this.alertController.create(
       {
         message: message,
@@ -35,11 +36,11 @@ export class AlertService {
           {
             text: "Evet",
             handler: () => {
-              method.subscribe(data=>{
-                if(data){
-                var index = modelList.findIndex(m=>m == model)
-                modelList.splice(index,1);               
-                this.toastService.showToast(successMessage)
+              method.subscribe(data => {
+                if (data) {
+                  var index = modelList.findIndex(m => m == model)
+                  modelList.splice(index, 1);
+                  this.toastService.showToast(successMessage)
                 }
               })
             }
@@ -53,7 +54,7 @@ export class AlertService {
     await alert.present()
   }
 
-  async confirmAlert(questionMessage: string, method:Observable<any>, successMessage:string) {
+  async confirmAlert(questionMessage: string, method: Observable<any>, successMessage: string) {
     const alert = await this.alertController.create(
       {
         message: questionMessage,
@@ -61,9 +62,9 @@ export class AlertService {
           {
             text: "Evet",
             handler: () => {
-              method.subscribe(data=>{
-                if(data){
-                this.toastService.showToast(successMessage)
+              method.subscribe(data => {
+                if (data) {
+                  this.toastService.showToast(successMessage);
                 }
               })
             }

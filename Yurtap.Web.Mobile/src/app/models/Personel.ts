@@ -4,4 +4,6 @@ export class Personel{
     soyad:string;  
     tcKimlikNo:string="";   
     hesap:boolean=true;
+    kullaniciAd:string;
+    sifre:string;
 }

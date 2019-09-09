@@ -16,7 +16,7 @@ import { Rol } from 'src/app/models/account/CurrentUser';
   templateUrl: 'ogrenci-listesi.html',
   styleUrls: ['ogrenci-listesi.scss'],
 })
-export class OgrenciListesiComponent extends BaseComponent implements OnInit {
+export class OgrenciListesiComponent implements OnInit {
   private selectedItem: any;
   private icons = [
     'flask',
@@ -34,7 +34,7 @@ export class OgrenciListesiComponent extends BaseComponent implements OnInit {
   constructor(
     private ogrenciService: OgrenciService,
     private router: Router, private alertService: AlertService,public hesapService:HesapService) {
-    super(hesapService);
+    //super(hesapService);
     for (let i = 1; i < 11; i++) {
       this.items.push({
         title: 'Item ' + i,
@@ -52,7 +52,7 @@ export class OgrenciListesiComponent extends BaseComponent implements OnInit {
   rol :Rol;
 
   ngOnInit() {
-    this.getOgrenciListesi();
+ 
   }
 
   ionViewWillEnter(){

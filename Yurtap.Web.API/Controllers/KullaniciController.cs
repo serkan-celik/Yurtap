@@ -198,20 +198,5 @@ namespace Yurtap.Web.API.Controllers
             }
             return Ok(kullanici);
         }
-
-        [HttpGet("GetKullaniciAdDogrula")]
-        public ActionResult GetKullaniciAdDogrula(string ad)
-        {
-            bool kullaniciAd;
-            try
-            {
-                kullaniciAd = _kullaniciBll.IsKullanici(ad);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(kullaniciAd);
-        }
     }
 }

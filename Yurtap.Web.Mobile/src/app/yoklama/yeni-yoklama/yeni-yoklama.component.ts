@@ -36,7 +36,7 @@ export class YeniYoklamaComponent implements OnInit {
   baslik: string;
   duzenlemeModu: boolean;
   veriYok: string = "";
-  yoklamaDurum: number=-1;
+  yoklamaDurum: number = -1;
 
   ngOnInit() {
     this.getYoklama();
@@ -109,7 +109,8 @@ export class YeniYoklamaComponent implements OnInit {
     }
     this.yoklama.tarih = moment(this.yoklama.tarih).format("YYYY-MM-DD HH:mm")
     if (!this.duzenlemeModu) {
-      this.alertService.confirmAlert("Yoklama kaydedilsin mi?", this.yoklamaService.addYoklama(this.yoklama), "Yoklama başarıyla kaydedildi")
+      this.alertService.confirmAlert("Yoklama kaydedilsin mi?", this.yoklamaService.addYoklama(this.yoklama), "Yoklama başarıyla kaydedildi");
+
     }
     else {
       this.alertService.confirmAlert("Yoklama güncellensin mi?", this.yoklamaService.updateYoklama(this.yoklama), "Yoklama başarıyla güncellendi")
@@ -125,6 +126,10 @@ export class YeniYoklamaComponent implements OnInit {
       case YoklamaDurumEnum.Yok:
         item.color = "danger";
         yoklamaListesi.durum = "Yok";
+        break;
+      case YoklamaDurumEnum.Okulda:
+        item.color = "secondary";
+        yoklamaListesi.durum = "Okulda";
         break;
       case YoklamaDurumEnum.Izınli:
         item.color = "warning";
@@ -155,7 +160,7 @@ export class YeniYoklamaComponent implements OnInit {
 
   changeYoklamaDurum() {
     if (this.yoklamaDurum == -1) {
-      this.getYoklama();
+      this.yoklama.yoklamaListesi = this.filteredOgrenciListesi;
       return;
     }
     this.yoklama.yoklamaListesi = this.filteredOgrenciListesi.filter(item => {

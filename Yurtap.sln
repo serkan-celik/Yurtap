@@ -13,27 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yurtap.Business", "Yurtap.B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yurtap.Web.API", "Yurtap.Web.API\Yurtap.Web.API.csproj", "{1FF848F6-743F-45CD-9ED5-2016161F128A}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Yurtap.Web.Mobile", "Yurtap.Web.Mobile\", "{F4A746BA-558B-4ED7-9AF1-047E0FF2D75A}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_61507"
-		Debug.AspNetCompiler.PhysicalPath = "Yurtap.Web.Mobile\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_61507\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_61507"
-		Release.AspNetCompiler.PhysicalPath = "Yurtap.Web.Mobile\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_61507\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "61507"
-		SlnRelativePath = "Yurtap.Web.Mobile\"
-	EndProjectSection
-EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "www", "Yurtap.Web.Mobile\www\", "{A0FBFA10-2A1E-4D75-BF9B-798EDAC426CB}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
@@ -81,10 +60,6 @@ Global
 		{1FF848F6-743F-45CD-9ED5-2016161F128A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FF848F6-743F-45CD-9ED5-2016161F128A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FF848F6-743F-45CD-9ED5-2016161F128A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F4A746BA-558B-4ED7-9AF1-047E0FF2D75A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4A746BA-558B-4ED7-9AF1-047E0FF2D75A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F4A746BA-558B-4ED7-9AF1-047E0FF2D75A}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4A746BA-558B-4ED7-9AF1-047E0FF2D75A}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{A0FBFA10-2A1E-4D75-BF9B-798EDAC426CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A0FBFA10-2A1E-4D75-BF9B-798EDAC426CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0FBFA10-2A1E-4D75-BF9B-798EDAC426CB}.Release|Any CPU.ActiveCfg = Debug|Any CPU

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Yurtap.Business.Abstract;
 using Yurtap.Core.Entity.Enums;
+using Yurtap.Core.Utilities.ExtensionMethods;
 using Yurtap.DataAccess.Abstract;
 using Yurtap.Entity;
 using Yurtap.Entity.Enums;
@@ -34,14 +35,14 @@ namespace Yurtap.Business.Concrete
             return _kullaniciRolDal.GetList(r => r.KisiId == kisiId && r.Durum == DurumEnum.Aktif).Select(kr => new KullaniciRolModel()
             {
                 Id = kr.Id,
-                Ad = Enum.GetName(typeof(RolEnum), kr.RolId),
+                Ad = ((RolEnum)Enum.Parse(typeof(RolEnum), kr.RolId.ToString())).GetDisplayName(),
                 RolId = kr.RolId,
                 Ekleme = kr.Ekleme,
                 Silme = kr.Silme,
                 Guncelleme = kr.Guncelleme,
                 Arama = kr.Arama,
                 Listeleme = kr.Listeleme
-            }).ToList();
+            }).OrderBy(r=>r.RolId).ToList();
         }
 
         public bool IsKullaniciRol(int kisiId, int rolId)

@@ -10,6 +10,7 @@ import { ViewController } from '@ionic/core';
 import { KimlikIslemleri } from 'src/app/utilities/KimlikIslemleri';
 import { BaseComponent } from 'src/app/BaseComponent';
 import { HesapService } from 'src/app/services/hesap/hesap.service';
+import { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
   selector: 'app-yeni-ogrenci',
@@ -21,7 +22,9 @@ export class YeniOgrenciComponent extends BaseComponent implements OnInit {
   constructor(
     private ogrenciService: OgrenciService,
     private toastService: ToastService,
-    private activatedRoute: ActivatedRoute, public h: HesapService) {
+    private activatedRoute: ActivatedRoute, 
+    public h: HesapService,
+    private alertService: AlertService) {
     super(h);
   }
 
@@ -83,4 +86,9 @@ export class YeniOgrenciComponent extends BaseComponent implements OnInit {
   tcKimlikNoDogrula(tcKimlikNo) {
     this.hataMetni = new KimlikIslemleri().tcKimlikNoDogrula(tcKimlikNo);
   }
+
+  hesapGoster(){
+    this.alertService.advancedAlert("Kullanıcı Hesabı","Kullanıcı Adı: " + this.ogrenci.kullaniciAd + "<br/>Şifre: " + this.ogrenci.sifre);
+  }
+
 }

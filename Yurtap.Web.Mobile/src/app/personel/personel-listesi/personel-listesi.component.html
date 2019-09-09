@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-    <ion-searchbar [(ngModel)]="filterText" (ionChange)="filteredList()" placeholder="Ara"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="filterText" (ionChange)="filteredList()" placeholder="Ara..."></ion-searchbar>
   <ion-card-subtitle class="ion-text-center" *ngIf="personelListesi.length==0 && filterText.length>0">Sonuç bulunamadı. </ion-card-subtitle>
   <div style="line-height: 20">
     <ion-card-subtitle style="white-space: nowrap" class="ion-text-center" *ngIf="personelListesi.length==0" [innerHtml]="veriYok"></ion-card-subtitle>

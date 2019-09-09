@@ -50,6 +50,7 @@ export class OgrenciYetkiComponent extends BaseComponent implements OnInit {
     this.kullaniciService.addKullaniciRol(rol).subscribe(data => {
       if (data)
         this.getkullaniciRolleri();
+        this.toastService.showToast("Kullanıcı yetkisi eklendi")
     });
 
   }

@@ -23,6 +23,7 @@
         <li>Yoklamaları excel dökümanı olarak çıktısını alabilirsiniz.</li>
         <li>Öğrenci ve personel bilgilerini yönetebilirsiniz.</li>
       </ul>
+      <ion-button *ngIf="!currentUser.isLogged" [routerLink]="['/hesap/giris']">Giriş Yap</ion-button>
     </ion-card-content>
   </ion-card>
   <!--

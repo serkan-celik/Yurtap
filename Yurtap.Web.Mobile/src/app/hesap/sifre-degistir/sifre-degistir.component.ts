@@ -38,13 +38,4 @@ export class SifreDegistirComponent extends BaseComponent implements OnInit {
       this.toastService.showToast(error.error);
     });
   }
-
-  kullaniciAdDogrula(): any {
-    this.kullaniciservice.getKullaniciAdDogrula(this.kullanici.ad).subscribe(data => {
-      if (!data)
-        this.kullaniciAd = false;
-    }, () => {
-      this.kullaniciAd = true;
-    });
-  }
 }

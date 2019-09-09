@@ -33,5 +33,7 @@ namespace Yurtap.Entity.Models
         }
         public string TcKimlikNo { get; set; }
         public bool Hesap { get; set; }
+        public string KullaniciAd { get; set; }
+        public string Sifre { get; set; }
     }
 }

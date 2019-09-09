@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar [(ngModel)]="filterText" (ionChange)="filteredList()" placeholder="Ara"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="filterText" (ionChange)="filteredList()" placeholder="Ara..."></ion-searchbar>
   <ion-card-subtitle class="ion-text-center" *ngIf="ogrenciListesi.length==0 && filterText.length>0">Sonuç bulunamadı.
   </ion-card-subtitle>
   <div style="line-height: 20">
@@ -44,7 +44,7 @@
     </ion-item-sliding>
   </ion-list>
   <!-- Skeleton screen -->
-  <ion-list *ngIf="(ogrenciListesi.length>0||ogrenciListesi.length)==0&&filterText.length==0" class="ion-padding custom-skeleton">
+  <ion-list *ngIf="ogrenciListesi.length==0&&filterText.length==0" class="ion-padding custom-skeleton">
     <ion-item>
       <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
     </ion-item>

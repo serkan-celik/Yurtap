@@ -63,7 +63,7 @@ namespace Yurtap.Business.Concrete
                     _kullaniciRolBll.AddKullaniciRol(new KullaniciRolEntity
                     {
                         KisiId = kisi.Id,
-                        RolId = RolEnum.Admin.GetHashCode()
+                        RolId = RolEnum.GenelYonetici.GetHashCode()
                     });
                 }
                 scope.Complete();

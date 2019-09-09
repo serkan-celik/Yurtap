@@ -14,6 +14,7 @@ import { OgrenciGuard } from './hesap/guards/ogrenci.guard';
 import { AnaSayfaComponent } from './ana-sayfa/ana-sayfa';
 import { YeniOgrenciComponent } from './ogrenci/yeni-ogrenci/yeni-ogrenci.component';
 import { LoginGuard } from './hesap/guards/login.guard';
+import { OgrenciListesiComponent } from './ogrenci/ogrenci-listesi/ogrenci-listesi';
 
 const routes: Routes = [
   {
@@ -24,11 +25,6 @@ const routes: Routes = [
   {
     path: 'ana-sayfa',
     loadChildren: './ana-sayfa/ana-sayfa.module#AnaSayfaModule',
-  },
-  {
-    path: 'ogrenci-listesi',
-    loadChildren: './ogrenci/ogrenci-listesi/ogrenci-listesi.module#OgrenciListesiModule',
-    canActivate: [OgrenciGuard]
   },
   {
     path: 'yeni-ogrenci',
@@ -75,6 +71,11 @@ const routes: Routes = [
     path: 'yeni-yoklama',
     component: YeniYoklamaComponent,
     canActivate: [YoklamaGuard]
+  },
+  {
+    path: 'ogrenci-listesi',
+    component: OgrenciListesiComponent,
+    canActivate: [OgrenciGuard]
   },
   {
     path: 'yoklama-listesi',

@@ -1,7 +1,8 @@
 export enum YoklamaDurumEnum {
     Yok = 0,
     Var = 1,
-    Izınli = 2,
-    Gorevli = 3,
-    Rahatsız = 4
+    Okulda = 2,
+    Izınli = 3,
+    Gorevli = 4,
+    Rahatsız = 5
 }

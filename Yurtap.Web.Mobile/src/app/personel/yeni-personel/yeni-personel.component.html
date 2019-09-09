@@ -22,13 +22,20 @@
       <ion-item *ngIf="false">
         <ion-label position="floating">Tc Kimlik No</ion-label>
         <ion-input type="text" (keyup)="tcKimlikNoDogrula(personel.tcKimlikNo)" inputmode="numeric" name="tcKimlikNo"
-          minlength="11" maxlength="11" [(ngModel)]="personel.tcKimlikNo" required ngModel [disabled]="personel.kisiId>0"></ion-input>
+          minlength="11" maxlength="11" [(ngModel)]="personel.tcKimlikNo" required ngModel
+          [disabled]="personel.kisiId>0"></ion-input>
         <span style="color:#f25454" *ngIf="hataMetni">{{hataMetni}}</span>
       </ion-item>
       <ion-item>
-          <ion-checkbox name="hesap" [(ngModel)]="personel.hesap" color="dark" ngModel></ion-checkbox >
-            <ion-label>&nbsp;Kullanıcı hesabı oluştur</ion-label>
-        </ion-item>
+        <ion-checkbox name="hesap" [(ngModel)]="personel.hesap" color="dark" ngModel></ion-checkbox>
+        <ion-label>&nbsp;Kullanıcı hesabı oluştur</ion-label>
+        <ion-button *ngIf="personel.hesap&&personel.kullaniciAd&&personel.sifre" style="z-index: 2;" (click)="hesapGoster()">Hesap Göster</ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-card-subtitle>
+          Kullanıcı adı ' ad.soyad ' şeklinde, şifre 4 haneli otomatik olarak oluşturulur.
+        </ion-card-subtitle>
+      </ion-item>
       <ion-button type="submit" [disabled]="personelForm.invalid" expand="full">Kaydet</ion-button>
     </form>
   </ion-list>

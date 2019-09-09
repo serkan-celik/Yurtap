@@ -25,11 +25,15 @@ import { YoklamaGuard } from './hesap/guards/yoklama.guard';
 import { OgrenciGuard } from './hesap/guards/ogrenci.guard';
 import { YeniOgrenciComponent } from './ogrenci/yeni-ogrenci/yeni-ogrenci.component';
 import { LoginGuard } from './hesap/guards/login.guard';
+import { AnaSayfaComponent } from './ana-sayfa/ana-sayfa';
+import { OgrenciListesiComponent } from './ogrenci/ogrenci-listesi/ogrenci-listesi';
 
 @NgModule({
   declarations: [
+ 
     GirisComponent,
-    AppComponent,
+    AppComponent, 
+      OgrenciListesiComponent,
     PersonelListesiComponent,
     YeniPersonelComponent,
     YeniYoklamaComponent,
@@ -39,7 +43,9 @@ import { LoginGuard } from './hesap/guards/login.guard';
     SortPipe,
     SifreDegistirComponent,
     YoklamaBaslikListesiComponent],
-  entryComponents: [],
+  entryComponents: [
+
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

@@ -5,6 +5,7 @@ import { Personel } from 'src/app/models/Personel';
 import { NgForm } from '@angular/forms';
 import { PersonelService } from 'src/app/services/personel.service';
 import { KimlikIslemleri } from 'src/app/utilities/KimlikIslemleri';
+import { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
   selector: 'app-yeni-personel',
@@ -17,7 +18,8 @@ export class YeniPersonelComponent implements OnInit {
     private personelService: PersonelService,
     private toastService: ToastService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private alertService: AlertService) { }
 
   personel: Personel = new Personel();
   baslik: string = "Yeni Personel";
@@ -74,5 +76,9 @@ export class YeniPersonelComponent implements OnInit {
 
   tcKimlikNoDogrula(tcKimlikNo) {
     this.hataMetni = new KimlikIslemleri().tcKimlikNoDogrula(tcKimlikNo);
+  }
+
+  hesapGoster(){
+    this.alertService.advancedAlert("Kullanıcı Hesabı","Kullanıcı Adı: " + this.personel.kullaniciAd + "<br/>Şifre: " + this.personel.sifre);
   }
 }

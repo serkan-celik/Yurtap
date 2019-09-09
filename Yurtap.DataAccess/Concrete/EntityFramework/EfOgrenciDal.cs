@@ -20,17 +20,20 @@ namespace Yurtap.DataAccess.Concrete.EntityFramework
         {
             using (var context = new YurtapDbContext())
             {
-                var ogrenciler = from o in context.Ogrenciler
-                                 join k in context.Kisiler
-                                 on o.Id equals k.Id
-                                 orderby k.Ad,k.Soyad ascending 
-                                 where o.Durum == DurumEnum.Aktif && k.Durum == DurumEnum.Aktif
+                var ogrenciler = from ogrenci in context.Ogrenciler
+                                 join kisi in context.Kisiler on ogrenci.Id equals kisi.Id
+                                 join kullanici in context.Kullanicilar on kisi.Id equals kullanici.Id into u 
+                                 from kullanici in u.DefaultIfEmpty()
+                                 orderby kisi.Ad, kisi.Soyad ascending 
+                                 where ogrenci.Durum == DurumEnum.Aktif && kisi.Durum == DurumEnum.Aktif
                                  select new OgrenciModel
                                  {
-                                     KisiId = k.Id,
-                                     Ad = k.Ad,
-                                     Soyad = k.Soyad,
-                                     TcKimlikNo = k.TcKimlikNo,
+                                     KisiId = kisi.Id,
+                                     Ad = kisi.Ad,
+                                     Soyad = kisi.Soyad,
+                                     TcKimlikNo = kisi.TcKimlikNo,
+                                     KullaniciAd =kullanici.Ad,
+                                     Sifre = kullanici.Sifre
                                  };
                 return ogrenciler.ToList();
             }

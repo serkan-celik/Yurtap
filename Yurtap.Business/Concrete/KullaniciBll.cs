@@ -57,7 +57,6 @@ namespace Yurtap.Business.Concrete
 
         public KullaniciEntity UpdateKullanici(KullaniciModel kullaniciModel)
         {
-            IsKullanici(kullaniciModel.Ad);
             return _kullaniciDal.Update(new KullaniciEntity
             {
                 Id = kullaniciModel.KisiId,

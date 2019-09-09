@@ -22,7 +22,7 @@ export class PersonelListesiComponent implements OnInit {
     veriYok:string="";
     
     ngOnInit() {
-      this.getPersonelListesi();
+    
     }
 
     ionViewWillEnter(){

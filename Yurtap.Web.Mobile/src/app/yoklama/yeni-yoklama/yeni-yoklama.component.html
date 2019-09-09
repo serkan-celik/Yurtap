@@ -21,7 +21,7 @@
           [(ngModel)]="yoklama.yoklamaBaslikId" placeholder="Yoklama başlığı seçiniz" okText="Tamam" cancelText="Vazgeç"
           required ngModel>
           <ion-select-option *ngFor="let baslik of yoklamaBaslikListesi" [value]="baslik.id"
-            [selected]="yoklama.yoklamaBaslikId==baslik.id">{{baslik.baslik|uppercase}}</ion-select-option>
+            [selected]="yoklama.yoklamaBaslikId==baslik.id">{{baslik.baslik}}</ion-select-option>
           <ion-label *ngIf="yoklamaBaslikListesi.length==0">Yoklama başlığı tanımlamadan yoklama alamazsınız.
           </ion-label>
         </ion-select>
@@ -45,18 +45,19 @@
           </ion-row>
         </ion-grid>
       </ion-item>
-      <ion-item>
-        <ion-label>Yoklama Durumu</ion-label>
+      <ion-item *ngIf="this.duzenlemeModu">
+        <ion-label>Yoklama Filtrele:</ion-label>
         <ion-select name="durum" [(ngModel)]="yoklamaDurum" (ionChange)="changeYoklamaDurum()" interface="popover" ngModel>
           <ion-select-option [value]="-1">Tümü</ion-select-option>
           <ion-select-option [value]="1">Var</ion-select-option>
           <ion-select-option [value]="0">Yok</ion-select-option>
-          <ion-select-option [value]="2">İzinli</ion-select-option>
-          <ion-select-option [value]="3">Görevli</ion-select-option>
-          <ion-select-option [value]="4">Rahatsız</ion-select-option>
+          <ion-select-option [value]="2">Okulda</ion-select-option>
+          <ion-select-option [value]="3">İzinli</ion-select-option>
+          <ion-select-option [value]="4">Görevli</ion-select-option>
+          <ion-select-option [value]="5">Rahatsız</ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-searchbar name="search" [(ngModel)]="filterText" (ionChange)="filteredList()" placeholder="Ara" ngModel>
+      <ion-searchbar name="search" [(ngModel)]="filterText" (ionChange)="filteredList()" placeholder="Ara..." ngModel>
       </ion-searchbar>
       <ion-card-subtitle class="ion-text-center" *ngIf="yoklama.yoklamaListesi.length==0 && filterText.length>0">
         Sonuç
@@ -70,9 +71,10 @@
           okText="Tamam" cancelText="Vazgeç">
           <ion-select-option [value]="1" [selected]="yoklamaListesi.yoklamaDurum==1">Var</ion-select-option>
           <ion-select-option [value]="0" [selected]="yoklamaListesi.yoklamaDurum==0">Yok</ion-select-option>
-          <ion-select-option [value]="2" [selected]="yoklamaListesi.yoklamaDurum==2">İzinli</ion-select-option>
-          <ion-select-option [value]="3" [selected]="yoklamaListesi.yoklamaDurum==3">Görevli</ion-select-option>
-          <ion-select-option [value]="4" [selected]="yoklamaListesi.yoklamaDurum==4">Rahatsız</ion-select-option>
+          <ion-select-option [value]="2" [selected]="yoklamaListesi.yoklamaDurum==2">Okulda</ion-select-option>
+          <ion-select-option [value]="3" [selected]="yoklamaListesi.yoklamaDurum==3">İzinli</ion-select-option>
+          <ion-select-option [value]="4" [selected]="yoklamaListesi.yoklamaDurum==4">Görevli</ion-select-option>
+          <ion-select-option [value]="5" [selected]="yoklamaListesi.yoklamaDurum==5">Rahatsız</ion-select-option>
         </ion-select>
       </ion-item>
     </ion-list>
