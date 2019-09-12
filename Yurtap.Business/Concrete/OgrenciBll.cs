@@ -37,7 +37,7 @@ namespace Yurtap.Business.Concrete
         {
             using (TransactionScope scope = new TransactionScope())
             {
-                IsOgrenci(ogrenciModel);
+                IsOgrenciMi(ogrenciModel);
                 var kisi = _kisiDal.Add(
                     new KisiEntity
                     {
@@ -93,6 +93,7 @@ namespace Yurtap.Business.Concrete
 
         public OgrenciModel UpdateOgrenci(OgrenciModel ogrenciModel)
         {
+            IsOgrenciMi(ogrenciModel);
             var kullanici = _kullaniciBll.GetKullaniciById(ogrenciModel.KisiId);
             if (kullanici == null && ogrenciModel.Hesap)
             {
@@ -138,9 +139,9 @@ namespace Yurtap.Business.Concrete
             return true;
         }
 
-        public bool IsOgrenci(OgrenciModel ogrenciModel)
+        public bool IsOgrenciMi(OgrenciModel ogrenciModel)
         {
-            bool isOgrenci = _kisiDal.Any(k => k.Ad == ogrenciModel.Ad && k.Soyad == ogrenciModel.Soyad && k.Durum == DurumEnum.Aktif);
+            bool isOgrenci = _ogrenciDal.IsOgrenciMi(ogrenciModel);
             bool isKisi = _kisiDal.Any(k => k.TcKimlikNo == ogrenciModel.TcKimlikNo);
             if (isOgrenci)
             {

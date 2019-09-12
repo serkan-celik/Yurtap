@@ -38,5 +38,17 @@ namespace Yurtap.DataAccess.Concrete.EntityFramework
                 return ogrenciler.ToList();
             }
         }
+
+        public bool IsOgrenciMi(OgrenciModel ogrenciModel)
+        {
+            using (var context = new YurtapDbContext())
+            {
+                var ogrenciMi = from ogrenci in context.Ogrenciler
+                                 join kisi in context.Kisiler on ogrenci.Id equals kisi.Id
+                                 where ogrenci.Id != ogrenciModel.KisiId && kisi.Ad == ogrenciModel.Ad && kisi.Soyad == ogrenciModel.Soyad && ogrenci.Durum == DurumEnum.Aktif
+                                 select ogrenci;
+                return ogrenciMi.Any();
+            }
+        }
     }
 }

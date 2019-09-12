@@ -11,7 +11,7 @@ namespace Yurtap.Business.Abstract
         List<PersonelModel> GetPersonelListesi();
         PersonelModel GetPersonelByKisiId(int kisiId);
         PersonelEntity GetPersonel(int kisiId);
-        bool IsPersonel(PersonelModel personelModel);
+        bool IsPersonelMi(PersonelModel personelModel);
         PersonelModel UpdatePersonel(PersonelModel personelModel);
         bool DeletePersonel(PersonelModel personelModel);
     }

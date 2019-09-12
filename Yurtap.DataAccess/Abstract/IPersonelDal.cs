@@ -9,5 +9,6 @@ namespace Yurtap.DataAccess.Abstract
     {
         List<PersonelModel> GetPersonelListesi();
         PersonelModel GetPersonel(short kisiId);
+        bool IsPersonelMi(PersonelModel personelModel);
     }
 }

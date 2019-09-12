@@ -34,7 +34,7 @@ namespace Yurtap.Business.Concrete
         {
             using (TransactionScope scope = new TransactionScope())
             {
-                IsPersonel(personelModel);
+                IsPersonelMi(personelModel);
                 var kisi = _kisiDal.Add(
                     new KisiEntity
                     {
@@ -92,11 +92,12 @@ namespace Yurtap.Business.Concrete
 
         public PersonelModel UpdatePersonel(PersonelModel personelModel)
         {
+            IsPersonelMi(personelModel);
             var kullanici = _kullaniciBll.GetKullaniciById(personelModel.KisiId);
             if (kullanici == null && personelModel.Hesap)
             {
                 string ad = personelModel.Ad.ToLower().RemoveEmpty().ConvertTRCharToENChar();
-                string soyad = personelModel.Soyad.ToLower().ConvertTRCharToENChar();
+                string soyad = personelModel.Soyad.ToLower().RemoveEmpty().ConvertTRCharToENChar();
                 string defaultKullaniciAd = String.Join(".", ad, soyad);
                 string defaultSifre = new Random().Next(1234, 9999).ToString();
 
@@ -137,11 +138,11 @@ namespace Yurtap.Business.Concrete
             return true;
         }
 
-        public bool IsPersonel(PersonelModel personelModel)
+        public bool IsPersonelMi(PersonelModel personelModel)
         {
-            bool isPersonel = _kisiDal.Any(k => k.Ad == personelModel.Ad && k.Soyad == personelModel.Soyad && k.Durum == DurumEnum.Aktif);
+            bool personelMi = _personelDal.IsPersonelMi(personelModel);
             bool isKisi = _kisiDal.Any(k => k.TcKimlikNo == personelModel.TcKimlikNo);
-            if (isPersonel)
+            if (personelMi)
             {
                 throw new Exception("Personel daha önceden kayıtlıdır!");
             }

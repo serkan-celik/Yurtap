@@ -60,8 +60,7 @@
       <ion-searchbar name="search" [(ngModel)]="filterText" (ionChange)="filteredList()" placeholder="Ara..." ngModel>
       </ion-searchbar>
       <ion-card-subtitle class="ion-text-center" *ngIf="yoklama.yoklamaListesi.length==0 && filterText.length>0">
-        Sonuç
-        bulunamadı.
+        '{{filterText}}' için sonuç bulunamadı
       </ion-card-subtitle>
       <ion-item #item [color]="changeItemColor(item,yoklamaListesi)"
         *ngFor="let yoklamaListesi of yoklama.yoklamaListesi; index as i">
@@ -79,7 +78,7 @@
       </ion-item>
     </ion-list>
     <!-- Skeleton screen -->
-    <ion-list *ngIf="yoklama.yoklamaListesi.length==0&&filterText.length==0" class="ion-padding custom-skeleton">
+    <ion-list *ngIf="yoklama.yoklamaListesi.length==0&&filterText.length==0&&!this.duzenlemeModu" class="ion-padding custom-skeleton">
       <ion-item>
         <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
       </ion-item>
@@ -112,13 +111,13 @@
       </ion-item>
     </ion-list>
   </form>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab *ngIf="yoklama.yoklamaListesi.length>0" vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="yoklamaKaydet(yoklamaForm)" [disabled]="filterText.length>0">
       <ion-icon name="checkmark"></ion-icon>
     </ion-fab-button>
   </ion-fab>
   <div style="line-height: 20">
-    <ion-card-subtitle style="white-space: nowrap" class="ion-text-center" *ngIf="!yoklama.yoklamaListesi"
+    <ion-card-subtitle style="white-space: nowrap" class="ion-text-center" *ngIf="yoklama.yoklamaListesi.length==0"
       [innerHTML]="veriYok"></ion-card-subtitle>
   </div>
 </ion-content>

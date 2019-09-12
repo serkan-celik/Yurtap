@@ -12,7 +12,7 @@ namespace Yurtap.Entity.Models
         public string Ad {
             get
             {
-                return _ad.Trim();
+                return _ad.Trim().ToUpper();
             }
             set
             {
@@ -24,7 +24,7 @@ namespace Yurtap.Entity.Models
         {
             get
             {
-                return _soyad.Trim();
+                return _soyad.Trim().ToUpper(); ;
             }
             set
             {

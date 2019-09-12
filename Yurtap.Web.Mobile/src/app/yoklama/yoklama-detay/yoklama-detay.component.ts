@@ -24,6 +24,10 @@ export class YoklamaDetayComponent implements OnInit {
   filterText: string = "";
 
   ngOnInit() {
+    
+  }
+
+  ionViewWillEnter(){
     this.getYoklama();
   }
 

@@ -11,5 +11,6 @@ namespace Yurtap.DataAccess.Abstract
     {
         List<OgrenciModel> GetOgrenciListesi();
         OgrenciModel GetOgrenci(short kisiId);
+        bool IsOgrenciMi(OgrenciModel ogrenciModel);
     }
 }

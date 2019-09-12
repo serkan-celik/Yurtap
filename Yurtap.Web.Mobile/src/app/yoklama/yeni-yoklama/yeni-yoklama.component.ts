@@ -39,6 +39,10 @@ export class YeniYoklamaComponent implements OnInit {
   yoklamaDurum: number = -1;
 
   ngOnInit() {
+
+  }
+
+  ionViewWillEnter(){
     this.getYoklama();
     this.getYoklamaBaslikListesi();
   }
@@ -46,7 +50,7 @@ export class YeniYoklamaComponent implements OnInit {
   getYoklamaListesi() {
     this.yoklamaService.getYoklamaListesi().subscribe(data => {
       if (data.length == 0) {
-        this.veriYok = "Kayıtlı öğrenci yok. Eklemek için butona tıklayınız.";
+        this.veriYok = "Öğrenci kaydı olmadan yoklama alınamaz";
         return;
       }
       this.yoklama.yoklamaListesi = data;
@@ -147,6 +151,7 @@ export class YeniYoklamaComponent implements OnInit {
   }
 
   exportToExcel() {
+    this.toastService.showToast("İndiriliyor...");
     this.yoklamaService.exportToExcelYoklama(this.yoklama)
       .subscribe(
         data => {
@@ -164,9 +169,11 @@ export class YeniYoklamaComponent implements OnInit {
       return;
     }
     this.yoklama.yoklamaListesi = this.filteredOgrenciListesi.filter(item => {
-      let result = item.yoklamaDurum == this.yoklamaDurum
+      let result = item.yoklamaDurum == this.yoklamaDurum;
       if (result)
         return result
+      else
+        this.veriYok = "Aranılan kriterde yoklama yoktur";
     });
   }
 }

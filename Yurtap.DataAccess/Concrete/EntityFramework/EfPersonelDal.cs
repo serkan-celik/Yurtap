@@ -39,5 +39,17 @@ namespace Yurtap.DataAccess.Concrete.EntityFramework
                 return personeller.ToList();
             }
         }
+
+        public bool IsPersonelMi(PersonelModel personelModel)
+        {
+            using (var context = new YurtapDbContext())
+            {
+                var personelMi = from personel in context.Personeller
+                                 join kisi in context.Kisiler on personel.Id equals kisi.Id
+                                 where personel.Id != personelModel.KisiId && kisi.Ad == personelModel.Ad && kisi.Soyad == personelModel.Soyad && personel.Durum == DurumEnum.Aktif
+                                 select personel;
+                return personelMi.Any();
+            }
+        }
     }
 }

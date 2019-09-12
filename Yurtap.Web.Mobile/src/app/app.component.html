@@ -29,20 +29,22 @@
           </ion-card-content>
         </ion-card>
         <ion-list>
-          <ion-item [routerLink]="['/ana-sayfa']">
-            <ion-icon slot="start" name="home"></ion-icon>
-            <ion-label>
-              Ana Sayfa
-            </ion-label>
-          </ion-item>
-          <div *ngFor="let p of appPages">
+          <ion-menu-toggle auto-hide="false">
+            <ion-item [routerLink]="['/ana-sayfa']">
+              <ion-icon slot="start" name="home"></ion-icon>
+              <ion-label>
+                Ana Sayfa
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle autoHide="false" *ngFor="let p of appPages">
             <ion-item *ngIf="getAktifRol(1)||getAktifRol(p.role)" [routerLink]="[p.url]">
               <ion-icon slot="start" [name]="p.icon"></ion-icon>
               <ion-label>
                 {{p.title}}
               </ion-label>
             </ion-item>
-          </div>
+          </ion-menu-toggle>
           <ion-button *ngIf="currentUser.isLogged" (click)="logOut()" expand="full" color="danger">
             <ion-icon name="power"></ion-icon>
             <ion-label> Çıkış Yap</ion-label>

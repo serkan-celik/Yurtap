@@ -15,6 +15,10 @@ export class YoklamaListesiComponent implements OnInit {
   yoklamalar :Yoklama[]=[];
 
   ngOnInit() {
+   
+  }
+
+  ionViewWillEnter(){
     this.getYoklamaListesi();
   }
 

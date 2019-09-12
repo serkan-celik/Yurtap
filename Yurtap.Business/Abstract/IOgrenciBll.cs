@@ -11,7 +11,7 @@ namespace Yurtap.Business.Abstract
         List<OgrenciModel> GetOgrenciListesi();
         OgrenciEntity GetOgrenci(int kisiId);
         OgrenciModel GetOgrenciByKisiId(int kisiId);
-        bool IsOgrenci(OgrenciModel ogrenciModel);
+        bool IsOgrenciMi(OgrenciModel ogrenciModel);
         OgrenciModel UpdateOgrenci(OgrenciModel ogrenciModel);
         bool DeleteOgrenci(OgrenciModel ogrenciModel);
     }

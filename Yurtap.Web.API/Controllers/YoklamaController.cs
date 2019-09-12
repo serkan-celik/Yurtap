@@ -141,12 +141,12 @@ namespace Yurtap.Web.API.Controllers
                 worksheet.Cells["A3:B3"].Merge = true;
                 worksheet.Cells["E3:F3"].Merge = true;
 
-                worksheet.Cells["A1"].Value = "ARİFİYE ÖĞRENCİ YURDU";
+                worksheet.Cells["A1"].Value = "MERKEZ ÖĞRENCİ YURDU";
                 worksheet.Cells["A2"].Value =  yoklama.Baslik.ToUpper() + " ÇİZELGESİ" ;
                 worksheet.Cells["A1:A2"].Style.Font.Size = 16;
                 worksheet.Cells["A3:B3"].Value = "Personel: " + kisi?.Ad + " " + kisi?.Soyad;
                 worksheet.Cells["A3:B3"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
-                worksheet.Cells["E3:F3"].Value = "Tarih: " + yoklama.Tarih.ToShortDateString() + " " + yoklama.Tarih.ToString("HH:mm");
+                worksheet.Cells["E3:F3"].Value = "Tarih: " + yoklama.Tarih.ToString("dd.MM.yyyy HH:mm");
                 worksheet.Cells["E3:F3"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
                 worksheet.Cells["A1:F4"].Style.Font.Bold = true;
                 worksheet.Cells["A1:A2"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
