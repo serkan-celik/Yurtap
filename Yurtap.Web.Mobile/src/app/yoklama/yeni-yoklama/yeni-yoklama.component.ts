@@ -151,6 +151,8 @@ export class YeniYoklamaComponent implements OnInit {
   }
 
   exportToExcel() {
+    this.yoklama.tarih = "09.22.2019";
+    //this.yoklama.yoklamaBaslikId=2;
     this.toastService.showToast("İndiriliyor...");
     this.yoklamaService.exportToExcelYoklama(this.yoklama)
       .subscribe(

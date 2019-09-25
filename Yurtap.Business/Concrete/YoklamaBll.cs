@@ -7,6 +7,7 @@ using Yurtap.Business.Abstract;
 using Yurtap.DataAccess.Abstract;
 using Yurtap.Entity;
 using Yurtap.Entity.Models;
+using Yurtap.Model.ReportModels.YoklamaModels;
 
 namespace Yurtap.Business.Concrete
 {
@@ -41,6 +42,11 @@ namespace Yurtap.Business.Concrete
             return _yoklamaDal.GetYoklamaDetayById(id);
         }
 
+        public List<YoklamaAylikKatilimModel> GetYoklamaKatilimDurumuAylikRaporListesi(DateTime tarih, byte YoklamaBaslikId)
+        {
+            return _yoklamaDal.GetYoklamaKatilimDurumuAylikRaporListesi(tarih, YoklamaBaslikId);
+        }
+
         public List<YoklamaModel> GetYoklamaListeleri(DateTime tarih)
         {
             return _yoklamaDal.GetYoklamaListeleriByTarih(tarih);
@@ -49,6 +55,11 @@ namespace Yurtap.Business.Concrete
         public List<YoklamaListeModel> GetYoklamaListesi()
         {
             return _yoklamaDal.GetYoklamaListesi();
+        }
+
+        public List<YoklamaAylikYuzdelikKatilimModel> GetYoklamaYuzdelikKatilimAylikRaporListesi(DateTime tarih)
+        {
+            return _yoklamaDal.GetYoklamaKatilimYuzdesiAylikRaporListesi(tarih);
         }
 
         public bool IsYoklama(YoklamaModel yoklamaModel)

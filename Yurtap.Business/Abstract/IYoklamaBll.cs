@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Yurtap.Entity;
 using Yurtap.Entity.Models;
+using Yurtap.Model.ReportModels.YoklamaModels;
 
 namespace Yurtap.Business.Abstract
 {
@@ -15,5 +16,7 @@ namespace Yurtap.Business.Abstract
         YoklamaEntity UpdateYoklama(YoklamaModel yoklamaModel);
         YoklamaModel GetYoklamaDetayById(int id);
         void ExportToExcel(YoklamaModel yoklamaModel);
+        List<YoklamaAylikKatilimModel> GetYoklamaKatilimDurumuAylikRaporListesi(DateTime tarih, byte YoklamaBaslikId);
+        List<YoklamaAylikYuzdelikKatilimModel> GetYoklamaYuzdelikKatilimAylikRaporListesi(DateTime tarih);
     }
 }

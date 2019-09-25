@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Yurtap.Entity\Yurtap.Entity.csproj" />
+    <ProjectReference Include="..\Yurtap.Model\Yurtap.Model.csproj" />
   </ItemGroup>
 
 </Project>

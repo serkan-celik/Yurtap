@@ -4761,7 +4761,8 @@
         "dependencies": {
           "Microsoft.EntityFrameworkCore.SqlServer": "2.1.1",
           "Microsoft.EntityFrameworkCore.Tools.DotNet": "2.0.3",
-          "Yurtap.Entity": "1.0.0"
+          "Yurtap.Entity": "1.0.0",
+          "Yurtap.Model": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Yurtap.DataAccess.dll": {}
@@ -4781,6 +4782,19 @@
         },
         "runtime": {
           "bin/placeholder/Yurtap.Entity.dll": {}
+        }
+      },
+      "Yurtap.Model/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "Yurtap.Entity": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Yurtap.Model.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Yurtap.Model.dll": {}
         }
       }
     }
@@ -12910,6 +12924,11 @@
       "type": "project",
       "path": "../Yurtap.Entity/Yurtap.Entity.csproj",
       "msbuildProject": "../Yurtap.Entity/Yurtap.Entity.csproj"
+    },
+    "Yurtap.Model/1.0.0": {
+      "type": "project",
+      "path": "../Yurtap.Model/Yurtap.Model.csproj",
+      "msbuildProject": "../Yurtap.Model/Yurtap.Model.csproj"
     }
   },
   "projectFileDependencyGroups": {

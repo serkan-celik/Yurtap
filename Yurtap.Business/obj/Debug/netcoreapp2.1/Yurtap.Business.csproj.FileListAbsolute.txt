@@ -18,3 +18,5 @@ C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Business\obj\Debug\netcore
 C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Business\obj\Debug\netcoreapp2.1\Yurtap.Business.csproj.CopyComplete
 C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Business\obj\Debug\netcoreapp2.1\Yurtap.Business.dll
 C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Business\obj\Debug\netcoreapp2.1\Yurtap.Business.pdb
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Business\bin\Debug\netcoreapp2.1\Yurtap.Model.dll
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Business\bin\Debug\netcoreapp2.1\Yurtap.Model.pdb

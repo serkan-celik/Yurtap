@@ -33,7 +33,6 @@ export class YoklamaService {
     }
 
     exportToExcelYoklama(yoklama: Yoklama) {
-        return this.httpService.postHttp<any>(environment.yoklamaPath, "exportToExcelYoklama", yoklama, "blob");
+        return this.httpService.postHttp<any>(environment.yoklamaPath, "ExportToExcelYoklamaKatilimYuzdesiAylikRaporListesi", yoklama, "blob");
     }
-
 }

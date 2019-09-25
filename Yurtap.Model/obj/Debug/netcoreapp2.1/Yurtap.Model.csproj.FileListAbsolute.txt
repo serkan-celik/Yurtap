@@ -1,0 +1,16 @@
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Model\bin\Debug\netcoreapp2.1\Yurtap.Model.deps.json
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Model\bin\Debug\netcoreapp2.1\Yurtap.Model.dll
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Model\bin\Debug\netcoreapp2.1\Yurtap.Model.pdb
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Model\obj\Debug\netcoreapp2.1\Yurtap.Model.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Model\obj\Debug\netcoreapp2.1\Yurtap.Model.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Model\obj\Debug\netcoreapp2.1\Yurtap.Model.AssemblyInfoInputs.cache
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Model\obj\Debug\netcoreapp2.1\Yurtap.Model.AssemblyInfo.cs
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Model\obj\Debug\netcoreapp2.1\Yurtap.Model.dll
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Model\obj\Debug\netcoreapp2.1\Yurtap.Model.pdb
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Model\bin\Debug\netcoreapp2.1\Yurtap.Core.dll
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Model\bin\Debug\netcoreapp2.1\Yurtap.Entity.dll
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Model\bin\Debug\netcoreapp2.1\Microsoft.AspNetCore.Mvc.Core.dll
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Model\bin\Debug\netcoreapp2.1\Yurtap.Entity.pdb
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Model\bin\Debug\netcoreapp2.1\Yurtap.Core.pdb
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Model\bin\Debug\netcoreapp2.1\Microsoft.AspNetCore.Mvc.Core.xml
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Model\obj\Debug\netcoreapp2.1\Yurtap.Model.csproj.CopyComplete

@@ -24,5 +24,14 @@ namespace Yurtap.Core.Utilities.ExtensionMethods
                       ?.Name
                       ?? val.ToString();
         }
+        public static string GetDescription(this Enum val)
+        {
+            return val.GetType()
+                      .GetMember(val.ToString())
+                      .FirstOrDefault()
+                      ?.GetCustomAttribute<DisplayAttribute>(false)
+                      ?.Description
+                      ?? val.ToString();
+        }
     }
 }

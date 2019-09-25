@@ -10,7 +10,8 @@
         "dependencies": {
           "Microsoft.EntityFrameworkCore.SqlServer": "2.1.1",
           "Microsoft.EntityFrameworkCore.Tools.DotNet": "2.0.3",
-          "Yurtap.Entity": "1.0.0"
+          "Yurtap.Entity": "1.0.0",
+          "Yurtap.Model": "1.0.0"
         },
         "runtime": {
           "Yurtap.DataAccess.dll": {}
@@ -804,6 +805,14 @@
           "Yurtap.Entity.dll": {}
         }
       },
+      "Yurtap.Model/1.0.0": {
+        "dependencies": {
+          "Yurtap.Entity": "1.0.0"
+        },
+        "runtime": {
+          "Yurtap.Model.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Mvc.Core.Reference/2.1.1.0": {
         "runtime": {
           "Microsoft.AspNetCore.Mvc.Core.dll": {
@@ -1365,6 +1374,11 @@
       "sha512": ""
     },
     "Yurtap.Entity/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Yurtap.Model/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
