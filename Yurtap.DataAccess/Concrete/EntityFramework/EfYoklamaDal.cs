@@ -120,7 +120,8 @@ namespace Yurtap.DataAccess.Concrete.EntityFramework
                                             new YoklamaAylikYuzdelikKatilimModel
                                             {
                                                 AdSoyad = String.Join(' ', a.Ad, a.Soyad),
-                                                YoklamaBaslik = y.YoklamaBaslikId,
+                                                YoklamaBaslikId = y.YoklamaBaslikId,
+                                                YoklamaBaslik = context.YoklamaBasliklari.SingleOrDefault(yb=>yb.Id==y.YoklamaBaslikId).Baslik,
                                                 Katilim = a.YoklamaDurum.GetDisplayName()
                                             }
                                         )).ToList();
@@ -129,11 +130,12 @@ namespace Yurtap.DataAccess.Concrete.EntityFramework
                     new YoklamaAylikYuzdelikKatilimModel
                     {
                         AdSoyad = y.Key.AdSoyad,
-                        YoklamaIstatistikleri = y.GroupBy(g => new { g.YoklamaBaslik }).Select(b => new YoklamaIstatistik
+                        YoklamaIstatistikleri = y.GroupBy(g => new { g.YoklamaBaslikId }).Select(b => new YoklamaIstatistik
                         {
-                            YoklamaBaslik = b.Key.YoklamaBaslik,
+                            YoklamaBaslikId = b.Key.YoklamaBaslikId,
+                            YoklamaBaslik = b.Select(yb => yb.YoklamaBaslik).FirstOrDefault(),
                             KatilimYuzdesi = Math.Floor(
-                           (Convert.ToDouble(b.Count(c => c.Katilim == YoklamaDurumEnum.Var.GetDisplayName() && c.YoklamaBaslik == b.Key.YoklamaBaslik)) / Convert.ToDouble(b.Count(c => c.YoklamaBaslik == b.Key.YoklamaBaslik))) * 100).ToString()
+                           (Convert.ToDouble(b.Count(c => c.Katilim == YoklamaDurumEnum.Var.GetDisplayName() && c.YoklamaBaslikId == b.Key.YoklamaBaslikId)) / Convert.ToDouble(b.Count(c => c.YoklamaBaslikId == b.Key.YoklamaBaslikId))) * 100).ToString()
                         }).ToList(),
                         YoklamaSayisi = y.Count(),
                         KatilimSayisi = y.Count(c => c.Katilim == YoklamaDurumEnum.Var.GetDisplayName()),
@@ -159,7 +161,7 @@ namespace Yurtap.DataAccess.Concrete.EntityFramework
                                            YoklamaBaslikId = y.YoklamaBaslikId,
                                            Baslik = yb.Baslik,
                                            Tarih = y.Tarih,
-                                           //YoklamaListesi = JsonConvert.DeserializeObject<List<YoklamaListeModel>>(y.Liste)
+                                           YoklamaListesi = JsonConvert.DeserializeObject<List<YoklamaListeModel>>(y.Liste)
                                        };
                 return yoklamaListeleri.ToList();
             }

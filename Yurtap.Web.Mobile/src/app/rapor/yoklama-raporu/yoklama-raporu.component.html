@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Yoklama Raporları
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-label style="font-weight :bold">Katılım Türü</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-radio-group [(ngModel)]="katilim">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-radio [checked]="katilim=='durumluk'" value="durumluk"></ion-radio>
+            <ion-label>&nbsp;Katılım durumuna göre</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-radio value="yüzdelik"></ion-radio>
+            <ion-label>&nbsp;Katılım yüzdesine göre</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-radio-group>
+    <ion-radio-group [(ngModel)]="rapor">
+      <ion-row>
+        <ion-col>
+          <ion-label style="font-weight :bold">Rapor Türü</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item [disabled]="katilim=='yüzdelik'">
+            <ion-radio [checked]="katilim=='yüzdelik'?false:undefined" value="saatlik">
+            </ion-radio>
+            <ion-label>&nbsp;Saatlik rapor</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-radio [checked]="rapor=='aylık'" value="aylık"></ion-radio>
+            <ion-label>&nbsp;Aylık rapor</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-radio-group>
+    <ion-row>
+      <ion-col>
+        <ion-label style="font-weight :bold">Yoklama Tarihi</ion-label>
+        <ion-datetime [(ngModel)]="tarih" (ionChange)="getYoklamaListesi()" name="tarih2"
+          [displayFormat]="rapor=='aylık'?'MM / YYYY':'DD.MM.YYYY'" doneText="Tamam" cancelText="Vazgeç">
+        </ion-datetime>
+      </ion-col>
+      <ion-col *ngIf="rapor=='saatlik'">
+        <ion-label style="font-weight :bold">Yoklamalar</ion-label>
+        <ion-select name="yoklamaBaslikId" [(ngModel)]="yoklama" placeholder="Yoklama seçiniz" interface="popover">
+          <ion-select-option *ngFor="let yoklama of yoklamalar" [value]="yoklama">{{yoklama.baslik}}
+            ({{yoklama.tarih | date:'HH:mm'}})
+          </ion-select-option>
+        </ion-select>
+      </ion-col>
+      <ion-col *ngIf="katilim=='durumluk'&&rapor=='aylık'">
+        <ion-label style="font-weight :bold">Yoklamalar</ion-label>
+        <ion-select name="yoklamaBaslik" [(ngModel)]="yoklamaBaslik" placeholder="Yoklama seçiniz" interface="popover">
+          <ion-select-option *ngFor="let yoklamaBaslik of yoklamaBaslikListesi" [value]="yoklamaBaslik">
+            {{yoklamaBaslik.baslik}}
+          </ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-button (click)="raporla()">Raporla</ion-button>
+</ion-content>

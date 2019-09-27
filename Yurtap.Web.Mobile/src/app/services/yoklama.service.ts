@@ -32,7 +32,15 @@ export class YoklamaService {
         return this.httpService.putHttp<Yoklama>(environment.yoklamaPath, "updateYoklama", yoklama);
     }
 
-    exportToExcelYoklama(yoklama: Yoklama) {
-        return this.httpService.postHttp<any>(environment.yoklamaPath, "ExportToExcelYoklamaKatilimYuzdesiAylikRaporListesi", yoklama, "blob");
+    exportToExcelVakitlikYoklamaRaporu(yoklama: Yoklama) {
+        return this.httpService.postHttp<any>(environment.yoklamaPath, "ExportToExcelVakitlikYoklamaRaporu", yoklama, "blob");
+    }
+
+    exportToExcelAylikYoklamaKatilimDurumuRaporu(tarih: string, yoklamaBaslikId: number) {
+        return this.httpService.getHttp<any>(environment.yoklamaPath, "exportToExcelAylikYoklamaKatilimDurumuRaporu?tarih=" + tarih + "&yoklamaBaslikId=" + yoklamaBaslikId, "blob");
+    }
+
+    exportToExcelAylikYoklamaKatilimYuzdesiRaporu(tarih: string) {
+        return this.httpService.getHttp<any>(environment.yoklamaPath, "exportToExcelAylikYoklamaKatilimYuzdesiRaporu?tarih=" + tarih, "blob");
     }
 }

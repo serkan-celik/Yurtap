@@ -40,7 +40,7 @@ namespace Yurtap.Web.API.Controllers
             }
             catch (Exception ex)
             {
-                BadRequest(ex.Message);
+                return BadRequest(ex.Message);
             }
             return Ok(yoklamaListesi);
         }
@@ -55,7 +55,7 @@ namespace Yurtap.Web.API.Controllers
             }
             catch (Exception ex)
             {
-                BadRequest(ex.Message);
+                return BadRequest(ex.Message);
             }
             return Ok(yoklamaListesi);
         }
@@ -84,7 +84,7 @@ namespace Yurtap.Web.API.Controllers
             }
             catch (Exception ex)
             {
-                BadRequest(ex.Message);
+                return BadRequest(ex.Message);
             }
             return Ok(yoklamaListesi);
         }
@@ -134,8 +134,8 @@ namespace Yurtap.Web.API.Controllers
             return Ok(yoklamaEntity);
         }
 
-        [HttpPost("ExportToExcelYoklama")]
-        public IActionResult ExportToExcelYoklama(YoklamaModel yoklama)
+        [HttpPost("ExportToExcelVakitlikYoklamaRaporu")]
+        public IActionResult ExportToExcelVakitlikYoklamaRaporu(YoklamaModel yoklama)
         {
 
             var kisi = _kisiBll.GetKisi(yoklama.EkleyenId);
@@ -244,8 +244,8 @@ namespace Yurtap.Web.API.Controllers
             return File(result, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         }
 
-        [HttpPost("ExportToExcelYoklamaKatilimDurumuAylikRaporListesi")]
-        public ActionResult ExportToExcelYoklamaKatilimDurumuAylikRaporListesi(YoklamaModel yoklamaModel)
+        [HttpGet("ExportToExcelAylikYoklamaKatilimDurumuRaporu")]
+        public ActionResult ExportToExcelAylikYoklamaKatilimDurumuRaporu(DateTime tarih, byte yoklamaBaslikId)
         {
 
             //var kisi = _kisiBll.GetKisi(yoklama.EkleyenId);
@@ -344,7 +344,9 @@ namespace Yurtap.Web.API.Controllers
                 var j = 5;
                 var k = 5;
                 int rowCount = 1;
-               var yoklamaListesi = _yoklamaBll.GetYoklamaKatilimDurumuAylikRaporListesi(yoklamaModel.Tarih, yoklamaModel.YoklamaBaslikId);
+               var yoklamaListesi = _yoklamaBll.GetYoklamaKatilimDurumuAylikRaporListesi(tarih, yoklamaBaslikId);
+
+
                 foreach (var yoklama in yoklamaListesi)
                 {
                   
@@ -402,8 +404,8 @@ namespace Yurtap.Web.API.Controllers
             return File(result, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         }
 
-        [HttpPost("ExportToExcelYoklamaKatilimYuzdesiAylikRaporListesi")]
-        public ActionResult ExportToExcelYoklamaKatilimYuzdesiAylikRaporListesi(YoklamaModel yoklamaModel)
+        [HttpGet("ExportToExcelAylikYoklamaKatilimYuzdesiRaporu")]
+        public ActionResult ExportToExcelAylikYoklamaKatilimYuzdesiRaporu(DateTime tarih)
         {
 
             //var kisi = _kisiBll.GetKisi(yoklama.EkleyenId);
@@ -429,7 +431,7 @@ namespace Yurtap.Web.API.Controllers
                 //Dökümanın yazıcı ayarları
                 //worksheet.PrinterSettings.FitToPage = true;
                 worksheet.PrinterSettings.PaperSize = ePaperSize.A4Plus;
-                worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
+                worksheet.PrinterSettings.Orientation = eOrientation.Portrait;
 
                 //Döküman yapılandırması
                 worksheet.Cells["A1:F1"].Merge = true;
@@ -444,7 +446,8 @@ namespace Yurtap.Web.API.Controllers
                 worksheet.Cells["A3:B3"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                 //worksheet.Cells["E3:F3"].Value = "Tarih: " + yoklama.Tarih.ToString("dd.MM.yyyy HH:mm");
                 worksheet.Cells["E3:F3"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
-                worksheet.Cells.Style.Font.Bold = true;
+                worksheet.Cells["A1:G4"].Style.Font.Bold = true;
+                worksheet.Cells["A5:B100"].Style.Font.Bold = true;
                 worksheet.Cells["A1:A2"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 
                 //Tüm döküman hücrelerine kenarlık ekleniyor.
@@ -465,17 +468,16 @@ namespace Yurtap.Web.API.Controllers
                 var j = 5;
                 var k = 5;
                 int column = 3;
-                var yoklamaListesi = _yoklamaBll.GetYoklamaYuzdelikKatilimAylikRaporListesi(yoklamaModel.Tarih);
 
-                //Yoklama başlıkları ekleniyor
+
+                var yoklamaListesi = _yoklamaBll.GetYoklamaYuzdelikKatilimAylikRaporListesi(tarih);
                 foreach (var item in yoklamaListesi[0].YoklamaIstatistikleri)
                 {
-                    comlumHeaders.Add(item.YoklamaBaslik.ToString());
+                    comlumHeaders.Add(item.YoklamaBaslik.Substring(0, item.YoklamaBaslik.IndexOf(' ')).ToUpper());
                 }
-                comlumHeaders.Add("Genel");
 
-
-
+                //Yoklama başlıkları ekleniyor
+                comlumHeaders.Add("Genel Katılım");
                 for (var i = 0; i < comlumHeaders.Count(); i++)
                 {
                     worksheet.Cells[4, i + 1].Value = comlumHeaders[i];
@@ -501,8 +503,9 @@ namespace Yurtap.Web.API.Controllers
                 }
 
                 //Döküman verilerinin tümü ortalalanıyor.
+                worksheet.Cells["A4:A100"].AutoFitColumns(3.5, 3.5);
                 worksheet.Cells["A5:A50"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                //worksheet.Cells["C4:AG100"].AutoFitColumns(3.5, 3.5);
+                worksheet.Cells["C4:AG100"].AutoFitColumns();//AutoFitColumns(3.5, 3.5);
                 worksheet.Cells["C4:AG100"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 worksheet.Cells["C4:C50"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 worksheet.Cells["D5:D100"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
@@ -517,5 +520,9 @@ namespace Yurtap.Web.API.Controllers
 
             return File(result, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         }
+    }
+    public class Yoklama
+    {
+        public DateTime Tarih { get; set; }
     }
 }

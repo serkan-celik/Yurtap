@@ -15,6 +15,7 @@ import { AnaSayfaComponent } from './ana-sayfa/ana-sayfa';
 import { YeniOgrenciComponent } from './ogrenci/yeni-ogrenci/yeni-ogrenci.component';
 import { LoginGuard } from './hesap/guards/login.guard';
 import { OgrenciListesiComponent } from './ogrenci/ogrenci-listesi/ogrenci-listesi';
+import { YoklamaRaporuComponent } from './rapor/yoklama-raporu/yoklama-raporu.component';
 
 const routes: Routes = [
   {
@@ -100,6 +101,11 @@ const routes: Routes = [
     path: 'yoklama-baslik-listesi',
     component: YoklamaBaslikListesiComponent,
     canActivate: [YoklamaGuard]
+  },
+  {
+    path: 'yoklama-raporlari',
+    component: YoklamaRaporuComponent,
+    canActivate: [AdminGuard]
   }
 ];
 

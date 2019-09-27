@@ -23,8 +23,13 @@ export class HttpService {
     body: null
   };
 
-  public getHttp<T>(path: string, functionName: string): Observable<T> {
-    this.options.responseType = "json";
+  public getHttp<T>(path: string, functionName: string, responseType?: any): Observable<T> {
+    if (responseType) {
+      this.options.responseType = responseType;
+    }
+    else{
+      this.options.responseType = "json";
+    }
     return this.httpClient.get<T>(path + functionName, this.options);
   }
 

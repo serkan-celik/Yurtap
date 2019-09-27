@@ -39,12 +39,12 @@ export class YeniYoklamaComponent implements OnInit {
   yoklamaDurum: number = -1;
 
   ngOnInit() {
-
-  }
-
-  ionViewWillEnter(){
     this.getYoklama();
     this.getYoklamaBaslikListesi();
+  }
+
+  ionViewDidEnter() {
+
   }
 
   getYoklamaListesi() {
@@ -154,7 +154,7 @@ export class YeniYoklamaComponent implements OnInit {
     this.yoklama.tarih = "09.22.2019";
     //this.yoklama.yoklamaBaslikId=2;
     this.toastService.showToast("İndiriliyor...");
-    this.yoklamaService.exportToExcelYoklama(this.yoklama)
+    this.yoklamaService.exportToExcelAylikYoklamaKatilimYuzdesiRaporu(this.yoklama.tarih.toString())
       .subscribe(
         data => {
           saveAs(data, moment(this.yoklama.tarih).format("DD.MM.YYYY HH.mm") + "-" + this.yoklama.baslik + '.xlsx');

@@ -27,6 +27,7 @@ import { YeniOgrenciComponent } from './ogrenci/yeni-ogrenci/yeni-ogrenci.compon
 import { LoginGuard } from './hesap/guards/login.guard';
 import { AnaSayfaComponent } from './ana-sayfa/ana-sayfa';
 import { OgrenciListesiComponent } from './ogrenci/ogrenci-listesi/ogrenci-listesi';
+import { YoklamaRaporuComponent } from './rapor/yoklama-raporu/yoklama-raporu.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { OgrenciListesiComponent } from './ogrenci/ogrenci-listesi/ogrenci-liste
     YapimAsamasindaComponent,
     SortPipe,
     SifreDegistirComponent,
-    YoklamaBaslikListesiComponent],
+    YoklamaBaslikListesiComponent,
+    YoklamaRaporuComponent],
   entryComponents: [
 
   ],
