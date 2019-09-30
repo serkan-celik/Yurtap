@@ -727,6 +727,7 @@
       },
       "Yurtap.Business/1.0.0": {
         "dependencies": {
+          "EPPlus.Core": "1.5.4",
           "Yurtap.DataAccess": "1.0.0",
           "Yurtap.Entity": "1.0.0"
         },

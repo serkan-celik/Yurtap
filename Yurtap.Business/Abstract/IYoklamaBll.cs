@@ -11,12 +11,12 @@ namespace Yurtap.Business.Abstract
     public interface IYoklamaBll
     {
         YoklamaModel AddYoklama(YoklamaModel yoklamaModel);
-        List<YoklamaModel> GetYoklamaListeleri(DateTime tarih);
+        List<YoklamaModel> GetYoklamaListeleri(DateTime? tarih);
         List<YoklamaListeModel> GetYoklamaListesi();
         YoklamaEntity UpdateYoklama(YoklamaModel yoklamaModel);
         YoklamaModel GetYoklamaDetayById(int id);
-        void ExportToExcel(YoklamaModel yoklamaModel);
-        List<YoklamaAylikKatilimModel> GetYoklamaKatilimDurumuAylikRaporListesi(DateTime tarih, byte YoklamaBaslikId);
-        List<YoklamaAylikYuzdelikKatilimModel> GetYoklamaYuzdelikKatilimAylikRaporListesi(DateTime tarih);
+        byte[] ExportToExcelVakitlikYoklamaRaporu(YoklamaModel yoklama);
+        byte[] ExportToExcelAylikYoklamaKatilimDurumuRaporu(DateTime tarih, byte yoklamaBaslikId, string yoklamaBaslik);
+        byte[] ExportToExcelAylikYoklamaKatilimYuzdesiRaporu(DateTime tarih);
     }
 }

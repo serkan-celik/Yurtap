@@ -47,14 +47,10 @@
       </ion-item>
       <ion-item *ngIf="this.duzenlemeModu">
         <ion-label>Yoklama Filtrele:</ion-label>
-        <ion-select name="durum" [(ngModel)]="yoklamaDurum" (ionChange)="changeYoklamaDurum()" interface="popover" ngModel>
+        <ion-select name="durum" [(ngModel)]="yoklamaDurum" (ionChange)="changeYoklamaDurum()" interface="popover"
+          ngModel>
           <ion-select-option [value]="-1">Tümü</ion-select-option>
-          <ion-select-option [value]="1">Var</ion-select-option>
-          <ion-select-option [value]="0">Yok</ion-select-option>
-          <ion-select-option [value]="2">Okulda</ion-select-option>
-          <ion-select-option [value]="3">İzinli</ion-select-option>
-          <ion-select-option [value]="4">Görevli</ion-select-option>
-          <ion-select-option [value]="5">Rahatsız</ion-select-option>
+          <ion-select-option *ngFor="let tur of yoklamaTurleri" [value]="tur.value">{{tur.text}}</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-searchbar name="search" [(ngModel)]="filterText" (ionChange)="filteredList()" placeholder="Ara..." ngModel>
@@ -68,17 +64,14 @@
         <ion-select [id]="yoklamaListesi.kisiId" [name]="yoklamaListesi.kisiId"
           [(ngModel)]="yoklamaListesi.yoklamaDurum" (ionChange)="changeItemColor(item,yoklamaListesi)" slot="end"
           okText="Tamam" cancelText="Vazgeç">
-          <ion-select-option [value]="1" [selected]="yoklamaListesi.yoklamaDurum==1">Var</ion-select-option>
-          <ion-select-option [value]="0" [selected]="yoklamaListesi.yoklamaDurum==0">Yok</ion-select-option>
-          <ion-select-option [value]="2" [selected]="yoklamaListesi.yoklamaDurum==2">Okulda</ion-select-option>
-          <ion-select-option [value]="3" [selected]="yoklamaListesi.yoklamaDurum==3">İzinli</ion-select-option>
-          <ion-select-option [value]="4" [selected]="yoklamaListesi.yoklamaDurum==4">Görevli</ion-select-option>
-          <ion-select-option [value]="5" [selected]="yoklamaListesi.yoklamaDurum==5">Rahatsız</ion-select-option>
+          <ion-select-option *ngFor="let tur of yoklamaTurleri" [value]="tur.value"
+            [selected]="yoklamaListesi.yoklamaDurum==tur.value">{{tur.text}}</ion-select-option>
         </ion-select>
       </ion-item>
     </ion-list>
     <!-- Skeleton screen -->
-    <ion-list *ngIf="yoklama.yoklamaListesi.length==0&&filterText.length==0&&!this.duzenlemeModu" class="ion-padding custom-skeleton">
+    <ion-list *ngIf="yoklama.yoklamaListesi.length==0&&filterText.length==0&&!this.duzenlemeModu"
+      class="ion-padding custom-skeleton">
       <ion-item>
         <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
       </ion-item>

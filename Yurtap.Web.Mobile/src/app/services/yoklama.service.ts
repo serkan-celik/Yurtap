@@ -20,7 +20,7 @@ export class YoklamaService {
         return this.httpService.postHttp<Yoklama>(environment.yoklamaPath, "addYoklama", yoklama);
     }
 
-    getYoklamaListeleriByTarih(tarih: string) {
+    getYoklamaListeleriByTarih(tarih: string="") {
         return this.httpService.getHttp<Yoklama[]>(environment.yoklamaPath, "getYoklamaListeleri?tarih=" + tarih);
     }
 
@@ -33,11 +33,11 @@ export class YoklamaService {
     }
 
     exportToExcelVakitlikYoklamaRaporu(yoklama: Yoklama) {
-        return this.httpService.postHttp<any>(environment.yoklamaPath, "ExportToExcelVakitlikYoklamaRaporu", yoklama, "blob");
+        return this.httpService.postHttp<any>(environment.yoklamaPath, "exportToExcelVakitlikYoklamaRaporu", yoklama, "blob");
     }
 
-    exportToExcelAylikYoklamaKatilimDurumuRaporu(tarih: string, yoklamaBaslikId: number) {
-        return this.httpService.getHttp<any>(environment.yoklamaPath, "exportToExcelAylikYoklamaKatilimDurumuRaporu?tarih=" + tarih + "&yoklamaBaslikId=" + yoklamaBaslikId, "blob");
+    exportToExcelAylikYoklamaKatilimDurumuRaporu(tarih: string, yoklamaBaslikId: number, yoklamaBaslik: String) {
+        return this.httpService.getHttp<any>(environment.yoklamaPath, "exportToExcelAylikYoklamaKatilimDurumuRaporu?tarih=" + tarih + "&yoklamaBaslikId=" + yoklamaBaslikId + "&yoklamaBaslik=" + yoklamaBaslik, "blob");
     }
 
     exportToExcelAylikYoklamaKatilimYuzdesiRaporu(tarih: string) {

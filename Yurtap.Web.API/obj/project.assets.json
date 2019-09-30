@@ -4732,6 +4732,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
+          "EPPlus.Core": "1.5.4",
           "Yurtap.DataAccess": "1.0.0",
           "Yurtap.Entity": "1.0.0"
         },

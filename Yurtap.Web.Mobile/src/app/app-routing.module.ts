@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { PersonelListesiComponent } from './personel/personel-listesi/personel-listesi.component';
 import { YeniPersonelComponent } from './personel/yeni-personel/yeni-personel.component';
 import { YeniYoklamaComponent } from './yoklama/yeni-yoklama/yeni-yoklama.component';
-import { YoklamaListesiComponent } from './yoklama/yoklama-listesi/yoklama-listesi.component';
+import { YoklamaListesiComponent } from './yoklama/yoklama-listeleri/yoklama-listesi.component';
 import { AdminGuard } from './hesap/guards/admin.guard'
 import { GirisComponent } from './hesap/giris/giris.component'
 import { SifreDegistirComponent } from './hesap/sifre-degistir/sifre-degistir.component';
@@ -79,7 +79,7 @@ const routes: Routes = [
     canActivate: [OgrenciGuard]
   },
   {
-    path: 'yoklama-listesi',
+    path: 'yoklama-listeleri',
     component: YoklamaListesiComponent,
     canActivate: [YoklamaGuard]
   },

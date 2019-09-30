@@ -25,11 +25,17 @@ export class AppComponent extends BaseComponent {
     },
     {
       title: 'Yoklama Listeleri',
-      url: '/yoklama-listesi',
+      url: '/yoklama-listeleri',
       icon: 'menu',
       role:[
         RolEnum.YoklamaYonetimi.valueOf()
       ]
+    },
+    {
+      title: 'Yoklama Raporları',
+      url: '/yoklama-raporlari',
+      icon: 'grid',
+      role:[]
     },
     /*{
       title: 'Yoklama Başlık Listesi',
@@ -52,12 +58,6 @@ export class AppComponent extends BaseComponent {
       role:[
         RolEnum.PersonelYonetimi.valueOf()
       ]
-    },
-    {
-      title: 'Yoklama Raporları',
-      url: '/yoklama-raporlari',
-      icon: 'grid',
-      role:[]
     }
   ];
 

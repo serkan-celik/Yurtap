@@ -12,19 +12,29 @@ export class YoklamaListesiComponent implements OnInit {
 
   constructor(private yoklamaService: YoklamaService) { }
   secilenTarih: string = moment().utc(true).format("YYYY-MM-DD")
-  yoklamalar :Yoklama[]=[];
+  yoklamalarListesi :Yoklama[]=[];
+  yoklamalarTakvimi :Yoklama[]=[];
+  listeGorunum:boolean=true;
+  takvimGorunum:boolean=false;
 
   ngOnInit() {
    
   }
 
   ionViewWillEnter(){
-    this.getYoklamaListesi();
+    this.getYoklamalarListesi();
+    this.getYoklamalarTakvimi();
+  }
+  
+  getYoklamalarListesi() {
+    this.yoklamaService.getYoklamaListeleriByTarih().subscribe(data => {
+      this.yoklamalarListesi = data;
+    });
   }
 
-  getYoklamaListesi() {
+  getYoklamalarTakvimi() {
     this.yoklamaService.getYoklamaListeleriByTarih(this.secilenTarih.substring(0,10)).subscribe(data => {
-      this.yoklamalar = data;
+      this.yoklamalarTakvimi = data;
     });
   }
 
@@ -34,5 +44,15 @@ export class YoklamaListesiComponent implements OnInit {
 
   oncekiTarih(){
     this.secilenTarih =  moment(this.secilenTarih).subtract(1,'days').toLocaleString();
+  }
+
+  clickListe(){
+    this.listeGorunum=true;
+    this.takvimGorunum=false;
+  }
+
+  clickTakvim(){
+    this.takvimGorunum=true;
+    this.listeGorunum=false;
   }
 }

@@ -12,7 +12,7 @@ namespace Yurtap.DataAccess.Abstract
     public interface IYoklamaDal : IEntityRepository<YoklamaEntity>
     {
         List<YoklamaListeModel> GetYoklamaListesi();
-        List<YoklamaModel> GetYoklamaListeleriByTarih(DateTime tarih);
+        List<YoklamaModel> GetYoklamaListeleriByTarih(DateTime? tarih);
         YoklamaModel GetYoklamaDetayById(int id);
         List<YoklamaAylikKatilimModel> GetYoklamaKatilimDurumuAylikRaporListesi(DateTime tarih, byte YoklamaBaslikId);
         List<YoklamaAylikYuzdelikKatilimModel> GetYoklamaKatilimYuzdesiAylikRaporListesi(DateTime tarih);

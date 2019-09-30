@@ -38,6 +38,15 @@ export class YeniYoklamaComponent implements OnInit {
   veriYok: string = "";
   yoklamaDurum: number = -1;
 
+  yoklamaTurleri = [
+    { "text": "Yok", "value": 0 },
+    { "text": "Var", "value": 1 },
+    { "text": "Okulda", "value": 2 },
+    { "text": "İzinli", "value": 3 },
+    { "text": "Görevli", "value": 4 },
+    { "text": "Hasta", "value": 5 }
+  ]
+
   ngOnInit() {
     this.getYoklama();
     this.getYoklamaBaslikListesi();

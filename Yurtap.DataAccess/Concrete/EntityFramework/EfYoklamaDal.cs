@@ -69,37 +69,37 @@ namespace Yurtap.DataAccess.Concrete.EntityFramework
                  new YoklamaAylikKatilimModel
                  {
                      AdSoyad = y.Key,
-                     Gun1 = y.SingleOrDefault(g => g.Gun == 1)?.Gun !=0 ? y.SingleOrDefault(g => g.Gun == 1)?.Katilim : "",
-                     Gun2 = y.SingleOrDefault(g => g.Gun == 2)?.Gun !=0 ? y.SingleOrDefault(g => g.Gun == 2)?.Katilim : "",
-                     Gun3 = y.SingleOrDefault(g => g.Gun == 3)?.Gun !=0 ? y.SingleOrDefault(g => g.Gun == 3)?.Katilim : "",
-                     Gun4 = y.SingleOrDefault(g => g.Gun == 4)?.Gun !=0 ? y.SingleOrDefault(g => g.Gun == 4)?.Katilim : "",
-                     Gun5 = y.SingleOrDefault(g => g.Gun == 5)?.Gun !=0 ? y.SingleOrDefault(g => g.Gun == 5)?.Katilim : "",
-                     Gun6 = y.SingleOrDefault(g => g.Gun == 6)?.Gun !=0 ? y.SingleOrDefault(g => g.Gun == 6)?.Katilim : "",
-                     Gun7 = y.SingleOrDefault(g => g.Gun == 7)?.Gun !=0 ? y.SingleOrDefault(g => g.Gun == 7)?.Katilim : "",
-                     Gun8 = y.SingleOrDefault(g => g.Gun == 8)?.Gun !=0 ? y.SingleOrDefault(g => g.Gun == 8)?.Katilim :"",
-                     Gun9 = y.SingleOrDefault(g => g.Gun == 9)?.Gun !=0 ? y.SingleOrDefault(g => g.Gun == 9)?.Katilim : "",
-                     Gun10 = y.SingleOrDefault(g => g.Gun == 10)?.Gun !=0 ? y.SingleOrDefault(g => g.Gun == 10)?.Katilim : "",
-                     Gun11 = y.SingleOrDefault(g => g.Gun == 11)?.Gun !=0 ? y.SingleOrDefault(g => g.Gun == 11)?.Katilim : "",
-                     Gun12 = y.SingleOrDefault(g => g.Gun == 12)?.Gun !=0 ? y.SingleOrDefault(g => g.Gun == 12)?.Katilim : "",
-                     Gun13 = y.SingleOrDefault(g => g.Gun == 13)?.Gun !=0 ? y.SingleOrDefault(g => g.Gun == 13)?.Katilim : "",
-                     Gun14 = y.SingleOrDefault(g => g.Gun == 14)?.Gun !=0 ? y.SingleOrDefault(g => g.Gun == 14)?.Katilim : "",
-                     Gun15 = y.SingleOrDefault(g => g.Gun == 15)?.Gun !=0 ? y.SingleOrDefault(g => g.Gun == 15)?.Katilim : "",
-                     Gun16 = y.SingleOrDefault(g => g.Gun == 16)?.Gun !=0 ? y.SingleOrDefault(g => g.Gun == 16)?.Katilim : "",
-                     Gun17 = y.SingleOrDefault(g => g.Gun == 17)?.Gun !=0 ? y.SingleOrDefault(g => g.Gun == 17)?.Katilim : "",
-                     Gun18 = y.SingleOrDefault(g => g.Gun == 18)?.Gun !=0 ? y.SingleOrDefault(g => g.Gun == 18)?.Katilim : "",
-                     Gun19 = y.SingleOrDefault(g => g.Gun == 19)?.Gun != 0 ? y.SingleOrDefault(g => g.Gun == 19)?.Katilim : "",
-                     Gun20 = y.SingleOrDefault(g => g.Gun == 20)?.Gun != 0 ? y.SingleOrDefault(g => g.Gun == 20)?.Katilim : "",
-                     Gun21 = y.SingleOrDefault(g => g.Gun == 21)?.Gun != 0 ? y.SingleOrDefault(g => g.Gun == 21)?.Katilim : "",
-                     Gun22 = y.SingleOrDefault(g => g.Gun == 22)?.Gun != 0 ? y.SingleOrDefault(g => g.Gun == 22)?.Katilim : "",
-                     Gun23 = y.SingleOrDefault(g => g.Gun == 23)?.Gun != 0 ? y.SingleOrDefault(g => g.Gun == 23)?.Katilim : "",
-                     Gun24 = y.SingleOrDefault(g => g.Gun == 24)?.Gun != 0 ? y.SingleOrDefault(g => g.Gun == 24)?.Katilim : "",
-                     Gun25 = y.SingleOrDefault(g => g.Gun == 25)?.Gun != 0 ? y.SingleOrDefault(g => g.Gun == 25)?.Katilim : "",
-                     Gun26 = y.SingleOrDefault(g => g.Gun == 26)?.Gun != 0 ? y.SingleOrDefault(g => g.Gun == 26)?.Katilim : "",
-                     Gun27 = y.SingleOrDefault(g => g.Gun == 27)?.Gun != 0 ? y.SingleOrDefault(g => g.Gun == 27)?.Katilim : "",
-                     Gun28 = y.SingleOrDefault(g => g.Gun == 28)?.Gun != 0 ? y.SingleOrDefault(g => g.Gun == 28)?.Katilim : "",
-                     Gun29 = y.SingleOrDefault(g => g.Gun == 29)?.Gun != 0 ? y.SingleOrDefault(g => g.Gun == 29)?.Katilim : "",
-                     Gun30 = y.SingleOrDefault(g => g.Gun == 30)?.Gun != 0 ? y.SingleOrDefault(g => g.Gun == 30)?.Katilim : "",
-                     Gun31 = y.SingleOrDefault(g => g.Gun == 31)?.Gun != 0 ? y.SingleOrDefault(g => g.Gun == 31)?.Katilim : "",
+                     Gun1 = y.LastOrDefault(g => g.Gun == 1)?.Gun !=0 ? y.LastOrDefault(g => g.Gun == 1)?.Katilim : "",
+                     Gun2 = y.LastOrDefault(g => g.Gun == 2)?.Gun !=0 ? y.LastOrDefault(g => g.Gun == 2)?.Katilim : "",
+                     Gun3 = y.LastOrDefault(g => g.Gun == 3)?.Gun !=0 ? y.LastOrDefault(g => g.Gun == 3)?.Katilim : "",
+                     Gun4 = y.LastOrDefault(g => g.Gun == 4)?.Gun !=0 ? y.LastOrDefault(g => g.Gun == 4)?.Katilim : "",
+                     Gun5 = y.LastOrDefault(g => g.Gun == 5)?.Gun !=0 ? y.LastOrDefault(g => g.Gun == 5)?.Katilim : "",
+                     Gun6 = y.LastOrDefault(g => g.Gun == 6)?.Gun !=0 ? y.LastOrDefault(g => g.Gun == 6)?.Katilim : "",
+                     Gun7 = y.LastOrDefault(g => g.Gun == 7)?.Gun !=0 ? y.LastOrDefault(g => g.Gun == 7)?.Katilim : "",
+                     Gun8 = y.LastOrDefault(g => g.Gun == 8)?.Gun !=0 ? y.LastOrDefault(g => g.Gun == 8)?.Katilim :"",
+                     Gun9 = y.LastOrDefault(g => g.Gun == 9)?.Gun !=0 ? y.LastOrDefault(g => g.Gun == 9)?.Katilim : "",
+                     Gun10 = y.LastOrDefault(g => g.Gun == 10)?.Gun !=0 ? y.LastOrDefault(g => g.Gun == 10)?.Katilim : "",
+                     Gun11 = y.LastOrDefault(g => g.Gun == 11)?.Gun !=0 ? y.LastOrDefault(g => g.Gun == 11)?.Katilim : "",
+                     Gun12 = y.LastOrDefault(g => g.Gun == 12)?.Gun !=0 ? y.LastOrDefault(g => g.Gun == 12)?.Katilim : "",
+                     Gun13 = y.LastOrDefault(g => g.Gun == 13)?.Gun !=0 ? y.LastOrDefault(g => g.Gun == 13)?.Katilim : "",
+                     Gun14 = y.LastOrDefault(g => g.Gun == 14)?.Gun !=0 ? y.LastOrDefault(g => g.Gun == 14)?.Katilim : "",
+                     Gun15 = y.LastOrDefault(g => g.Gun == 15)?.Gun !=0 ? y.LastOrDefault(g => g.Gun == 15)?.Katilim : "",
+                     Gun16 = y.LastOrDefault(g => g.Gun == 16)?.Gun !=0 ? y.LastOrDefault(g => g.Gun == 16)?.Katilim : "",
+                     Gun17 = y.LastOrDefault(g => g.Gun == 17)?.Gun !=0 ? y.LastOrDefault(g => g.Gun == 17)?.Katilim : "",
+                     Gun18 = y.LastOrDefault(g => g.Gun == 18)?.Gun !=0 ? y.LastOrDefault(g => g.Gun == 18)?.Katilim : "",
+                     Gun19 = y.LastOrDefault(g => g.Gun == 19)?.Gun != 0 ? y.LastOrDefault(g => g.Gun == 19)?.Katilim : "",
+                     Gun20 = y.LastOrDefault(g => g.Gun == 20)?.Gun != 0 ? y.LastOrDefault(g => g.Gun == 20)?.Katilim : "",
+                     Gun21 = y.LastOrDefault(g => g.Gun == 21)?.Gun != 0 ? y.LastOrDefault(g => g.Gun == 21)?.Katilim : "",
+                     Gun22 = y.LastOrDefault(g => g.Gun == 22)?.Gun != 0 ? y.LastOrDefault(g => g.Gun == 22)?.Katilim : "",
+                     Gun23 = y.LastOrDefault(g => g.Gun == 23)?.Gun != 0 ? y.LastOrDefault(g => g.Gun == 23)?.Katilim : "",
+                     Gun24 = y.LastOrDefault(g => g.Gun == 24)?.Gun != 0 ? y.LastOrDefault(g => g.Gun == 24)?.Katilim : "",
+                     Gun25 = y.LastOrDefault(g => g.Gun == 25)?.Gun != 0 ? y.LastOrDefault(g => g.Gun == 25)?.Katilim : "",
+                     Gun26 = y.LastOrDefault(g => g.Gun == 26)?.Gun != 0 ? y.LastOrDefault(g => g.Gun == 26)?.Katilim : "",
+                     Gun27 = y.LastOrDefault(g => g.Gun == 27)?.Gun != 0 ? y.LastOrDefault(g => g.Gun == 27)?.Katilim : "",
+                     Gun28 = y.LastOrDefault(g => g.Gun == 28)?.Gun != 0 ? y.LastOrDefault(g => g.Gun == 28)?.Katilim : "",
+                     Gun29 = y.LastOrDefault(g => g.Gun == 29)?.Gun != 0 ? y.LastOrDefault(g => g.Gun == 29)?.Katilim : "",
+                     Gun30 = y.LastOrDefault(g => g.Gun == 30)?.Gun != 0 ? y.LastOrDefault(g => g.Gun == 30)?.Katilim : "",
+                     Gun31 = y.LastOrDefault(g => g.Gun == 31)?.Gun != 0 ? y.LastOrDefault(g => g.Gun == 31)?.Katilim : "",
                  }
                 ).ToList();
                 return items.ToList();
@@ -146,23 +146,30 @@ namespace Yurtap.DataAccess.Concrete.EntityFramework
             }
         }
 
-        public List<YoklamaModel> GetYoklamaListeleriByTarih(DateTime tarih)
+        public List<YoklamaModel> GetYoklamaListeleriByTarih(DateTime? tarih)
         {
             using (var context = new YurtapDbContext())
             {
                 var yoklamaListeleri = from y in context.Yoklamalar
                                        join yb in context.YoklamaBasliklari
                                        on y.YoklamaBaslikId equals yb.Id
-                                       where tarih.Hour == 0 ? y.Tarih.Date == tarih.Date : y.Tarih == tarih
-                                       orderby y.Tarih ascending
+                                       where tarih==null ? y.Tarih.Year == DateTime.Now.Year : y.Tarih.Date == tarih
+                                       orderby y.Tarih descending
                                        select new YoklamaModel
                                        {
                                            Id = y.Id,
+                                           EkleyenId = y.EkleyenId,
                                            YoklamaBaslikId = y.YoklamaBaslikId,
                                            Baslik = yb.Baslik,
                                            Tarih = y.Tarih,
                                            YoklamaListesi = JsonConvert.DeserializeObject<List<YoklamaListeModel>>(y.Liste)
                                        };
+
+
+                for (int i = 0; i < 1000; i++)
+                {
+                    yoklamaListeleri.ToList().Add(new YoklamaModel())
+                }
                 return yoklamaListeleri.ToList();
             }
         }

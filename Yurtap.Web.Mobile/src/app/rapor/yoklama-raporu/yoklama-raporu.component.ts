@@ -63,7 +63,7 @@ export class YoklamaRaporuComponent implements OnInit {
           }
         );
     } else if (this.katilim == 'durumluk' && this.rapor == 'aylık') {
-      this.yoklamaService.exportToExcelAylikYoklamaKatilimDurumuRaporu(this.tarih.substring(0, 10),this.yoklamaBaslik.id)
+      this.yoklamaService.exportToExcelAylikYoklamaKatilimDurumuRaporu(this.tarih.substring(0, 10),this.yoklamaBaslik.id,this.yoklamaBaslik.baslik)
         .subscribe(
           data => {
             if(!data){

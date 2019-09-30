@@ -12,7 +12,7 @@ import { ErrorsModule } from './errors';
 import { PersonelListesiComponent } from './personel/personel-listesi/personel-listesi.component';
 import { YeniPersonelComponent } from './personel/yeni-personel/yeni-personel.component';
 import { YeniYoklamaComponent } from './yoklama/yeni-yoklama/yeni-yoklama.component';
-import { YoklamaListesiComponent } from './yoklama/yoklama-listesi/yoklama-listesi.component';
+import { YoklamaListesiComponent } from './yoklama/yoklama-listeleri/yoklama-listesi.component';
 import { YoklamaDetayComponent } from './yoklama/yoklama-detay/yoklama-detay.component';
 import { YapimAsamasindaComponent } from './errors/yapimAsamasinda/yapimAsamasinda.component';
 import { SortPipe } from './pipes/SortPipe';
