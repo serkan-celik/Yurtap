@@ -19,6 +19,10 @@ export class YoklamaBaslikListesiComponent implements OnInit {
   yoklamaBaslik: YoklamaBaslik = new YoklamaBaslik();
 
   ngOnInit() {
+
+  }
+
+  ionViewDidEnter() {
     this.getYoklamaBaslikListesi();
   }
 

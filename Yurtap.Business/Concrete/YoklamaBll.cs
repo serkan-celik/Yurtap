@@ -128,8 +128,8 @@ namespace Yurtap.Business.Concrete
                 worksheet.Cells["A3:B3"].Value = "Yoklama Görevlisi: " + kisi?.Ad + " " + kisi?.Soyad;
                 worksheet.Cells["E3:F3"].Value = "Yoklama Tarihi: " + yoklama.Tarih.ToString("dd.MM.yyyy HH:mm");
                 worksheet.Cells["A1:F4"].Style.Font.Bold = true;
-                worksheet.Cells["A5:B50"].Style.Font.Bold = true;
-                worksheet.Cells["D5:E50"].Style.Font.Bold = true;
+                worksheet.Cells["A5:B54"].Style.Font.Bold = true;
+                worksheet.Cells["D5:E54"].Style.Font.Bold = true;
 
                 //Döküman verileri hizalanıyor
                 worksheet.Cells.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
@@ -162,6 +162,12 @@ namespace Yurtap.Business.Concrete
                 var j = 5;
                 var k = 5;
                 int rowCount = 1;
+                int newRow = 100 - yoklama.YoklamaListesi.Count;
+                for (int i = 0; i < newRow; i++)
+                {
+                    yoklama.YoklamaListesi.Add(new YoklamaListeModel());
+                }
+
                 foreach (var yoklamaItem in yoklama.YoklamaListesi)
                 {
                     if (rowCount > 50) //50. kayıttan sonra veriler sayfanın sağ bölmesine yerleştirir.
@@ -176,7 +182,7 @@ namespace Yurtap.Business.Concrete
 
                     worksheet.Cells["A" + j].Value = j - 4;
                     worksheet.Cells["B" + j].Value = string.Join(' ', yoklamaItem.Ad, yoklamaItem.Soyad).Insert(0, " ");
-                    worksheet.Cells["B4:B50"].AutoFitColumns(31);
+                    worksheet.Cells["B4"].AutoFitColumns(31);
                     worksheet.Cells["E4:E50"].AutoFitColumns(31);
                     worksheet.Cells["C" + j].Value = yoklamaItem.Durum;
                     //S.N-2 Kolon

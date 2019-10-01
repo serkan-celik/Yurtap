@@ -24,8 +24,8 @@ namespace Yurtap.DataAccess.Concrete.EntityFramework
                                  join kisi in context.Kisiler on ogrenci.Id equals kisi.Id
                                  join kullanici in context.Kullanicilar on kisi.Id equals kullanici.Id into u 
                                  from kullanici in u.DefaultIfEmpty()
-                                 orderby kisi.Ad, kisi.Soyad ascending 
                                  where ogrenci.Durum == DurumEnum.Aktif && kisi.Durum == DurumEnum.Aktif
+                                 orderby kisi.Ad, kisi.Soyad ascending
                                  select new OgrenciModel
                                  {
                                      KisiId = kisi.Id,

@@ -83,7 +83,7 @@ namespace Yurtap.Business.Concrete
         public OgrenciModel GetOgrenciByKisiId(int kisiId)
         {
             bool kullaniciMi = _kullaniciBll.IsKullanici(kisiId);
-            var ogrenci = GetOgrenciListesi().SingleOrDefault(o => o.KisiId == kisiId);
+            OgrenciModel ogrenci = GetOgrenciListesi().SingleOrDefault(o => o.KisiId == kisiId);
             if (kullaniciMi)
                 ogrenci.Hesap = true;
             else

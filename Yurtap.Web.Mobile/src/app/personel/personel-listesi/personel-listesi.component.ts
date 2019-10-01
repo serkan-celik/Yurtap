@@ -25,7 +25,7 @@ export class PersonelListesiComponent implements OnInit {
     
     }
 
-    ionViewWillEnter(){
+    ionViewDidEnter(){
         this.getPersonelListesi();
     }
 

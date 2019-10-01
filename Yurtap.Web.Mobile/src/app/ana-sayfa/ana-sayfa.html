@@ -14,13 +14,13 @@
     <img src="/assets/shapes.svg" alt="" />
     <ion-card-header>
       <ion-card-subtitle *ngIf="false">Yardım</ion-card-subtitle>
-      <ion-card-title>Yurtap yoklama takip sistemine hoşgeldiniz</ion-card-title>
+      <ion-card-title>Yoklama Takip Sistemine Hoşgeldiniz.</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ul>
-        <li>Bu sistemde öğrencilerinizin günlük yoklamalarını anlık olarak alabilirsiniz.</li>
+        <li>Bu sistemde öğrencilerinizin günlük yoklamalarını alabilirsiniz.</li>
         <li>Yoklamaları sorgulayabilir ve güncelleyebilirsiniz.</li>
-        <li>Yoklamaları excel dökümanı olarak çıktısını alabilirsiniz.</li>
+        <li>Yoklamaları excel dökümanı halinde ayrıntılı raporlar alabilirsiniz.</li>
         <li>Öğrenci ve personel bilgilerini yönetebilirsiniz.</li>
       </ul>
       <ion-button *ngIf="!currentUser.isLogged" [routerLink]="['/hesap/giris']">Giriş Yap</ion-button>

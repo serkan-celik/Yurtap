@@ -20,6 +20,7 @@
         <ion-select *ngIf="!this.duzenlemeModu" name="yoklamaBaslikId" style="max-width:100%;margin:auto"
           [(ngModel)]="yoklama.yoklamaBaslikId" placeholder="Yoklama başlığı seçiniz" okText="Tamam" cancelText="Vazgeç"
           required ngModel>
+          <ion-label>Yoklama Başlığı</ion-label>
           <ion-select-option *ngFor="let baslik of yoklamaBaslikListesi" [value]="baslik.id"
             [selected]="yoklama.yoklamaBaslikId==baslik.id">{{baslik.baslik}}</ion-select-option>
           <ion-label *ngIf="yoklamaBaslikListesi.length==0">Yoklama başlığı tanımlamadan yoklama alamazsınız.
@@ -46,7 +47,7 @@
         </ion-grid>
       </ion-item>
       <ion-item *ngIf="this.duzenlemeModu">
-        <ion-label>Yoklama Filtrele:</ion-label>
+        <ion-label>Yoklama durumuna göre filtrele:</ion-label>
         <ion-select name="durum" [(ngModel)]="yoklamaDurum" (ionChange)="changeYoklamaDurum()" interface="popover"
           ngModel>
           <ion-select-option [value]="-1">Tümü</ion-select-option>
@@ -64,6 +65,7 @@
         <ion-select [id]="yoklamaListesi.kisiId" [name]="yoklamaListesi.kisiId"
           [(ngModel)]="yoklamaListesi.yoklamaDurum" (ionChange)="changeItemColor(item,yoklamaListesi)" slot="end"
           okText="Tamam" cancelText="Vazgeç">
+          <ion-label>Yoklama Durumu</ion-label>
           <ion-select-option *ngFor="let tur of yoklamaTurleri" [value]="tur.value"
             [selected]="yoklamaListesi.yoklamaDurum==tur.value">{{tur.text}}</ion-select-option>
         </ion-select>
@@ -105,7 +107,7 @@
     </ion-list>
   </form>
   <ion-fab *ngIf="yoklama.yoklamaListesi.length>0" vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="yoklamaKaydet(yoklamaForm)" [disabled]="filterText.length>0">
+    <ion-fab-button (click)="yoklamaKaydet(yoklamaForm)" [disabled]="filterText.length>0||yoklamaDurum>-1">
       <ion-icon name="checkmark"></ion-icon>
     </ion-fab-button>
   </ion-fab>

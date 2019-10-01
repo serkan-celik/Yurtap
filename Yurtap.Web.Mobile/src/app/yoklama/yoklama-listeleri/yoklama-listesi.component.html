@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-item> 
+  <ion-item>
     <ion-label *ngIf="listeGorunum" style="font-weight :bold">Tüm Yoklamalar</ion-label>
     <ion-label *ngIf="takvimGorunum" style="font-weight :bold">Günlük Yoklamalar</ion-label>
     <div slot="end">
@@ -58,4 +58,37 @@
       alınmış bir yoklama
       yoktur</ion-card-subtitle>
   </div>
+  <!-- Skeleton screen -->
+  <ion-list *ngIf="yoklamalarListesi.length==0" class="ion-padding custom-skeleton">
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+  </ion-list>
 </ion-content>

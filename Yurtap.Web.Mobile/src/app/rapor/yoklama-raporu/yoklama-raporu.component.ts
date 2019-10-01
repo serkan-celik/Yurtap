@@ -19,10 +19,10 @@ export class YoklamaRaporuComponent implements OnInit {
     private yoklamaBaslikService: YoklamaBaslikService,
     private yoklamaService: YoklamaService,
     private toastService: ToastService,
-    private alertService:AlertService
+    private alertService: AlertService
   ) { }
-  katilim: string="durumluk";
-  rapor: string="aylık";
+  katilim: string = "durumluk";
+  rapor: string = "aylık";
   tarih: string = moment().toLocaleString();
   yoklamaBaslikListesi: YoklamaBaslik[] = [];
   yoklamaBaslikId: number;
@@ -51,10 +51,6 @@ export class YoklamaRaporuComponent implements OnInit {
       this.yoklamaService.exportToExcelVakitlikYoklamaRaporu(this.yoklama)
         .subscribe(
           data => {
-            if(!data){
-              this.alertService.basicAlert("Seçilen kriterlerde rapor yoktur.");
-              return;
-            }
             this.toastService.showToast("İndiriliyor...");
             saveAs(data, moment(this.yoklama.tarih).format("DD.MM.YYYY HH.mm") + "-" + this.yoklama.baslik + '.xlsx');
           },
@@ -63,15 +59,11 @@ export class YoklamaRaporuComponent implements OnInit {
           }
         );
     } else if (this.katilim == 'durumluk' && this.rapor == 'aylık') {
-      this.yoklamaService.exportToExcelAylikYoklamaKatilimDurumuRaporu(this.tarih.substring(0, 10),this.yoklamaBaslik.id,this.yoklamaBaslik.baslik)
+      this.yoklamaService.exportToExcelAylikYoklamaKatilimDurumuRaporu(this.tarih.substring(0, 10), this.yoklamaBaslik.id, this.yoklamaBaslik.baslik)
         .subscribe(
           data => {
-            if(!data){
-              this.alertService.basicAlert("Seçilen kriterlerde rapor yoktur.");
-              return;
-            }
             this.toastService.showToast("İndiriliyor...");
-            saveAs(data, moment(this.tarih).format("MM.YYYY") + "-" + this.yoklamaBaslik.baslik+ '.xlsx');
+            saveAs(data, moment(this.tarih).format("MM.YYYY") + "-" + this.yoklamaBaslik.baslik + '.xlsx');
           },
           error => {
             this.alertService.basicAlert("Seçilen kriterlerde rapor yoktur.");
@@ -82,10 +74,6 @@ export class YoklamaRaporuComponent implements OnInit {
       this.yoklamaService.exportToExcelAylikYoklamaKatilimYuzdesiRaporu(this.tarih.substring(0, 10))
         .subscribe(
           data => {
-            if(!data){
-              this.alertService.basicAlert("Seçilen kriterlerde rapor yoktur.");
-              return;
-            }
             this.toastService.showToast("İndiriliyor...");
             saveAs(data, moment(this.tarih).format("MM.YYYY") + "-Aylık Yüzdelik Katılım.xlsx");
           },

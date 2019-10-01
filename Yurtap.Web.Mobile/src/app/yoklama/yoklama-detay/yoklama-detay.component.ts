@@ -27,7 +27,7 @@ export class YoklamaDetayComponent implements OnInit {
     
   }
 
-  ionViewWillEnter(){
+  ionViewDidEnter(){
     this.getYoklama();
   }
 

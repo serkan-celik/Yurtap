@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Yurtap.Business.Abstract;
@@ -31,11 +32,13 @@ namespace Yurtap.Business.Concrete
 
         public List<YoklamaBaslikModel> GetYoklamaBaslikListesi()
         {
-            return _yoklamaBaslikDal.GetList(y=>y.Durum == DurumEnum.Aktif).OrderBy(y=>y.Baslik).Select(y => new YoklamaBaslikModel
-            {
-                Id = y.Id,
-                Baslik = y.Baslik
-            }).ToList();
+            return _yoklamaBaslikDal.GetList(y => y.Durum == DurumEnum.Aktif)
+                .OrderBy(y => y.Baslik.ToLower(CultureInfo.CurrentCulture))
+                .Select(y => new YoklamaBaslikModel
+                {
+                    Id = y.Id,
+                    Baslik = y.Baslik
+                }).ToList();
         }
 
         public YoklamaBaslikEntity UpdateYoklamaBaslik(YoklamaBaslikEntity yoklamaBaslikEntity)

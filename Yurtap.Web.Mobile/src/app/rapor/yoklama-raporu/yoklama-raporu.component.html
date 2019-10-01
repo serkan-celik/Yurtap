@@ -40,7 +40,7 @@
       <ion-row>
         <ion-col>
           <ion-item [disabled]="katilim=='yüzdelik'">
-            <ion-radio [checked]="katilim=='yüzdelik'?false:undefined" value="saatlik">
+            <ion-radio (ionSelect)="getYoklamaListesi()" [checked]="katilim=='yüzdelik'?false:undefined" value="saatlik">
             </ion-radio>
             <ion-label>&nbsp;Saatlik rapor</ion-label>
           </ion-item>

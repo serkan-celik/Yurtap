@@ -55,7 +55,7 @@ export class OgrenciListesiComponent implements OnInit {
  
   }
 
-  ionViewWillEnter(){
+  ionViewDidEnter(){
     this.getOgrenciListesi();
   }
 

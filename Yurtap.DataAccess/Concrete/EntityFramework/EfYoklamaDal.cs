@@ -165,11 +165,6 @@ namespace Yurtap.DataAccess.Concrete.EntityFramework
                                            YoklamaListesi = JsonConvert.DeserializeObject<List<YoklamaListeModel>>(y.Liste)
                                        };
 
-
-                for (int i = 0; i < 1000; i++)
-                {
-                    yoklamaListeleri.ToList().Add(new YoklamaModel())
-                }
                 return yoklamaListeleri.ToList();
             }
         }
