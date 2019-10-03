@@ -1,0 +1,6 @@
+<ion-button *ngIf="currentUser.isLogged" color="light" (click)="presentPopover($event)">
+    <ion-icon name="person"></ion-icon>
+    <ion-label *ngIf="isDesktop">&nbsp;&nbsp;{{currentUser.fullName}}</ion-label>
+    <ion-icon slot="end" name="arrow-dropdown"></ion-icon>
+</ion-button>
+<ion-button *ngIf="!currentUser.isLogged" [routerLink]="['/hesap/giris']">Giriş Yap</ion-button>

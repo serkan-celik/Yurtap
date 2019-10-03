@@ -296,8 +296,6 @@ namespace Yurtap.Business.Concrete
 
                 //Dökümana veriler ekleniyor.
                 var j = 5;
-                var k = 5;
-                int rowCount = 1;
                 var yoklamaListesi = _yoklamaDal.GetYoklamaKatilimDurumuAylikRaporListesi(tarih, yoklamaBaslikId);
 
 
@@ -341,13 +339,13 @@ namespace Yurtap.Business.Concrete
                 }
 
                 //Döküman verilerinin tümü ortalalanıyor.
-                worksheet.Cells["A4:A100"].AutoFitColumns(3.5, 3.5);
-                worksheet.Cells["B4:B100"].AutoFitColumns();
+                worksheet.Cells["A4:A50"].AutoFitColumns(3.5, 3.5);
+                worksheet.Cells["B4:B50"].AutoFitColumns();
                 worksheet.Cells["A5:A50"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                worksheet.Cells["C4:AG100"].AutoFitColumns(3.5, 3.5);
-                worksheet.Cells["C4:AG100"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                worksheet.Cells["C4:AG50"].AutoFitColumns(3.5, 3.5);
+                worksheet.Cells["C4:AG50"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 worksheet.Cells["C4:C50"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                worksheet.Cells["D5:D100"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                worksheet.Cells["D5:D50"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
                 worksheet.Cells["F4:F50"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
@@ -360,116 +358,116 @@ namespace Yurtap.Business.Concrete
 
         public byte[] ExportToExcelAylikYoklamaKatilimYuzdesiRaporu(DateTime tarih)
         {
-            //var kisi = _kisiBll.GetKisi(yoklama.EkleyenId);
-            var comlumHeaders = new List<string>
+
+                //var kisi = _kisiBll.GetKisi(yoklama.EkleyenId);
+                var comlumHeaders = new List<string>
        {
                 "S.N",
                 "ADI SOYADI"
        };
 
-            byte[] result;
+                byte[] result;
 
-            using (var package = new ExcelPackage())
-            {
-                //Yeni bir excel dökümanı ve yoklama başlığı adında sekme oluşturuluyor
-                var worksheet = package.Workbook.Worksheets.Add("AYLIK YOKLAMALARA KATILIM ORANLARI");
-
-                //Yoklama başlıklarının tümü ortalanıyor
-                using (var cells = worksheet.Cells[4, 1, 4, 33]) //(1,1) (1,5)
+                using (var package = new ExcelPackage())
                 {
-                    cells.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                }
+                    //Yeni bir excel dökümanı ve yoklama başlığı adında sekme oluşturuluyor
+                    var worksheet = package.Workbook.Worksheets.Add("AYLIK YOKLAMALARA KATILIM ORANLARI");
 
-                //Dökümanın yazıcı ayarları
-                //worksheet.PrinterSettings.FitToPage = true;
-                worksheet.PrinterSettings.PaperSize = ePaperSize.A4;
-                worksheet.PrinterSettings.Orientation = eOrientation.Portrait;
-                worksheet.PrinterSettings.TopMargin = (decimal).5 / 2.54M;
-                //worksheet.PrinterSettings.RightMargin = 1M;
-                //worksheet.PrinterSettings.LeftMargin = 1M;
-                worksheet.PrinterSettings.HorizontalCentered = true;
-                worksheet.PrinterSettings.BottomMargin = (decimal).5 / 2.54M;
+                    //Yoklama başlıklarının tümü ortalanıyor
+                    using (var cells = worksheet.Cells[4, 1, 4, 33]) //(1,1) (1,5)
+                    {
+                        cells.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    }
+
+                    //Dökümanın yazıcı ayarları
+                    //worksheet.PrinterSettings.FitToPage = true;
+                    worksheet.PrinterSettings.PaperSize = ePaperSize.A4;
+                    worksheet.PrinterSettings.Orientation = eOrientation.Portrait;
+                    worksheet.PrinterSettings.HorizontalCentered = true;
+                    worksheet.PrinterSettings.TopMargin = (decimal).5 / 2.54M;
+                    worksheet.PrinterSettings.RightMargin = (decimal).5 / 2.54M;
+                    worksheet.PrinterSettings.LeftMargin = (decimal).5 / 2.54M;
+                    worksheet.PrinterSettings.BottomMargin = (decimal).5 / 2.54M;
 
                 //Döküman yapılandırması
                 worksheet.Cells["A1:H1"].Merge = true;
-                worksheet.Cells["A2:H2"].Merge = true;
-                worksheet.Cells["A3:H3"].Merge = true;
+                    worksheet.Cells["A2:H2"].Merge = true;
+                    worksheet.Cells["A3:H3"].Merge = true;
 
-                worksheet.Cells["A1"].Value = "MERKEZ ÖĞRENCİ YURDU";
-                worksheet.Cells["A2"].Value = string.Join(' ', Enum.Parse<MonthsEnum>(tarih.Month.ToString()).GetDisplayName().ToUpper(), tarih.Year.ToString(), "YOKLAMALARA KATILIM ORANLARI ÇİZELGESİ");
-                worksheet.Cells["A1:A2"].Style.Font.Size = 16;
-                //worksheet.Cells["A3:B3"].Value = "Personel: " + kisi?.Ad + " " + kisi?.Soyad;
-                worksheet.Cells["A3:B3"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
-                //worksheet.Cells["E3:F3"].Value = "Tarih: " + yoklama.Tarih.ToString("dd.MM.yyyy HH:mm");
-                worksheet.Cells["E3:F3"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
-                worksheet.Cells["A1:H4"].Style.Font.Bold = true;
-                worksheet.Cells["A5:B100"].Style.Font.Bold = true;
-                worksheet.Cells["A1:A2"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    worksheet.Cells["A1"].Value = "MERKEZ ÖĞRENCİ YURDU";
+                    worksheet.Cells["A2"].Value = string.Join(' ', Enum.Parse<MonthsEnum>(tarih.Month.ToString()).GetDisplayName().ToUpper(), tarih.Year.ToString(), "YOKLAMALARA KATILIM ORANLARI ÇİZELGESİ");
+                    worksheet.Cells["A1:A2"].Style.Font.Size = 16;
+                    //worksheet.Cells["A3:B3"].Value = "Personel: " + kisi?.Ad + " " + kisi?.Soyad;
+                    worksheet.Cells["A3:B3"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                    //worksheet.Cells["E3:F3"].Value = "Tarih: " + yoklama.Tarih.ToString("dd.MM.yyyy HH:mm");
+                    worksheet.Cells["E3:F3"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
+                    worksheet.Cells["A1:H4"].Style.Font.Bold = true;
+                    worksheet.Cells["A5:B50"].Style.Font.Bold = true;
+                    worksheet.Cells["A1:A2"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 
-                //Tüm döküman hücrelerine kenarlık ekleniyor.
-                worksheet.Cells.Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells.Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells.Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells.Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    //Tüm döküman hücrelerine kenarlık ekleniyor.
+                    worksheet.Cells.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                    worksheet.Cells.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                    worksheet.Cells.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                    worksheet.Cells.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                    worksheet.Cells.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
 
-                //Döküman başlıklarının kenarlıkları kaldırılıyor.
-                worksheet.Cells["A1:H3"].Style.Border.Right.Style = ExcelBorderStyle.None;
-                worksheet.Cells["A1:H3"].Style.Border.Left.Style = ExcelBorderStyle.None;
-                worksheet.Cells["A1:H3"].Style.Border.Right.Style = ExcelBorderStyle.None;
-                worksheet.Cells["A1:H3"].Style.Border.Top.Style = ExcelBorderStyle.None;
-                worksheet.Cells["A1:H3"].Style.Border.Bottom.Style = ExcelBorderStyle.None;
+                    //Döküman başlıklarının kenarlıkları kaldırılıyor.
+                    worksheet.Cells["A1:H3"].Style.Border.Right.Style = ExcelBorderStyle.None;
+                    worksheet.Cells["A1:H3"].Style.Border.Left.Style = ExcelBorderStyle.None;
+                    worksheet.Cells["A1:H3"].Style.Border.Right.Style = ExcelBorderStyle.None;
+                    worksheet.Cells["A1:H3"].Style.Border.Top.Style = ExcelBorderStyle.None;
+                    worksheet.Cells["A1:H3"].Style.Border.Bottom.Style = ExcelBorderStyle.None;
 
-                //Dökümana veriler ekleniyor.
-                var j = 5;
-                var k = 5;
-                int column = 3;
+                    //Dökümana veriler ekleniyor.
+                    var j = 5;
+                    int column = 3;
 
 
-                var yoklamaListesi = _yoklamaDal.GetYoklamaKatilimYuzdesiAylikRaporListesi(tarih);
-                foreach (var item in yoklamaListesi[0].YoklamaIstatistikleri)
-                {
-                    comlumHeaders.Add(item.YoklamaBaslik.Substring(0, item.YoklamaBaslik.IndexOf(' ')).ToUpper());
-                }
-
-                //Yoklama başlıkları ekleniyor
-                comlumHeaders.Add("GENEL");
-                for (var i = 0; i < comlumHeaders.Count(); i++)
-                {
-                    worksheet.Cells[4, i + 1].Value = comlumHeaders[i];
-                }
-
-                foreach (var yoklama in yoklamaListesi)
-                {
-                    worksheet.Cells["A" + j].Value = j - 4;
-                    worksheet.Cells["B" + j].Value = yoklama.AdSoyad.Insert(0, " ");
-                    foreach (var item in yoklama.YoklamaIstatistikleri)
-                    {
-                        if (column > comlumHeaders.Count())
+                    var yoklamaListesi = _yoklamaDal.GetYoklamaKatilimYuzdesiAylikRaporListesi(tarih);
+                        foreach (var item in yoklamaListesi[0].YoklamaIstatistikleri)
                         {
-                            break;
+                            comlumHeaders.Add(item.YoklamaBaslik.Substring(0, item.YoklamaBaslik.IndexOf(' ')).ToUpper());
                         }
-                        worksheet.Cells[j, column].Value = '%' + item.KatilimYuzdesi;
-                        ++column;
+
+                    //Yoklama başlıkları ekleniyor
+                    comlumHeaders.Add("GENEL");
+                    for (var i = 0; i < comlumHeaders.Count(); i++)
+                    {
+                        worksheet.Cells[4, i + 1].Value = comlumHeaders[i];
                     }
-                    worksheet.Cells[j, column].Value = '%' + yoklama.GenelKatilimYuzdesi;
-                    column = 3;
-                    ++j;
 
+                    foreach (var yoklama in yoklamaListesi)
+                    {
+                        worksheet.Cells["A" + j].Value = j - 4;
+                        worksheet.Cells["B" + j].Value = yoklama.AdSoyad.Insert(0, " ");
+                        foreach (var item in yoklama.YoklamaIstatistikleri)
+                        {
+                            if (column > comlumHeaders.Count())
+                            {
+                                break;
+                            }
+                            worksheet.Cells[j, column].Value = '%' + item.KatilimYuzdesi;
+                            ++column;
+                        }
+                        worksheet.Cells[j, column].Value = '%' + yoklama.GenelKatilimYuzdesi;
+                        column = 3;
+                        ++j;
+
+                    }
+
+                    //Döküman verilerinin tümü ortalalanıyor.
+                    worksheet.Cells["A4:A50"].AutoFitColumns(3.5, 3.5);
+                    worksheet.Cells["B4:B50"].AutoFitColumns();
+                    worksheet.Cells.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Cells["B5:B50"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+
+                    //worksheet.Cells.AutoFitColumns();
+
+                    result = package.GetAsByteArray();
+                    return result;
                 }
-
-                //Döküman verilerinin tümü ortalalanıyor.
-                worksheet.Cells["A4:A100"].AutoFitColumns(3.5, 3.5);
-                worksheet.Cells["C4:H100"].AutoFitColumns();//AutoFitColumns(3.5, 3.5);
-                worksheet.Cells["B4:B100"].AutoFitColumns();
-                worksheet.Cells.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                worksheet.Cells["B5:B100"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-
-                //worksheet.Cells.AutoFitColumns();
-
-                result = package.GetAsByteArray();
-                return result;
-            }
+            
         }
     }
 }

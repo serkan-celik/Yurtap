@@ -6,9 +6,9 @@
     <ion-title>
       Ana Sayfa
     </ion-title>
+    <pop-account-component slot="end"></pop-account-component>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <ion-card class="welcome-card">
     <img src="/assets/shapes.svg" alt="" />
@@ -23,7 +23,6 @@
         <li>Yoklamaları excel dökümanı halinde ayrıntılı raporlar alabilirsiniz.</li>
         <li>Öğrenci ve personel bilgilerini yönetebilirsiniz.</li>
       </ul>
-      <ion-button *ngIf="!currentUser.isLogged" [routerLink]="['/hesap/giris']">Giriş Yap</ion-button>
     </ion-card-content>
   </ion-card>
   <!--

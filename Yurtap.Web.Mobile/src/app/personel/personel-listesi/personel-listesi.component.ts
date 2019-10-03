@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { PersonelListe } from 'src/app/models/PersonelListe';
 import { PersonelService } from 'src/app/services/personel.service';
+import { IonItemSliding } from '@ionic/angular';
 
 @Component({
   selector: 'app-personel-listesi',
@@ -22,18 +23,22 @@ export class PersonelListesiComponent implements OnInit {
     veriYok:string="";
     
     ngOnInit() {
-    
+       this.getPersonelListesi();
     }
 
-    ionViewDidEnter(){
-        this.getPersonelListesi();
+    ionViewWillEnter() {
+      var personel = JSON.parse(localStorage.getItem("personel"));
+      if (personel && (JSON.stringify(personel) != JSON.stringify(this.personelListesi.find(o => o.kisiId == personel.kisiId)))) {
+        this.getPersonelListesi(); 
+      }
+      if (personel)
+      localStorage.removeItem("personel");
     }
 
     public getPersonelListesi() {
       this.personelService.getPersonelListesi().subscribe(data => {
         if(data.length == 0){
           this.veriYok = "Kayıtlı personel yok. Eklemek için butona tıklayınız.";
-          return;
         }  
         this.personelListesi = data; 
         this.filteredPersonelListesi = data;
@@ -52,7 +57,9 @@ export class PersonelListesiComponent implements OnInit {
   personelSil(personel) {
     this.alertService.confirmDeleteAlert(personel.ad + " " + personel.soyad + " silinsin mi?", this.personelService.deletePersonel(personel), this.personelListesi, personel,"Personel başarıyla silindi");
   }
-  personelDuzenle(personel) {
-    this.router.navigateByUrl("/personel-duzenle/" + personel.kisiId)
+  personelDuzenle(personel,itemSliding:IonItemSliding) {
+    localStorage.setItem("personel", JSON.stringify(personel));
+    this.router.navigateByUrl("/personel-duzenle/" + personel.kisiId);
+    itemSliding.close();
   }
 }

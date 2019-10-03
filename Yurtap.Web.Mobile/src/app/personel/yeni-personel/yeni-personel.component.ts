@@ -72,6 +72,7 @@ export class YeniPersonelComponent implements OnInit {
         }
       });
     }
+    localStorage.setItem("personel",JSON.stringify(this.personel));
   }
 
   tcKimlikNoDogrula(tcKimlikNo) {

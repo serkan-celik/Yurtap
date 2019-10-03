@@ -1,11 +1,11 @@
 import { HesapService } from './services/hesap/hesap.service';
 import { CurrentUser, Rol } from './models/account/CurrentUser';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 
 @Injectable({
   providedIn: "root"
 })
-export class BaseComponent {
+export class BaseComponent{
 
   public constructor(public hesapService: HesapService) {
   }

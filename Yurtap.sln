@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yurtap.Business", "Yurtap.B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yurtap.Web.API", "Yurtap.Web.API\Yurtap.Web.API.csproj", "{1FF848F6-743F-45CD-9ED5-2016161F128A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yurtap.Model", "Yurtap.Model\Yurtap.Model.csproj", "{03E1D718-9AF1-4EC5-9A9A-4D9A1106769C}"
+EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "www", "Yurtap.Web.Mobile\www\", "{A0FBFA10-2A1E-4D75-BF9B-798EDAC426CB}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
@@ -33,8 +35,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "www", "Yurtap.Web.Mobile\ww
 		VWDPort = "61578"
 		SlnRelativePath = "Yurtap.Web.Mobile\www\"
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yurtap.Model", "Yurtap.Model\Yurtap.Model.csproj", "{03E1D718-9AF1-4EC5-9A9A-4D9A1106769C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,14 +62,14 @@ Global
 		{1FF848F6-743F-45CD-9ED5-2016161F128A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FF848F6-743F-45CD-9ED5-2016161F128A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FF848F6-743F-45CD-9ED5-2016161F128A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A0FBFA10-2A1E-4D75-BF9B-798EDAC426CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A0FBFA10-2A1E-4D75-BF9B-798EDAC426CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A0FBFA10-2A1E-4D75-BF9B-798EDAC426CB}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{A0FBFA10-2A1E-4D75-BF9B-798EDAC426CB}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{03E1D718-9AF1-4EC5-9A9A-4D9A1106769C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{03E1D718-9AF1-4EC5-9A9A-4D9A1106769C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03E1D718-9AF1-4EC5-9A9A-4D9A1106769C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03E1D718-9AF1-4EC5-9A9A-4D9A1106769C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0FBFA10-2A1E-4D75-BF9B-798EDAC426CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0FBFA10-2A1E-4D75-BF9B-798EDAC426CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0FBFA10-2A1E-4D75-BF9B-798EDAC426CB}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0FBFA10-2A1E-4D75-BF9B-798EDAC426CB}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

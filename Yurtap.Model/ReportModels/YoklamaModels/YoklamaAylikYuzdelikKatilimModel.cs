@@ -6,6 +6,10 @@ namespace Yurtap.Model.ReportModels.YoklamaModels
 {
     public class YoklamaAylikYuzdelikKatilimModel
     {
+        public YoklamaAylikYuzdelikKatilimModel()
+        {
+            //YoklamaIstatistikleri = new List<YoklamaIstatistik>();
+        }
         public string AdSoyad { get; set; }
         public byte YoklamaBaslikId { get; set; }
         public string YoklamaBaslik { get; set; }

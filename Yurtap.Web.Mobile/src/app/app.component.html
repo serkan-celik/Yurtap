@@ -18,15 +18,6 @@
             <ion-card-subtitle>{{currentUser.fullName}}</ion-card-subtitle>
             <!--<ion-card-title>{{currentUser.fullName}}</ion-card-title>-->
           </ion-card-header>
-          <ion-card-content>
-            <ion-menu-toggle auto-hide="false">
-              <ion-item *ngIf="currentUser.isLogged" [routerLink]="['/sifre-degistir']">
-                <ion-icon name="settings"></ion-icon>Hesabım
-              </ion-item>
-            </ion-menu-toggle>
-            <!-- Keep close to Nature's heart... and break clear away, once in awhile,
-                and climb a mountain or spend a week in the woods. Wash your spirit clean.-->
-          </ion-card-content>
         </ion-card>
         <ion-list>
           <ion-menu-toggle auto-hide="false">
@@ -45,7 +36,7 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
-          <ion-button *ngIf="currentUser.isLogged" (click)="logOut()" expand="full" color="danger">
+          <ion-button *ngIf="false" (click)="logOut()" expand="full" color="danger">
             <ion-icon name="power"></ion-icon>
             <ion-label> Çıkış Yap</ion-label>
           </ion-button>

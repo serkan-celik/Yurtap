@@ -3,7 +3,6 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { PersonelListesiComponent } from './personel/personel-listesi/personel-listesi.component';
 import { YeniPersonelComponent } from './personel/yeni-personel/yeni-personel.component';
 import { YeniYoklamaComponent } from './yoklama/yeni-yoklama/yeni-yoklama.component';
-import { YoklamaListesiComponent } from './yoklama/yoklama-listeleri/yoklama-listesi.component';
 import { AdminGuard } from './hesap/guards/admin.guard'
 import { GirisComponent } from './hesap/giris/giris.component'
 import { SifreDegistirComponent } from './hesap/sifre-degistir/sifre-degistir.component';
@@ -50,7 +49,7 @@ const routes: Routes = [
   },
   {
     path: 'personel-listesi',
-    component: PersonelListesiComponent,
+    loadChildren: './personel/personel-listesi/personel-listesi.module#PersonelListesiModule',
     canActivate: [PersonelGuard]
   },
   {
@@ -60,51 +59,51 @@ const routes: Routes = [
   },
   {
     path: 'yeni-personel',
-    component: YeniPersonelComponent,
+    loadChildren: './personel/yeni-personel/yeni-personel.module#YeniPersonelModule',
     canActivate: [PersonelGuard]
   },
   {
     path: 'personel-duzenle/:kisiId',
-    component: YeniPersonelComponent,
+    loadChildren: './personel/yeni-personel/yeni-personel.module#YeniPersonelModule',
     canActivate: [PersonelGuard]
   },
   {
     path: 'yeni-yoklama',
-    component: YeniYoklamaComponent,
+    loadChildren: './yoklama/yeni-yoklama/yeni-yoklama.module#YeniYoklamaModule',
     canActivate: [YoklamaGuard]
   },
   {
     path: 'ogrenci-listesi',
-    component: OgrenciListesiComponent,
+    loadChildren: './ogrenci/ogrenci-listesi/ogrenci-listesi.module#OgrenciListesiModule',
     canActivate: [OgrenciGuard]
   },
   {
     path: 'yoklama-listeleri',
-    component: YoklamaListesiComponent,
+    loadChildren: './yoklama/yoklama-listeleri/yoklama-listeleri.module#YoklamaListeleriModule',
     canActivate: [YoklamaGuard]
   },
   {
-    path: 'yoklama-detay/:id',
-    component: YeniYoklamaComponent,
+    path: 'yoklama-listesi/:id',
+    loadChildren: './yoklama/yeni-yoklama/yeni-yoklama.module#YeniYoklamaModule',
     canActivate: [YoklamaGuard]
   },
   {
     path: 'hesap/giris',
-    component: GirisComponent
+    loadChildren: './hesap/giris/giris.module#GirisModule',
   },
   {
     path: 'sifre-degistir',
-    component: SifreDegistirComponent,
+    loadChildren: './hesap/sifre-degistir/sifre-degistir.module#SifreDegistirModule',
     canActivate: [LoginGuard]
   },
   {
     path: 'yoklama-baslik-listesi',
-    component: YoklamaBaslikListesiComponent,
+    loadChildren: './yoklama/yoklama-baslik-listesi/yoklama-baslik-listesi.module#YoklamaBaslikListesiModule',
     canActivate: [YoklamaGuard]
   },
   {
     path: 'yoklama-raporlari',
-    component: YoklamaRaporuComponent,
+    loadChildren: './rapor/yoklama-raporu/yoklama-raporu.module#YoklamaRaporuModule',
     canActivate: [AdminGuard]
   }
 ];

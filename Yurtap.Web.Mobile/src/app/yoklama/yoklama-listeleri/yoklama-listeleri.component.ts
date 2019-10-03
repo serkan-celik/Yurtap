@@ -5,10 +5,10 @@ import * as moment from 'moment';
 
 @Component({
   selector: 'app-yoklama-listesi',
-  templateUrl: './yoklama-listesi.component.html',
-  styleUrls: ['./yoklama-listesi.component.scss'],
+  templateUrl: './yoklama-listeleri.component.html',
+  styleUrls: ['./yoklama-listeleri.component.scss'],
 })
-export class YoklamaListesiComponent implements OnInit {
+export class YoklamaListeleriComponent implements OnInit {
 
   constructor(private yoklamaService: YoklamaService) { }
   secilenTarih: string = moment().utc(true).format("YYYY-MM-DD")
@@ -16,24 +16,37 @@ export class YoklamaListesiComponent implements OnInit {
   yoklamalarTakvimi: Yoklama[] = [];
   listeGorunum: boolean = true;
   takvimGorunum: boolean = false;
+  veriYok: string = "";
+  yoklamalarLength: number = 0;
 
   ngOnInit() {
-
-  }
-
-  ionViewDidEnter() {
     this.getYoklamalarListesi();
     this.getYoklamalarTakvimi();
   }
 
+  ionViewWillEnter() {
+    var length = localStorage.getItem("yoklamaLength");
+    if (this.yoklamalarLength == parseInt(length)) {
+      this.getYoklamalarListesi();
+      localStorage.removeItem("yoklamaLength")  
+    }
+  }
+
   getYoklamalarListesi() {
     this.yoklamaService.getYoklamaListeleriByTarih().subscribe(data => {
+      if (data.length == 0) {
+        this.veriYok = "Hiç yoklama kaydı yok.";
+      }
       this.yoklamalarListesi = data;
+      this.yoklamalarLength = data.length;
     });
   }
 
   getYoklamalarTakvimi() {
     this.yoklamaService.getYoklamaListeleriByTarih(this.secilenTarih.substring(0, 10)).subscribe(data => {
+      if (data.length == 0) {
+        this.veriYok = "Hiç yoklama kaydı yok.";
+      }
       this.yoklamalarTakvimi = data;
     });
   }

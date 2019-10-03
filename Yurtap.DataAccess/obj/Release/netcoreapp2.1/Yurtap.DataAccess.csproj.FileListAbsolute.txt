@@ -14,3 +14,5 @@ C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.DataAccess\obj\Release\net
 C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.DataAccess\obj\Release\netcoreapp2.1\Yurtap.DataAccess.csproj.CopyComplete
 C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.DataAccess\obj\Release\netcoreapp2.1\Yurtap.DataAccess.dll
 C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.DataAccess\obj\Release\netcoreapp2.1\Yurtap.DataAccess.pdb
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.DataAccess\bin\Release\netcoreapp2.1\Yurtap.Model.dll
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.DataAccess\bin\Release\netcoreapp2.1\Yurtap.Model.pdb

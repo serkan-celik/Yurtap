@@ -48,10 +48,6 @@ export class YeniYoklamaComponent implements OnInit {
   ]
 
   ngOnInit() {
-
-  }
-
-  ionViewDidEnter() {
     this.getYoklama();
     this.getYoklamaBaslikListesi();
   }
@@ -123,7 +119,9 @@ export class YeniYoklamaComponent implements OnInit {
     this.yoklama.tarih = moment(this.yoklama.tarih).format("YYYY-MM-DD HH:mm")
     if (!this.duzenlemeModu) {
       this.alertService.confirmAlert("Yoklama kaydedilsin mi?", this.yoklamaService.addYoklama(this.yoklama), "Yoklama başarıyla kaydedildi");
-
+      this.yoklamaService.getYoklamaListeleriByTarih().subscribe(data => {
+        localStorage.setItem("yoklamaLength", data.length.toString());
+      });
     }
     else {
       this.alertService.confirmAlert("Yoklama güncellensin mi?", this.yoklamaService.updateYoklama(this.yoklama), "Yoklama başarıyla güncellendi")

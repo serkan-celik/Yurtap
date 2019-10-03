@@ -725,6 +725,7 @@
       },
       "Yurtap.Business/1.0.0": {
         "dependencies": {
+          "EPPlus.Core": "1.5.4",
           "Yurtap.DataAccess": "1.0.0",
           "Yurtap.Entity": "1.0.0"
         },
@@ -750,7 +751,8 @@
         "dependencies": {
           "Microsoft.EntityFrameworkCore.SqlServer": "2.1.1",
           "Microsoft.EntityFrameworkCore.Tools.DotNet": "2.0.3",
-          "Yurtap.Entity": "1.0.0"
+          "Yurtap.Entity": "1.0.0",
+          "Yurtap.Model": "1.0.0"
         },
         "runtime": {
           "Yurtap.DataAccess.dll": {}
@@ -768,6 +770,17 @@
         },
         "compile": {
           "Yurtap.Entity.dll": {}
+        }
+      },
+      "Yurtap.Model/1.0.0": {
+        "dependencies": {
+          "Yurtap.Entity": "1.0.0"
+        },
+        "runtime": {
+          "Yurtap.Model.dll": {}
+        },
+        "compile": {
+          "Yurtap.Model.dll": {}
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
@@ -3937,6 +3950,11 @@
       "sha512": ""
     },
     "Yurtap.Entity/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Yurtap.Model/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

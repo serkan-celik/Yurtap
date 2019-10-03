@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Yoklama } from 'src/app/models/Yoklama';
 import { YoklamaDurumEnum } from 'src/app/enums/YoklamaDurumEnum';
 import { YoklamaListesi } from 'src/app/models/YoklamaListesi';
-import { YapimAsamasindaComponent } from 'src/app/errors/yapimAsamasinda/yapimAsamasinda.component';
 import { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
@@ -12,7 +11,7 @@ import { AlertService } from 'src/app/services/alert/alert.service';
   templateUrl: './yoklama-detay.component.html',
   styleUrls: ['./yoklama-detay.component.scss'],
 })
-export class YoklamaDetayComponent implements OnInit {
+export class YoklamaListesiComponent implements OnInit {
 
   constructor(
     private yoklamaService: YoklamaService,
@@ -24,10 +23,6 @@ export class YoklamaDetayComponent implements OnInit {
   filterText: string = "";
 
   ngOnInit() {
-    
-  }
-
-  ionViewDidEnter(){
     this.getYoklama();
   }
 

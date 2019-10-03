@@ -6,6 +6,7 @@
     <ion-title>
       Yoklama Başlık Listesi
     </ion-title>
+    <pop-account-component slot="end" class="ion-margin-end"></pop-account-component>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -16,8 +17,12 @@
       <ion-button (click)="yoklamaBaslikSil(yoklamaBaslik)" color="danger" title="Sil"><ion-icon name="close"></ion-icon></ion-button>
     </ion-item>
   </ion-list>
+  <div style="line-height: 20">
+    <ion-card-subtitle style="white-space: nowrap" class="ion-text-center" *ngIf="yoklamaBaslikListesi.length==0"
+      [innerHTML]="veriYok"></ion-card-subtitle>
+  </div>
       <!-- Skeleton screen -->
-      <ion-list *ngIf="yoklamaBaslikListesi.length==0" class="ion-padding custom-skeleton">
+      <ion-list *ngIf="yoklamaBaslikListesi.length==0&&veriYok.length==0" class="ion-padding custom-skeleton">
         <ion-item>
           <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
         </ion-item>
@@ -49,9 +54,6 @@
           <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
         </ion-item>
       </ion-list>
-  <div style="line-height: 20">
-    <ion-card-subtitle mode="md" class="ion-text-center" *ngIf="yoklamaBaslikListesi.length==0">Hiç yoklama başlığı yoktur.</ion-card-subtitle>
-  </div>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="yoklamaBaslikDuzenle(yoklamaBaslik)">
         <ion-icon name="add"></ion-icon>

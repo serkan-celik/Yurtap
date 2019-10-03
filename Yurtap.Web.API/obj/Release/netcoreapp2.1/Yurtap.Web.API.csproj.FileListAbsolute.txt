@@ -22,3 +22,5 @@ C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Web.API\obj\Release\netcor
 C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Web.API\obj\Release\netcoreapp2.1\Yurtap.Web.API.dll
 C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Web.API\obj\Release\netcoreapp2.1\Yurtap.Web.API.pdb
 C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Web.API\obj\Release\netcoreapp2.1\UserSecretsAssemblyInfo.cs
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Web.API\bin\Release\netcoreapp2.1\Yurtap.Model.dll
+C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.Web.API\bin\Release\netcoreapp2.1\Yurtap.Model.pdb

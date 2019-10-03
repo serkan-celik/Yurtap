@@ -1,0 +1,9 @@
+<ion-list *ngIf="currentUser.isLogged">
+  <ion-item><ion-icon name="person"></ion-icon><b>{{currentUser.fullName}}</b></ion-item>
+  <ion-item style="cursor: pointer" (click)="sifreDegistir()">
+      <ion-icon name="key"></ion-icon>Şifre Değiştir
+  </ion-item>
+  <ion-item style="cursor: pointer" (click)="cikisYap()">
+    <ion-icon name="power"></ion-icon>Çıkış Yap
+  </ion-item>
+</ion-list>

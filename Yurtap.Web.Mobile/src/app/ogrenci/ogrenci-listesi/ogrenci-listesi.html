@@ -6,6 +6,7 @@
     <ion-title>
       Öğrenci Listesi
     </ion-title>
+    <pop-account-component slot="end" class="ion-margin-end"></pop-account-component>
   </ion-toolbar>
 </ion-header>
 
@@ -28,9 +29,9 @@
     </ion-item>
   </ion-list>-->
   <ion-list>
-    <ion-item-sliding *ngFor="let ogrenci of ogrenciListesi; index as i">
+    <ion-item-sliding *ngFor="let ogrenci of ogrenciListesi; let i = index" #itemSliding>
       <ion-item-options side="start">
-        <ion-item-option (click)="ogrenciDuzenle(ogrenci)" class="ion-text-capitalize">
+        <ion-item-option (click)="ogrenciDuzenle(ogrenci,itemSliding)" class="ion-text-capitalize">
           <ion-icon name="create" slot="icon-only"></ion-icon>
         </ion-item-option>
       </ion-item-options>

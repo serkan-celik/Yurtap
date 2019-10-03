@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { GirisComponent } from './giris.component';
+import { PopModule } from 'src/app/popcomponent/pop-module.module';
 
 const routes: Routes = [
   {
@@ -12,13 +13,19 @@ const routes: Routes = [
   }
 ];
 
-/*@NgModule({
+@NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    PopModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: GirisComponent,
+      }
+    ])
   ],
-  declarations: [LoginPage]
+  declarations: [GirisComponent]
 })
-export class LoginPageModule {}*/
+export class GirisModule {}

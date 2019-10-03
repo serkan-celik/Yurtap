@@ -6,6 +6,7 @@
     <ion-title>
       Yoklama Listeleri
     </ion-title>
+    <pop-account-component slot="end" class="ion-margin-end"></pop-account-component>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -22,10 +23,10 @@
     </div>
   </ion-item>
   <ion-list *ngIf="listeGorunum">
-    <ion-item *ngFor="let yoklama of yoklamalarListesi" [routerLink]="['/yoklama-detay/' + yoklama.id]">
-      <ion-label style="font-weight :bold">{{yoklama.tarih | date:'dd.MM.yyyy'}}</ion-label>
-      <ion-label style="font-weight :bold">{{yoklama.baslik}}</ion-label>
-      <ion-label style="font-weight :bold" class="ion-text-end">{{yoklama.tarih | date:'HH:mm'}}</ion-label>
+    <ion-item *ngFor="let yoklama of yoklamalarListesi" [routerLink]="['/yoklama-listesi/' + yoklama.id]" style="font-weight :bold">
+      <ion-col size="3.5"><ion-label>{{yoklama.tarih | date:'dd.MM.yyyy'}}</ion-label></ion-col>
+      <ion-col size="6.6"><ion-label>{{yoklama.baslik}}</ion-label></ion-col>
+      <ion-col size="1.9"><ion-label class="ion-text-end">{{yoklama.tarih | date:'HH:mm'}}</ion-label></ion-col>
     </ion-item>
   </ion-list>
   <ion-list *ngIf="takvimGorunum">
@@ -54,12 +55,15 @@
     </ion-item>
   </ion-list>
   <div style="line-height: 20">
-    <ion-card-subtitle mode="md" class="ion-text-center" *ngIf="yoklamalarTakvimi.length==0&&takvimGorunum">Bu tarihte
-      alınmış bir yoklama
-      yoktur</ion-card-subtitle>
+    <ion-card-subtitle style="white-space: nowrap" class="ion-text-center"
+      *ngIf="(yoklamalarListesi.length==0&&listeGorunum == true)||(yoklamalarTakvimi.length==0&&takvimGorunum==true)"
+      [innerHTML]="veriYok">
+    </ion-card-subtitle>
   </div>
   <!-- Skeleton screen -->
-  <ion-list *ngIf="yoklamalarListesi.length==0" class="ion-padding custom-skeleton">
+  <ion-list
+    *ngIf="((yoklamalarListesi.length==0&&listeGorunum == true)||(yoklamalarTakvimi.length==0&&takvimGorunum==true))&&veriYok.length==0"
+    class="ion-padding custom-skeleton">
     <ion-item>
       <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
     </ion-item>

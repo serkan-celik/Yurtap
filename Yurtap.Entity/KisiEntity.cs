@@ -9,29 +9,8 @@ namespace Yurtap.Entity
 {
     public class KisiEntity : EntityBase<int>
     {
-        private string _ad;
-        public string Ad {
-            get
-            {
-                return _ad;
-            }
-            set
-            {
-                _ad = value.Trim().ToUpper();
-            }
-        }
-        private string _soyad;
-        public string Soyad
-        {
-            get
-            {
-                return _soyad;
-            }
-            set
-            {
-                _soyad = value.Trim().ToUpper();
-            }
-        }
+        public string Ad { get; set; }
+        public string Soyad { get; set; }
         public string TcKimlikNo { get; set; }
     }
 }

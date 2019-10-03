@@ -9,7 +9,8 @@ namespace Yurtap.Core.Utilities.ExtensionMethods
     {
         public static string ToTitleCase(this string text)
         {
-            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(text.ToLower());
+            CultureInfo cultureInfo = new CultureInfo("tr-TR", false);
+            return cultureInfo.TextInfo.ToTitleCase(text.ToLower(cultureInfo));
         }
 
         public static string ConvertTRCharToENChar(this string text)

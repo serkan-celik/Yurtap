@@ -66,7 +66,7 @@ export class YeniOgrenciComponent extends BaseComponent implements OnInit {
           this.toastService.showToast("Öğrenci güncellendi.");
         }
       }, error => {
-        console.log(error.error);
+        //console.log(error.error);
         this.toastService.showToast(error.error);
       })
     }
@@ -81,6 +81,7 @@ export class YeniOgrenciComponent extends BaseComponent implements OnInit {
         this.toastService.showToast(error.error);
       }*/)
     }
+    localStorage.setItem("ogrenci",JSON.stringify(this.ogrenci));
   }
 
   tcKimlikNoDogrula(tcKimlikNo) {

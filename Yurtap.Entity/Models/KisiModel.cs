@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Text;
 
 namespace Yurtap.Entity.Models
@@ -12,11 +13,11 @@ namespace Yurtap.Entity.Models
         public string Ad {
             get
             {
-                return _ad.Trim().ToUpper();
+                return _ad;
             }
             set
             {
-                _ad = value;
+                _ad = value.Trim().ToUpper(new CultureInfo("tr-TR"));
             }
         }
         private string _soyad;
@@ -24,11 +25,11 @@ namespace Yurtap.Entity.Models
         {
             get
             {
-                return _soyad.Trim().ToUpper(); ;
+                return _soyad;
             }
             set
             {
-                _soyad = value;
+                _soyad = value.Trim().ToUpper(new CultureInfo("tr-TR"));
             }
         }
         public string TcKimlikNo { get; set; }

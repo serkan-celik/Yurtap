@@ -69,7 +69,7 @@ export class AppComponent extends BaseComponent {
     public hesapService: HesapService,
   ) {
     super(hesapService);
-    this.initializeApp();
+   this.initializeApp();
 }
 
   ngOnInit() {
@@ -85,7 +85,7 @@ export class AppComponent extends BaseComponent {
   }
 
   initializeApp() {
-    this.platform.ready().then(() => {
+   this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });

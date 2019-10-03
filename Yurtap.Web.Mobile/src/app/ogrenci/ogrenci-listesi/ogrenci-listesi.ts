@@ -10,6 +10,7 @@ import { BaseComponent } from 'src/app/BaseComponent';
 import { HesapService } from 'src/app/services/hesap/hesap.service';
 import { RolEnum } from 'src/app/enums/RolEnum';
 import { Rol } from 'src/app/models/account/CurrentUser';
+import { IonItemSliding } from '@ionic/angular';
 
 @Component({
   selector: 'app-list',
@@ -33,7 +34,7 @@ export class OgrenciListesiComponent implements OnInit {
   public items: Array<{ title: string; note: string; icon: string }> = [];
   constructor(
     private ogrenciService: OgrenciService,
-    private router: Router, private alertService: AlertService,public hesapService:HesapService) {
+    private router: Router, private alertService: AlertService, public hesapService: HesapService) {
     //super(hesapService);
     for (let i = 1; i < 11; i++) {
       this.items.push({
@@ -47,26 +48,29 @@ export class OgrenciListesiComponent implements OnInit {
   ogrenciListesi: OgrenciListe[] = [];
   filteredOgrenciListesi: OgrenciListe[] = [];
   filterText: string = "";
-  veriYok:string="";
-
-  rol :Rol;
+  veriYok: string = "";
+  rol: Rol;
 
   ngOnInit() {
- 
+    this.getOgrenciListesi();
   }
 
-  ionViewDidEnter(){
-    this.getOgrenciListesi();
+  ionViewWillEnter() {
+    var ogrenci = JSON.parse(localStorage.getItem("ogrenci"));
+    if (ogrenci && (JSON.stringify(ogrenci) != JSON.stringify(this.ogrenciListesi.find(o => o.kisiId == ogrenci.kisiId)))) {
+      this.getOgrenciListesi();
+    }
+    if (ogrenci)
+    localStorage.removeItem("ogrenci");
   }
 
   getOgrenciListesi() {
     this.ogrenciService.getOgrenciListesi().subscribe(data => {
-      if(data.length == 0){
+      if (data.length == 0) {
         this.veriYok = "Kayıtlı öğrenci yok. Eklemek için butona tıklayınız.";
-        return;
       }
-      this.ogrenciListesi = data; 
-      this.filteredOgrenciListesi = data;    
+      this.ogrenciListesi = data;
+      this.filteredOgrenciListesi = data;
     });
   }
 
@@ -78,11 +82,11 @@ export class OgrenciListesiComponent implements OnInit {
      }));
   }*/
 
-    //Client-side filtering
-     filteredList() {
-      this.ogrenciListesi = this.filteredOgrenciListesi.filter(item => {
-       return (item.ad + " " + item.soyad).toLocaleLowerCase().indexOf(this.filterText.trim().toLocaleLowerCase()) > -1
-     });
+  //Client-side filtering
+  filteredList() {
+    this.ogrenciListesi = this.filteredOgrenciListesi.filter(item => {
+      return (item.ad + " " + item.soyad).toLocaleLowerCase().indexOf(this.filterText.trim().toLocaleLowerCase()) > -1
+    });
   }
 
   // add back when alpha.4 is out
@@ -95,7 +99,9 @@ export class OgrenciListesiComponent implements OnInit {
   ogrenciSil(ogrenci) {
     this.alertService.confirmDeleteAlert(ogrenci.ad + " " + ogrenci.soyad + " silinsin mi?", this.ogrenciService.deleteOgrenci(ogrenci), this.ogrenciListesi, ogrenci, "Kayıt silindi")
   }
-  ogrenciDuzenle(ogrenci) {
-    this.router.navigateByUrl("/ogrenci-duzenle/" + ogrenci.kisiId)
+  ogrenciDuzenle(ogrenci, itemSliding: IonItemSliding) {
+    localStorage.setItem("ogrenci", JSON.stringify(ogrenci));
+    this.router.navigateByUrl("/ogrenci-duzenle/" + ogrenci.kisiId);
+    itemSliding.close();
   }
 }

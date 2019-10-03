@@ -17,17 +17,18 @@ export class YoklamaBaslikListesiComponent implements OnInit {
     private toastService: ToastService) { }
   yoklamaBaslikListesi: YoklamaBaslik[] = [];
   yoklamaBaslik: YoklamaBaslik = new YoklamaBaslik();
+  veriYok: string = "";
 
   ngOnInit() {
-
-  }
-
-  ionViewDidEnter() {
     this.getYoklamaBaslikListesi();
   }
 
   getYoklamaBaslikListesi() {
     this.yoklamaBaslikService.getYoklamaBaslikListesi().subscribe(data => {
+      if (data.length == 0) {
+        this.veriYok = "Hiç yoklama başlığı yoktur.";
+        return;
+      }
       this.yoklamaBaslikListesi = data;
     })
   }
@@ -64,6 +65,7 @@ export class YoklamaBaslikListesiComponent implements OnInit {
                 if (data)
                   this.getYoklamaBaslikListesi();
                 this.toastService.showToast("Yoklama başlığı eklendi");
+                yoklamaBaslik.baslik = "";
               })
             }
           }
