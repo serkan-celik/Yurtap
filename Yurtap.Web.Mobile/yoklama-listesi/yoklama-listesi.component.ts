@@ -7,9 +7,9 @@ import { YoklamaListesi } from 'src/app/models/YoklamaListesi';
 import { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
-  selector: 'app-yoklama-detay',
-  templateUrl: './yoklama-detay.component.html',
-  styleUrls: ['./yoklama-detay.component.scss'],
+  selector: 'app-yoklama-listesi',
+  templateUrl: './yoklama-listesi.component.html',
+  styleUrls: ['./yoklama-listesi.component.scss'],
 })
 export class YoklamaListesiComponent implements OnInit {
 

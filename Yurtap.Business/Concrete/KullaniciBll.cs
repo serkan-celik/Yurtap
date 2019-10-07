@@ -7,6 +7,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading;
 using Yurtap.Business.Abstract;
+using Yurtap.Core.Business.Models;
 using Yurtap.Core.Entity.Enums;
 using Yurtap.DataAccess.Abstract;
 using Yurtap.Entity;
@@ -36,9 +37,15 @@ namespace Yurtap.Business.Concrete
             return _kullaniciDal.Delete(kullaniciEntity) > 0 ? true : false;
         }
 
-        public KullaniciModel GetKullaniciBilgileri(string kullaniciAdi, string kullaniciSifre)
+        public ServiceResult<KullaniciModel> GetKullaniciBilgileri(string kullaniciAdi, string kullaniciSifre)
         {
-            return _kullaniciDal.GetKullaniciBilgileri(kullaniciAdi, kullaniciSifre);
+            var kullanici = new ServiceResult<KullaniciModel>(_kullaniciDal.GetKullaniciBilgileri(kullaniciAdi, kullaniciSifre));
+            if(kullanici.Result == null)
+            {
+                return new ServiceResult<KullaniciModel>(kullanici.Result, "Yanlış kullanıcı adı veya şifre", ServiceResultType.Unauthorized);
+                    
+            }
+            return kullanici;
         }
 
         public List<KullaniciModel> GetKullaniciListesi()

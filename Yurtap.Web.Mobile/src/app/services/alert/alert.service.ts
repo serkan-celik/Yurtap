@@ -34,6 +34,9 @@ export class AlertService {
         message: message,
         buttons: [
           {
+            text: "Hayır"
+          },
+          {
             text: "Evet",
             handler: () => {
               method.subscribe(data => {
@@ -44,9 +47,6 @@ export class AlertService {
                 }
               })
             }
-          },
-          {
-            text: "Hayır"
           }
         ]
       }
@@ -60,6 +60,9 @@ export class AlertService {
         message: questionMessage,
         buttons: [
           {
+            text: "Hayır"
+          },
+          {
             text: "Evet",
             handler: () => {
               method.subscribe(data => {
@@ -68,9 +71,6 @@ export class AlertService {
                 }
               })
             }
-          },
-          {
-            text: "Hayır"
           }
         ]
       }

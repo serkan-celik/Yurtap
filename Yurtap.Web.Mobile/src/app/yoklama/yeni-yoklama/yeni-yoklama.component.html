@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="light">
     <ion-buttons slot="start">
       <ion-menu-button *ngIf="duzenlemeModu==false"></ion-menu-button>
       <ion-back-button *ngIf="duzenlemeModu==true"></ion-back-button>
@@ -7,22 +7,23 @@
     <ion-title>
       {{baslik}}
     </ion-title>
-    <pop-account-component slot="end" class="ion-margin-end"></pop-account-component>
+    <pop-account-component slot="end"></pop-account-component>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <form #yoklamaForm="ngForm">
     <ion-list>
       <ion-item class="ion-text-center">
-        <ion-icon class="ion-text-left" style="z-index: 2;" name="add" [routerLink]="['/yoklama-baslik-listesi']"></ion-icon>
-        <ion-label *ngIf="this.duzenlemeModu" style="font-weight :bold">{{yoklama.baslik|uppercase}}
+        <ion-icon *ngIf="!duzenlemeModu" slot="end" class="ion-text-end" style="z-index: 3" name="add"
+          [routerLink]="['/yoklama-baslik-listesi']"></ion-icon>
+        <ion-label *ngIf="duzenlemeModu" style="font-weight :bold">{{yoklama.baslik}}
         </ion-label>
-        <ion-select *ngIf="!this.duzenlemeModu" name="yoklamaBaslikId" style="max-width:100%;margin:auto"
-          [(ngModel)]="yoklama.yoklamaBaslikId" placeholder="Yoklama başlığı seçiniz" okText="Tamam" cancelText="Vazgeç"
+        <ion-select *ngIf="!duzenlemeModu" name="yoklamaBaslikId" style="max-width:100%;margin:auto"
+          [(ngModel)]="yoklama.yoklamaBaslikId" placeholder="Yoklama Başlığı Seçiniz" okText="Tamam" cancelText="Vazgeç"
           required ngModel>
-          <ion-label>Yoklama Başlığı</ion-label>
+          <ion-label>Yoklama Başlıkları</ion-label>
           <ion-select-option *ngFor="let baslik of yoklamaBaslikListesi" [value]="baslik.id"
-            [selected]="yoklama.yoklamaBaslikId==baslik.id">{{baslik.baslik}}</ion-select-option>
+            [selected]="yoklama.yoklamaBaslikId==baslik.id" style="min-width:65%">{{baslik.baslik}}</ion-select-option>
           <ion-label *ngIf="yoklamaBaslikListesi.length==0">Yoklama başlığı tanımlamadan yoklama alamazsınız.
           </ion-label>
         </ion-select>
@@ -34,20 +35,20 @@
           <ion-row>
             <ion-col class="ion-text-center">
               <ion-label style="font-weight :bold">Yoklama Tarihi</ion-label>
-              <ion-datetime [disabled]="this.duzenlemeModu" name="tarih" style="padding-left:0px"
-                displayFormat="DD.MM.YYYY" [(ngModel)]="yoklama.tarih" doneText="Tamam" cancelText="Vazgeç" ngModel>
+              <ion-datetime [disabled]="duzenlemeModu" name="tarih" style="padding-left:0px" displayFormat="DD.MM.YYYY"
+                [(ngModel)]="yoklama.tarih" doneText="Tamam" cancelText="Vazgeç" ngModel>
               </ion-datetime>
             </ion-col>
             <ion-col class="ion-text-center">
               <ion-label style="font-weight :bold">Yoklama Saati</ion-label>
-              <ion-datetime [disabled]="this.duzenlemeModu" name="tarih2" style="padding-left:0px" displayFormat="HH:mm"
+              <ion-datetime [disabled]="duzenlemeModu" name="tarih2" style="padding-left:0px" displayFormat="HH:mm"
                 [(ngModel)]="yoklama.tarih" doneText="Tamam" cancelText="Vazgeç" ngModel>
               </ion-datetime>
             </ion-col>
           </ion-row>
         </ion-grid>
       </ion-item>
-      <ion-item *ngIf="this.duzenlemeModu">
+      <ion-item *ngIf="duzenlemeModu">
         <ion-label>Yoklama durumuna göre filtrele:</ion-label>
         <ion-select name="durum" [(ngModel)]="yoklamaDurum" (ionChange)="changeYoklamaDurum()" interface="popover"
           ngModel>
@@ -55,7 +56,7 @@
           <ion-select-option *ngFor="let tur of yoklamaTurleri" [value]="tur.value">{{tur.text}}</ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-searchbar name="search" [(ngModel)]="filterText" (ionChange)="filteredList()" placeholder="Ara..." ngModel>
+      <ion-searchbar name="search" [(ngModel)]="filterText" (ionChange)="filteredList()" placeholder="Öğrenci Ara..." ngModel>
       </ion-searchbar>
       <ion-card-subtitle class="ion-text-center" *ngIf="yoklama.yoklamaListesi.length==0 && filterText.length>0">
         '{{filterText}}' için sonuç bulunamadı
@@ -73,7 +74,7 @@
       </ion-item>
     </ion-list>
     <!-- Skeleton screen -->
-    <ion-list *ngIf="yoklama.yoklamaListesi.length==0&&filterText.length==0&&!this.duzenlemeModu"
+    <ion-list *ngIf="yoklama.yoklamaListesi.length==0&&filterText.length==0&&!duzenlemeModu"
       class="ion-padding custom-skeleton">
       <ion-item>
         <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
@@ -107,8 +108,8 @@
       </ion-item>
     </ion-list>
   </form>
-  <ion-fab *ngIf="yoklama.yoklamaListesi.length>0" vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="yoklamaKaydet(yoklamaForm)" [disabled]="filterText.length>0||yoklamaDurum>-1">
+  <ion-fab *ngIf="filterText.length==0&&yoklamaDurum==-1" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="yoklamaKaydet(yoklamaForm)">
       <ion-icon name="checkmark"></ion-icon>
     </ion-fab-button>
   </ion-fab>

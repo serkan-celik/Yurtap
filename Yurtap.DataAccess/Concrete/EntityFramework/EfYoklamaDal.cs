@@ -121,11 +121,12 @@ namespace Yurtap.DataAccess.Concrete.EntityFramework
                                             {
                                                 AdSoyad = String.Join(' ', a.Ad, a.Soyad),
                                                 YoklamaBaslikId = y.YoklamaBaslikId,
-                                                YoklamaBaslik = context.YoklamaBasliklari.SingleOrDefault(yb=>yb.Id==y.YoklamaBaslikId).Baslik,
+                                                YoklamaBaslik = context.YoklamaBasliklari.SingleOrDefault(yb => yb.Id == y.YoklamaBaslikId).Baslik,
                                                 Katilim = a.YoklamaDurum.GetDisplayName()
                                             }
                                         )).ToList();
                 yoklamaListeleri.ForEach(a => items.AddRange(a.ToList()));
+
                 items = items.GroupBy(y => new { y.AdSoyad }).Select(y =>
                     new YoklamaAylikYuzdelikKatilimModel
                     {
@@ -160,7 +161,7 @@ namespace Yurtap.DataAccess.Concrete.EntityFramework
                                            Id = y.Id,
                                            EkleyenId = y.EkleyenId,
                                            YoklamaBaslikId = y.YoklamaBaslikId,
-                                           Baslik = yb.Baslik,
+                                           Baslik = yb.Baslik.ToTitleCase(),
                                            Tarih = y.Tarih,
                                            YoklamaListesi = JsonConvert.DeserializeObject<List<YoklamaListeModel>>(y.Liste)
                                        };

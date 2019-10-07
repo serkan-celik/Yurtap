@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Yurtap.Business.Abstract;
+using Yurtap.Core.Business.Models;
 using Yurtap.Entity;
 using Yurtap.Entity.Models;
 
 namespace Yurtap.Web.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PersonelController : ControllerBase
@@ -27,76 +28,56 @@ namespace Yurtap.Web.API.Controllers
         [HttpGet("GetPersonelListesi")]
         public ActionResult GetPersonelListesi()
         {
-            List<PersonelModel> personel;
-            try
+            var personelListesi = _personelBll.GetPersonelListesi();
+            if (personelListesi.Success)
             {
-                personel = _personelBll.GetPersonelListesi();
+                return Ok(personelListesi);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(personel);
+            return NotFound(personelListesi);
         }
 
         [HttpGet("GetPersonelByKisiId")]
-        public ActionResult GetPersonelByKisiId(ushort kisiId)
+        public ActionResult GetPersonelByKisiId(int kisiId)
         {
-            PersonelModel ogrenci;
-            try
+            var ogrenci = _personelBll.GetPersonelByKisiId(kisiId);
+            if (ogrenci.Success)
             {
-                ogrenci = _personelBll.GetPersonelByKisiId(kisiId);
+                return Ok(ogrenci);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(ogrenci);
+            return NotFound(ogrenci);
         }
 
         [HttpPost("AddPersonel")]
         public ActionResult AddPersonel([FromBody]PersonelModel personelModel)
         {
-            PersonelModel personel;         
-            try
+            var personel = _personelBll.AddPersonel(personelModel);
+            if (personel.Success)
             {
-                personel = _personelBll.AddPersonel(personelModel);   
+                return Created("",personel);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(personel);
+            return BadRequest(personel);
         }
 
         [HttpPut("UpdatePersonel")]
         public ActionResult UpdatePersonel([FromBody]PersonelModel personelModel)
         {
-            PersonelModel personel;
-            try
+            var personel = _personelBll.UpdatePersonel(personelModel);
+            if (personel.Success)
             {
-                personel = _personelBll.UpdatePersonel(personelModel);
+                return Ok(personel);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(personel);
+            return BadRequest(personel);
         }
 
         [HttpDelete("DeletePersonel")]
         public ActionResult DeletePersonel([FromBody]PersonelModel personelModel)
         {
-            bool personel;
-            try
+            var personel = _personelBll.DeletePersonel(personelModel);
+            if (personel.Success)
             {
-                personel = _personelBll.DeletePersonel(personelModel);
+                return Ok(personel);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(personel);
+            return BadRequest(personel);
         }
     }
 }

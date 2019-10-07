@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
@@ -38,7 +39,7 @@ namespace Yurtap.Web.API.Controllers
         public IActionResult Giris([FromBody] KullaniciModel kullaniciModel)
         {
             var kullanici = _kullaniciBll.GetKullaniciBilgileri(kullaniciModel.Ad, kullaniciModel.Sifre);
-            if (kullanici == null)
+            if (!kullanici.Success)
             {
                 return Unauthorized();
             }
@@ -52,11 +53,11 @@ namespace Yurtap.Web.API.Controllers
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                      //tokena veri gönderme
-                    new Claim("id",kullanici.KisiId.ToString()),
-                    new Claim("name",kullanici.Ad),
-                    new Claim("password",kullanici.Sifre),
-                    new Claim("fullName",kullanici.AdSoyad),
-                     new Claim("roles",JsonConvert.SerializeObject(kullanici.Roller)),
+                    new Claim("id",kullanici.Result.KisiId.ToString()),
+                    new Claim("name",kullanici.Result.Ad),
+                    new Claim("password",kullanici.Result.Sifre),
+                    new Claim("fullName",kullanici.Result.AdSoyad),
+                     new Claim("roles",JsonConvert.SerializeObject(kullanici.Result.Roller)),
                     //new Claim(ClaimTypes.Role,"Personel"),
                     //new Claim(ClaimTypes.Role,"Ogrenci")
                 }),
@@ -70,7 +71,9 @@ namespace Yurtap.Web.API.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            return Ok(tokenString);
+            kullanici.Result.Token = tokenString;
+
+            return Ok(kullanici);
         }
 
         [HttpGet("GetKullaniciListesi")]

@@ -19,6 +19,7 @@ import { YeniYoklamaComponent } from './yeni-yoklama.component';
       }
     ])
   ],
+  entryComponents:[YeniYoklamaComponent],
   declarations: [YeniYoklamaComponent],
 })
 export class YeniYoklamaModule { }

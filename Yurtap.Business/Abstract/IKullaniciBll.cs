@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Yurtap.Core.Business.Models;
 using Yurtap.Entity;
 using Yurtap.Entity.Models;
 
@@ -10,7 +11,7 @@ namespace Yurtap.Business.Abstract
         List<KullaniciModel> GetKullaniciListesi();
         KullaniciEntity AddKullanici(KullaniciModel kullaniciModel);
         KullaniciEntity GetKullaniciById(int kisiId);
-        KullaniciModel GetKullaniciBilgileri(string kullaniciAdi, string kullaniciSifre);
+        ServiceResult<KullaniciModel> GetKullaniciBilgileri(string kullaniciAdi, string kullaniciSifre);
         KullaniciEntity UpdateKullanici(KullaniciModel kullaniciModel);
         KullaniciEntity UpdateKullanici(KullaniciEntity kullaniciEntity);
         bool DeleteKullanici(KullaniciEntity kullaniciModel);

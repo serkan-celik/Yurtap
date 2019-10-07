@@ -19,6 +19,7 @@ import { YoklamaRaporuComponent } from './yoklama-raporu.component';
       }
     ])
   ],
+  entryComponents:[YoklamaRaporuComponent],
   declarations: [YoklamaRaporuComponent],
 })
 export class YoklamaRaporuModule { }

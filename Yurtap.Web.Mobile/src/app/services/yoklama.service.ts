@@ -13,23 +13,23 @@ export class YoklamaService {
     }
 
     getYoklamaListesi() {
-        return this.httpService.getHttp<YoklamaListesi[]>(environment.yoklamaPath, "getYoklamaListesi");
+        return this.httpService.getHttp<any>(environment.yoklamaPath, "getYoklamaListesi");
     }
 
     addYoklama(yoklama: Yoklama) {
-        return this.httpService.postHttp<Yoklama>(environment.yoklamaPath, "addYoklama", yoklama);
+        return this.httpService.postHttp<any>(environment.yoklamaPath, "addYoklama", yoklama);
     }
 
     getYoklamaListeleriByTarih(tarih: string="") {
-        return this.httpService.getHttp<Yoklama[]>(environment.yoklamaPath, "getYoklamaListeleri?tarih=" + tarih);
+        return this.httpService.getHttp<any>(environment.yoklamaPath, "getYoklamaListeleri?tarih=" + tarih);
     }
 
     getYoklamaDetayById(id: number) {
-        return this.httpService.getHttp<Yoklama>(environment.yoklamaPath, "getYoklamaDetayById?id=" + id);
+        return this.httpService.getHttp<any>(environment.yoklamaPath, "getYoklamaDetayById?id=" + id);
     }
 
     updateYoklama(yoklama: Yoklama) {
-        return this.httpService.putHttp<Yoklama>(environment.yoklamaPath, "updateYoklama", yoklama);
+        return this.httpService.putHttp<any>(environment.yoklamaPath, "updateYoklama", yoklama);
     }
 
     exportToExcelVakitlikYoklamaRaporu(yoklama: Yoklama) {

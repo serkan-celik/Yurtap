@@ -89,7 +89,8 @@ const routes: Routes = [
   },
   {
     path: 'hesap/giris',
-    loadChildren: './hesap/giris/giris.module#GirisModule',
+    //loadChildren: './hesap/giris/giris.module#GirisModule',
+    component: GirisComponent
   },
   {
     path: 'sifre-degistir',

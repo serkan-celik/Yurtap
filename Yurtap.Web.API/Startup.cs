@@ -99,6 +99,8 @@ namespace Yurtap.Web.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.ConfigureExceptionHandler();
+
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
             app.UseAuthentication();
             app.UseMiddleware<AuthenticationMiddleware>();

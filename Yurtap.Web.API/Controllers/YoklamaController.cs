@@ -35,75 +35,56 @@ namespace Yurtap.Web.API.Controllers
         [HttpPost("AddYoklama")]
         public ActionResult AddYoklama([FromBody]YoklamaModel yoklamaModel)
         {
-            try
+            var yoklama = _yoklamaBll.AddYoklama(yoklamaModel);
+            if (yoklama.Success)
             {
-                _yoklamaBll.AddYoklama(yoklamaModel);
+                return Ok(yoklama);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(yoklamaModel);
+            return BadRequest(yoklama);
         }
 
         [HttpGet("GetYoklamaListeleri")]
         public ActionResult GetYoklamaListesi(DateTime? tarih)
         {
-            List<YoklamaModel> yoklamaListesi=null;
-            try
+            var yoklamaListesi = _yoklamaBll.GetYoklamaListeleri(tarih);
+            if (yoklamaListesi.Success)
             {
-                yoklamaListesi = _yoklamaBll.GetYoklamaListeleri(tarih);
+                return Ok(yoklamaListesi);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(yoklamaListesi);
+            return NotFound(yoklamaListesi);
         }
 
         [HttpGet("GetYoklamaDetayById")]
         public ActionResult GetYoklamaDetayById(int id)
         {
-            YoklamaModel yoklama = null;
-            try
+            var yoklama = _yoklamaBll.GetYoklamaDetayById(id);
+            if (yoklama.Success)
             {
-                yoklama = _yoklamaBll.GetYoklamaDetayById(id);
+                return Ok(yoklama);
             }
-            catch (Exception ex)
-            {
-                BadRequest(ex.Message);
-            }
-            return Ok(yoklama);
+            return NotFound(yoklama);
         }
 
         [HttpGet("GetYoklamaListesi")]
         public ActionResult GetYoklamaListesi()
         {
-            List<YoklamaListeModel> yoklamaListesi;
-            try
+            var yoklamaListesi = _yoklamaBll.GetYoklamaListesi();
+            if (yoklamaListesi.Success)
             {
-                yoklamaListesi = _yoklamaBll.GetYoklamaListesi();
+                return Ok(yoklamaListesi);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(yoklamaListesi);
+            return NotFound(yoklamaListesi);
         }
 
         [HttpPut("UpdateYoklama")]
         public ActionResult UpdateYoklama(YoklamaModel yoklamaModel)
         {
-            YoklamaEntity yoklamaEntity = null;
-            try
+            var yoklama = _yoklamaBll.UpdateYoklama(yoklamaModel);
+            if (yoklama.Success)
             {
-                yoklamaEntity = _yoklamaBll.UpdateYoklama(yoklamaModel);
+                return Ok(yoklama);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(yoklamaEntity);
+            return BadRequest(yoklama);
         }
 
         [HttpPost("ExportToExcelVakitlikYoklamaRaporu")]

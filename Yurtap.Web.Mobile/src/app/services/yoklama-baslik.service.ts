@@ -11,15 +11,15 @@ export class YoklamaBaslikService {
     }
 
     getYoklamaBaslikListesi() {
-        return this.httpService.getHttp<YoklamaBaslik[]>(environment.yoklamaBaslikPath, "getYoklamaBaslikListesi");
+        return this.httpService.getHttp<any>(environment.yoklamaBaslikPath, "getYoklamaBaslikListesi");
     }
     addYoklamaBaslik(yoklamaBaslik:YoklamaBaslik) {
-        return this.httpService.postHttp<YoklamaBaslik>(environment.yoklamaBaslikPath, "addYoklamaBaslik",yoklamaBaslik);
+        return this.httpService.postHttp<any>(environment.yoklamaBaslikPath, "addYoklamaBaslik",yoklamaBaslik);
     }
     updateYoklamaBaslik(yoklamaBaslik:YoklamaBaslik) {
-        return this.httpService.putHttp<YoklamaBaslik>(environment.yoklamaBaslikPath, "updateYoklamaBaslik",yoklamaBaslik);
+        return this.httpService.putHttp<any>(environment.yoklamaBaslikPath, "updateYoklamaBaslik",yoklamaBaslik);
     }
     deleteYoklamaBaslik(yoklamaBaslik:YoklamaBaslik) {
-        return this.httpService.deleteHttp<boolean>(environment.yoklamaBaslikPath, "deleteYoklamaBaslik",yoklamaBaslik);
+        return this.httpService.deleteHttp<any>(environment.yoklamaBaslikPath, "deleteYoklamaBaslik",yoklamaBaslik);
     }
 }

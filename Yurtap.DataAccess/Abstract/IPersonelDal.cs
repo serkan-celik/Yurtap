@@ -8,7 +8,7 @@ namespace Yurtap.DataAccess.Abstract
     public interface IPersonelDal : IEntityRepository<PersonelEntity>
     {
         List<PersonelModel> GetPersonelListesi();
-        PersonelModel GetPersonel(short kisiId);
+        PersonelModel GetPersonel(int kisiId);
         bool IsPersonelMi(PersonelModel personelModel);
     }
 }

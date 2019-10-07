@@ -19,14 +19,13 @@
 							</ion-item>
 						</div>
 						<div padding>
-							<ion-button type="submit" [disabled]="formLogin.invalid" size="medium" expand="block">Giriş
-								Yap
+							<ion-button type="submit" #loginBtn [disabled]="formLogin.invalid" size="medium"
+								expand="block"> <span #span>Giriş Yap</span>
 							</ion-button>
 						</div>
 					</form>
 				</ion-card-content>
 			</ion-card>
-
 		</ion-col>
 	</ion-row>
 </ion-grid>

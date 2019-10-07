@@ -13,7 +13,7 @@ const routes: Routes = [
   }
 ];
 
-@NgModule({
+/*@NgModule({
   imports: [
     CommonModule,
     FormsModule,
@@ -26,6 +26,7 @@ const routes: Routes = [
       }
     ])
   ],
+    entryComponents:[GirisComponent],
   declarations: [GirisComponent]
 })
-export class GirisModule {}
+export class GirisModule {}*/

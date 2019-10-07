@@ -19,6 +19,7 @@ import { PopModule } from '../popcomponent/pop-module.module';
       }
     ])
   ],
+  entryComponents:[AnaSayfaComponent],
   declarations: [AnaSayfaComponent],
 })
 export class AnaSayfaModule { }

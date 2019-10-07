@@ -19,6 +19,7 @@ import { YoklamaBaslikListesiComponent } from './yoklama-baslik-listesi.componen
       }
     ])
   ],
+  entryComponents:[YoklamaBaslikListesiComponent],
   declarations: [YoklamaBaslikListesiComponent],
 })
 export class YoklamaBaslikListesiModule { }

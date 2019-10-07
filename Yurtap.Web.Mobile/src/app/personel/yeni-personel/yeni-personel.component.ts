@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastService } from 'src/app/services/toast/toast.service';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { Personel } from 'src/app/models/Personel';
 import { NgForm } from '@angular/forms';
 import { PersonelService } from 'src/app/services/personel.service';
@@ -18,7 +18,6 @@ export class YeniPersonelComponent implements OnInit {
     private personelService: PersonelService,
     private toastService: ToastService,
     private activatedRoute: ActivatedRoute,
-    private router: Router,
     private alertService: AlertService) { }
 
   personel: Personel = new Personel();
@@ -44,7 +43,7 @@ export class YeniPersonelComponent implements OnInit {
       if (param.kisiId){
         this.paramKisiId = param.kisiId;
         this.personelService.getPersonelByKisiId(param.kisiId).subscribe(data => {
-          this.personel = data;
+          this.personel = data.result;
           this.baslik = "Personel Düzenle";
           this.duzenlemeModu = true;
           this.hesap = this.personel.hesap;
@@ -56,7 +55,7 @@ export class YeniPersonelComponent implements OnInit {
   personelKaydet(personelForm: NgForm) {
     if (this.duzenlemeModu) {
       this.personelService.updatePersonel(this.personel).subscribe(data => {
-        if (data) {
+        if (data.result) {
           this.toastService.showToast("Personel güncellendi.");
         }
       }, error => {

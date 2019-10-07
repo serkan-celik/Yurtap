@@ -11,7 +11,7 @@ using Yurtap.Entity.Models;
 
 namespace Yurtap.Web.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class YoklamaBaslikController : ControllerBase
@@ -26,61 +26,45 @@ namespace Yurtap.Web.API.Controllers
         [HttpGet("GetYoklamaBaslikListesi")]
         public ActionResult GetYoklamaBaslikListesi()
         {
-            List<YoklamaBaslikModel> yoklamaBaslik;
-            try
+            var yoklamaBaslik = _yoklamaBasliklBll.GetYoklamaBaslikListesi();
+            if (yoklamaBaslik.Success)
             {
-                yoklamaBaslik = _yoklamaBasliklBll.GetYoklamaBaslikListesi();
+                return Ok(yoklamaBaslik);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(yoklamaBaslik);
+            return NotFound(yoklamaBaslik);
         }
 
         [HttpPost("AddYoklamaBaslik")]
         public ActionResult AddYoklamaBaslik([FromBody]YoklamaBaslikEntity yoklamaBaslikEntity)
         {
-            YoklamaBaslikEntity yoklamaBaslik;         
-            try
+            var yoklamaBaslik = _yoklamaBasliklBll.AddYoklamaBaslik(yoklamaBaslikEntity);
+            if (yoklamaBaslik.Success)
             {
-                yoklamaBaslik = _yoklamaBasliklBll.AddYoklamaBaslik(yoklamaBaslikEntity);   
+                return Created("", yoklamaBaslik);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(yoklamaBaslik);
+            return BadRequest(yoklamaBaslik);
         }
 
         [HttpPut("UpdateYoklamaBaslik")]
         public ActionResult UpdateYoklamaBaslik([FromBody]YoklamaBaslikEntity yoklamaBaslikEntity)
         {
-            YoklamaBaslikEntity yoklamaBaslik;
-            try
+            var yoklamaBaslik = _yoklamaBasliklBll.UpdateYoklamaBaslik(yoklamaBaslikEntity);
+            if (yoklamaBaslik.Success)
             {
-                yoklamaBaslik = _yoklamaBasliklBll.UpdateYoklamaBaslik(yoklamaBaslikEntity);
+                return Ok(yoklamaBaslik);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(yoklamaBaslik);
+            return BadRequest(yoklamaBaslik);
         }
 
         [HttpDelete("DeleteYoklamaBaslik")]
         public ActionResult DeleteYoklamaBaslik([FromBody]YoklamaBaslikEntity yoklamaBaslikEntity)
         {
-            bool yoklamaBaslik;
-            try
+           var yoklamaBaslik = _yoklamaBasliklBll.DeleteYoklamaBaslik(yoklamaBaslikEntity);
+            if (yoklamaBaslik.Success)
             {
-                yoklamaBaslik = _yoklamaBasliklBll.DeleteYoklamaBaslik(yoklamaBaslikEntity);
+                return Ok(yoklamaBaslik);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(yoklamaBaslik);
+            return BadRequest(yoklamaBaslik);
         }
     }
 }

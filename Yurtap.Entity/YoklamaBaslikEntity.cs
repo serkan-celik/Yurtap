@@ -18,7 +18,7 @@ namespace Yurtap.Entity
             }
             set
             {
-                _baslik = value.Trim().ToTitleCase();
+                _baslik = value.Trim().ToUpper(new CultureInfo("tr-TR"));
             }
         }
     }

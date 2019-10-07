@@ -18,9 +18,9 @@ export class ErrorsHandler implements ErrorHandler {
   constructor(
     private injector: Injector,
     //private notificationService: AlertifyService
-    private toastService:ToastService,
-    private alertService:AlertService
-  ) {}
+    private toastService: ToastService,
+    private alertService: AlertService
+  ) { }
 
   handleError(error: Error | HttpErrorResponse) {
     //şimdilik hata sadece alert olarak verildi.
@@ -36,16 +36,19 @@ export class ErrorsHandler implements ErrorHandler {
       if (!navigator.onLine) {
         // No Internet connection
         //return this.notificationService.error("İnternet bağlantınız kesildi. Lütfen kontrol ediniz.");
-       return this.toastService.showToast("İnternet bağlantınız yok. Lütfen kontrol ediniz.");
+        return this.toastService.showToast("İnternet bağlantınız yok. Lütfen kontrol ediniz.");
       }
 
-      if(error.status == 0){
-        //return this.notificationService.error("Servis bağlantınız kesildi. Lütfen kontrol ediniz.");
-        return this.toastService.showToast("Sunucuya bağlanılamıyor. Lütfen kontrol ediniz.",'danger');
-      }
-
-      if (error.status == 401) {
-        return this.toastService.showToast("Yanlış kullanıcı adı veya şifre","danger");
+      switch (error.status) {
+        case 0:
+          //return this.notificationService.error("Servis bağlantınız kesildi. Lütfen kontrol ediniz.");
+          return this.toastService.showToast("Sunucuya bağlanılamıyor. Lütfen kontrol ediniz.", "danger");
+        case 401://Unauthorized
+          return this.toastService.showToast("Yanlış kullanıcı adı veya şifre", "danger");
+        case 400://BadRequest
+          return this.toastService.showToast(error.error.message, "danger");
+        case 404://NotFound
+          return this.toastService.showToast(error.error.message, "danger");
       }
 
       // Http Error
@@ -55,7 +58,7 @@ export class ErrorsHandler implements ErrorHandler {
       } else {
         //this.notificationService.error(error.error);
         //this.toastService.showToast(error.error);
-      this.alertService.basicAlert(error.error);
+        this.toastService.showToast(error.error);
       }
     } else {
       // Client Error Happend
@@ -66,12 +69,12 @@ export class ErrorsHandler implements ErrorHandler {
   }
 }
 
-/* 
+/*
 EXPLANATION:
 2 tipos de errores en función de su causa:
 - Externos: Fallo del Servidor (5xx), Internet, Navegador...
 
-- Propios: 
+- Propios:
   Podemos distinguir 2 en función de quien notifica el error:
 
   - Servidor:
@@ -80,15 +83,15 @@ EXPLANATION:
     - name
     - message
 
-  - Cliente: 
+  - Cliente:
     Basados en el constructor genérico Error, los más comunes son
-    ReferenceError (llamar a una variable inexistente) and TypeError 
+    ReferenceError (llamar a una variable inexistente) and TypeError
     (xej: llamar a una var como si fuera una función). Contienen:
     - name
     - message
     - fileName, lineNumber, columnNumber y stack (en función del
     navegador).
-    
+
     Ejemplos:
     tan // ReferenceError
     var y = 5;
@@ -103,7 +106,7 @@ EXPLANATION:
 
     // Una excepción irá eliminando del stack todas las funciones
     // llamadas previamente, hasta que sea controlada (handle).
-    // Si no es controlada, vaciará el stack, cargándose la app 
+    // Si no es controlada, vaciará el stack, cargándose la app
     // Angular.
 
     function fun3() {
@@ -111,7 +114,7 @@ EXPLANATION:
     }
 
     function fun2() {
-        fun3(); 
+        fun3();
     }
 
     function fun1() {
@@ -127,10 +130,10 @@ EXPLANATION:
 
     function fun2() {
       try {
-        fun3(); 
+        fun3();
       } catch (error) {
         console.log('Shiiit: ', error);
-      }    
+      }
     }
 
     function fun1() {
@@ -180,6 +183,6 @@ EXPLANATION:
   1 - Mostramos declaración en providers
   2 - Mostramos Throw
   3 - Cómo reconocer el tipo de error (Descomentamos Handler)
-  4 - Cómo reaccionar a cada tipo de error (Opinionated) NotService 
+  4 - Cómo reaccionar a cada tipo de error (Opinionated) NotService
   5 - Cómo trackear los errores ()
 */

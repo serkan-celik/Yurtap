@@ -19,6 +19,7 @@ import { PersonelListesiComponent } from './personel-listesi.component';
       }
     ])
   ],
+  entryComponents:[PersonelListesiComponent],
   declarations: [PersonelListesiComponent],
 })
 export class PersonelListesiModule { }

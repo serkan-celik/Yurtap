@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { PopModule } from 'src/app/popcomponent/pop-module.module';
 import { YeniPersonelComponent } from './yeni-personel.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +20,7 @@ import { YeniPersonelComponent } from './yeni-personel.component';
       }
     ])
   ],
+  entryComponents:[YeniPersonelComponent],
   declarations: [YeniPersonelComponent],
 })
 export class YeniPersonelModule { }

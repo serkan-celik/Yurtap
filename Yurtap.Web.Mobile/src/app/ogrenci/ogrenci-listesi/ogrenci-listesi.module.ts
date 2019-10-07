@@ -19,6 +19,7 @@ import { PopModule } from 'src/app/popcomponent/pop-module.module';
       }
     ])
   ],
+  entryComponents:[OgrenciListesiComponent],
   declarations: [OgrenciListesiComponent],
 })
 export class OgrenciListesiModule { }

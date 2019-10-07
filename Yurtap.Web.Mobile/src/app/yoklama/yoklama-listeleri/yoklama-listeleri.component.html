@@ -1,12 +1,12 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="light">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
       Yoklama Listeleri
     </ion-title>
-    <pop-account-component slot="end" class="ion-margin-end"></pop-account-component>
+    <pop-account-component slot="end"></pop-account-component>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -47,7 +47,7 @@
         </ion-row>
       </ion-grid>
     </ion-item>
-    <ion-item *ngFor="let yoklama of yoklamalarTakvimi" [routerLink]="['/yoklama-detay/' + yoklama.id]">
+    <ion-item *ngFor="let yoklama of yoklamalarTakvimi" [routerLink]="['/yoklama-listesi/' + yoklama.id]">
       <ion-icon name="menu"></ion-icon>
       <ion-label style="font-weight :bold">{{yoklama.baslik}}</ion-label>
       <ion-label style="font-weight :bold" class="ion-text-end">{{yoklama.tarih | date:'HH:mm'}}</ion-label>

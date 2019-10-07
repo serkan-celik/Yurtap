@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Yurtap.Business.Abstract;
+using Yurtap.Core.Business.Models;
 using Yurtap.Core.Enums;
 using Yurtap.Core.Utilities.ExtensionMethods;
 using Yurtap.DataAccess.Abstract;
@@ -25,9 +26,11 @@ namespace Yurtap.Business.Concrete
             _kisiBll = kisiBll;
         }
 
-        public YoklamaModel AddYoklama(YoklamaModel yoklamaModel)
+        public ServiceResult<object> AddYoklama(YoklamaModel yoklamaModel)
         {
-            IsYoklama(yoklamaModel);
+            if (!IsYoklama(yoklamaModel).Success){
+                return IsYoklama(yoklamaModel);
+            }
             var yoklamaEntity = _yoklamaDal.Add(new YoklamaEntity()
             {
                 YoklamaBaslikId = yoklamaModel.YoklamaBaslikId,
@@ -35,41 +38,47 @@ namespace Yurtap.Business.Concrete
                 Liste = JsonConvert.SerializeObject(yoklamaModel.YoklamaListesi)
             });
             yoklamaModel.Id = yoklamaEntity.Id;
-            return yoklamaModel;
+            return new ServiceResult<object>(yoklamaModel,"Yoklama oluşturuldu",ServiceResultType.Created);
         }
 
-        public YoklamaModel GetYoklamaDetayById(int id)
+        public ServiceResult<YoklamaModel> GetYoklamaDetayById(int id)
         {
-            return _yoklamaDal.GetYoklamaDetayById(id);
+            var yoklama = _yoklamaDal.GetYoklamaDetayById(id);
+            return  new ServiceResult<YoklamaModel>(yoklama, "Yoklama bilgisi getirildi", ServiceResultType.Success);
         }
 
 
-        public List<YoklamaModel> GetYoklamaListeleri(DateTime? tarih)
+        public ServiceResult<List<YoklamaModel>> GetYoklamaListeleri(DateTime? tarih)
         {
-            return _yoklamaDal.GetYoklamaListeleriByTarih(tarih);
+            var yoklamaListeleri = _yoklamaDal.GetYoklamaListeleriByTarih(tarih);
+            return new ServiceResult<List<YoklamaModel>>(yoklamaListeleri, "Yoklamalar listelendi", ServiceResultType.Success);
         }
 
-        public List<YoklamaListeModel> GetYoklamaListesi()
+        public ServiceResult<List<YoklamaListeModel>> GetYoklamaListesi()
         {
-            return _yoklamaDal.GetYoklamaListesi();
+            var yoklamaListesi = _yoklamaDal.GetYoklamaListesi();
+            return new ServiceResult<List<YoklamaListeModel>>(yoklamaListesi, "Yoklama listelendi", ServiceResultType.Success);
         }
 
-        public bool IsYoklama(YoklamaModel yoklamaModel)
+        public ServiceResult<object> IsYoklama(YoklamaModel yoklamaModel)
         {
             bool ayniZamanMi = _yoklamaDal.Any(y => y.Tarih == yoklamaModel.Tarih);
             bool ayniYoklamaMi = _yoklamaDal.Any(y => y.Tarih == yoklamaModel.Tarih && (y.Liste == JsonConvert.SerializeObject(yoklamaModel.YoklamaListesi)));
 
             if ((yoklamaModel.Id == 0 && ayniZamanMi) || (yoklamaModel.Id > 0 && ayniYoklamaMi))
             {
-                throw new Exception("Yoklama daha önceden kayıtlıdır!");
+                return new ServiceResult<object>(null, "Yoklama daha önceden kayıtlıdır", ServiceResultType.BadRequest);
             }
-            return true;
+            return new ServiceResult<object>(yoklamaModel);
         }
 
-        public YoklamaEntity UpdateYoklama(YoklamaModel yoklamaModel)
+        public ServiceResult<object> UpdateYoklama(YoklamaModel yoklamaModel)
         {
-            IsYoklama(yoklamaModel);
-            return _yoklamaDal.Update(new YoklamaEntity()
+            if (!IsYoklama(yoklamaModel).Success)
+            {
+                return IsYoklama(yoklamaModel);
+            }
+            var yoklama = _yoklamaDal.Update(new YoklamaEntity()
             {
                 Id = yoklamaModel.Id,
                 YoklamaBaslikId = yoklamaModel.YoklamaBaslikId,
@@ -78,6 +87,7 @@ namespace Yurtap.Business.Concrete
                 SonGuncelleyenId = CurrentUser.Id,
                 SonGuncellemeTarihi = DateTime.Now
         });
+            return new ServiceResult<object>(yoklama, "Yoklama güncellendi", ServiceResultType.Success);
         }
 
         public byte[] ExportToExcelVakitlikYoklamaRaporu(YoklamaModel yoklama)
@@ -123,9 +133,9 @@ namespace Yurtap.Business.Concrete
                 worksheet.Cells["E3:F3"].Merge = true;
 
                 worksheet.Cells["A1"].Value = "MERKEZ ÖĞRENCİ YURDU";
-                worksheet.Cells["A2"].Value = yoklama.Baslik.ToUpper() + " ÇİZELGESİ";
+                worksheet.Cells["A2"].Value = yoklama.Baslik + " ÇİZELGESİ";
                 worksheet.Cells["A1:A2"].Style.Font.Size = 16;
-                worksheet.Cells["A3:B3"].Value = "Yoklama Görevlisi: " + kisi?.Ad + " " + kisi?.Soyad;
+                worksheet.Cells["A3:B3"].Value = "Yoklama Görevlisi: " + kisi?.Result.Ad + " " + kisi?.Result.Soyad;
                 worksheet.Cells["E3:F3"].Value = "Yoklama Tarihi: " + yoklama.Tarih.ToString("dd.MM.yyyy HH:mm");
                 worksheet.Cells["A1:F4"].Style.Font.Bold = true;
                 worksheet.Cells["A5:B54"].Style.Font.Bold = true;

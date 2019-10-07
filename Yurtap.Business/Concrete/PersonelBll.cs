@@ -10,6 +10,8 @@ using Yurtap.Entity;
 using Yurtap.Entity.Enums;
 using Yurtap.Entity.Models;
 using Yurtap.Core.Utilities.ExtensionMethods;
+using Yurtap.Core.Business.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Yurtap.Business.Concrete
 {
@@ -19,7 +21,7 @@ namespace Yurtap.Business.Concrete
         private readonly IKisiDal _kisiDal;
         private readonly IKisiBll _kisiBll;
         private readonly IKullaniciBll _kullaniciBll;
-        private readonly IKullaniciRolBll _kullaniciRolBll; 
+        private readonly IKullaniciRolBll _kullaniciRolBll;
 
         public PersonelBll(IPersonelDal personelDal, IKisiDal kisiDal, IKisiBll kisiBll, IKullaniciBll kullaniciBll, IKullaniciRolBll kullaniciRolBll)
         {
@@ -30,16 +32,19 @@ namespace Yurtap.Business.Concrete
             _kullaniciRolBll = kullaniciRolBll;
         }
 
-        public PersonelModel AddPersonel(PersonelModel personelModel)
+        public ServiceResult<object> AddPersonel(PersonelModel personelModel)
         {
             using (TransactionScope scope = new TransactionScope())
             {
-                IsPersonelMi(personelModel);
+                if (!IsPersonelMi(personelModel).Success)
+                {
+                    return IsPersonelMi(personelModel);
+                }
                 var kisi = _kisiDal.Add(
-                    new KisiEntity
-                    {
-                        Ad = personelModel.Ad,
-                        Soyad = personelModel.Soyad
+                new KisiEntity
+                {
+                    Ad = personelModel.Ad,
+                    Soyad = personelModel.Soyad
                         //TcKimlikNo = personelModel.TcKimlikNo
                     });
                 var personel = _personelDal.Add(new PersonelEntity
@@ -67,32 +72,49 @@ namespace Yurtap.Business.Concrete
                     });
                 }
                 scope.Complete();
+                return new ServiceResult<object>(personelModel, "Personel oluşturuldu", ServiceResultType.Created);
             }
-            return personelModel;
         }
 
-        public List<PersonelModel> GetPersonelListesi()
+        public ServiceResult<List<PersonelModel>> GetPersonelListesi()
         {
-            return _personelDal.GetPersonelListesi();
+            var personelListesi = new ServiceResult<List<PersonelModel>>(_personelDal.GetPersonelListesi());
+            if (!personelListesi.Result.Any())
+            {
+                return new ServiceResult<List<PersonelModel>>(personelListesi.Result, "Personel bulunamadı", ServiceResultType.NotFound);
+            }
+            return personelListesi;
         }
 
-        public PersonelModel GetPersonelByKisiId(int kisiId)
+        public ServiceResult<PersonelModel> GetPersonelByKisiId(int kisiId)
         {
             bool kullaniciMi = _kullaniciBll.IsKullanici(kisiId);
-            var personel = GetPersonelListesi().SingleOrDefault(o => o.KisiId == kisiId);
+            var personel = _personelDal.GetPersonel(kisiId);
+            if (personel == null)
+            {
+                return new ServiceResult<PersonelModel>(personel, "Personel bulunamadı", ServiceResultType.NotFound);
+            }
             if (kullaniciMi)
                 personel.Hesap = true;
-            return personel;
+            return new ServiceResult<PersonelModel>(personel);
         }
 
-        public PersonelEntity GetPersonel(int kisiId)
+        public ServiceResult<PersonelEntity> GetPersonel(int kisiId)
         {
-            return _personelDal.Get(o => o.Id == kisiId);
+            var personel = _personelDal.Get(p => p.Id == kisiId && p.Durum == DurumEnum.Aktif);
+            if (personel == null)
+            {
+                return new ServiceResult<PersonelEntity>(null, "Personel bulunamadı", ServiceResultType.NotFound);
+            }
+            return new ServiceResult<PersonelEntity>(personel);
         }
 
-        public PersonelModel UpdatePersonel(PersonelModel personelModel)
+        public ServiceResult<object> UpdatePersonel(PersonelModel personelModel)
         {
-            IsPersonelMi(personelModel);
+            if (!IsPersonelMi(personelModel).Success)
+            {
+                return IsPersonelMi(personelModel);
+            }
             var kullanici = _kullaniciBll.GetKullaniciById(personelModel.KisiId);
             if (kullanici == null && personelModel.Hesap)
             {
@@ -117,40 +139,54 @@ namespace Yurtap.Business.Concrete
                 _kullaniciBll.UpdateKullanici(kullanici);
             }
             var personel = GetPersonel(personelModel.KisiId);
-            personel.SonGuncelleyenId = CurrentUser.Id;
-            personel.SonGuncellemeTarihi = DateTime.Now;
-            _personelDal.Update(personel);
-            return _kisiBll.UpdatePersonel(personelModel);
-        }
+            if (!personel.Success)
+            {
+                return new ServiceResult<object>(personel.Result, personel.Message, personel.ResultCode);
+            }
+            personel.Result.SonGuncelleyenId = CurrentUser.Id;
+            personel.Result.SonGuncellemeTarihi = DateTime.Now;
+            _personelDal.Update(personel.Result);
 
-        public bool DeletePersonel(PersonelModel personelModel)
+            var updatedPersonel = _kisiBll.UpdatePersonel(personelModel);
+            return new ServiceResult<object>(updatedPersonel, "Personel güncelledi", ServiceResultType.Success);
+        }
+        public ServiceResult<object> DeletePersonel(PersonelModel personelModel)
         {
             using (TransactionScope scope = new TransactionScope())
             {
                 var kisi = _kisiBll.GetKisi(personelModel.KisiId);
-                kisi.Durum = DurumEnum.Silinmis;
-                _kisiDal.Update(kisi);
+                if (!kisi.Success)
+                {
+                    return new ServiceResult<object>(kisi.Result, kisi.Message,kisi.ResultCode);
+                }
+                kisi.Result.Durum = DurumEnum.Silinmis;
+                _kisiDal.Update(kisi.Result);
+
                 var personel = GetPersonel(personelModel.KisiId);
-                personel.Durum = DurumEnum.Silinmis;
-                _personelDal.Update(personel);
+                if (!personel.Success)
+                {
+                    return new ServiceResult<object>(personel.Result, personel.Message, personel.ResultCode);
+                }
+                personel.Result.Durum = DurumEnum.Silinmis;
+                _personelDal.Update(personel.Result);
                 scope.Complete();
-            }
-            return true;
+                return new ServiceResult<object>(null, "Personel silindi", ServiceResultType.Success);
+            }  
         }
 
-        public bool IsPersonelMi(PersonelModel personelModel)
+        public ServiceResult<object> IsPersonelMi(PersonelModel personelModel)
         {
             bool personelMi = _personelDal.IsPersonelMi(personelModel);
-            bool isKisi = _kisiDal.Any(k => k.TcKimlikNo == personelModel.TcKimlikNo);
+            //bool isKisi = _kisiDal.Any(k => k.TcKimlikNo == personelModel.TcKimlikNo);
             if (personelMi)
             {
-                throw new Exception("Personel daha önceden kayıtlıdır!");
+                return new ServiceResult<object>(null, "Personel zaten kayıtlıdır", ServiceResultType.BadRequest);
             }
-            if (isKisi && personelModel.KisiId == 0)
-            {
-                throw new Exception("Tc kimlik no daha önceden tanımlıdır!");
-            }
-            return true;
+            //if (isKisi && personelModel.KisiId == 0)
+            //{
+            //    return true;
+            //}
+            return new ServiceResult<object>(personelModel);
         }
     }
 }

@@ -4,11 +4,9 @@ C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.DataAccess\bin\Debug\netco
 C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.DataAccess\bin\Debug\netcoreapp2.1\Yurtap.Core.dll
 C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.DataAccess\bin\Debug\netcoreapp2.1\Yurtap.Entity.dll
 C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.DataAccess\bin\Debug\netcoreapp2.1\Yurtap.Model.dll
-C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.DataAccess\bin\Debug\netcoreapp2.1\Microsoft.AspNetCore.Mvc.Core.dll
 C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.DataAccess\bin\Debug\netcoreapp2.1\Yurtap.Entity.pdb
 C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.DataAccess\bin\Debug\netcoreapp2.1\Yurtap.Model.pdb
 C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.DataAccess\bin\Debug\netcoreapp2.1\Yurtap.Core.pdb
-C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.DataAccess\bin\Debug\netcoreapp2.1\Microsoft.AspNetCore.Mvc.Core.xml
 C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.DataAccess\obj\Debug\netcoreapp2.1\Yurtap.DataAccess.csprojAssemblyReference.cache
 C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.DataAccess\obj\Debug\netcoreapp2.1\Yurtap.DataAccess.csproj.CoreCompileInputs.cache
 C:\Users\Administrator\Desktop\Projeler\Yurtap\Yurtap.DataAccess\obj\Debug\netcoreapp2.1\Yurtap.DataAccess.AssemblyInfoInputs.cache

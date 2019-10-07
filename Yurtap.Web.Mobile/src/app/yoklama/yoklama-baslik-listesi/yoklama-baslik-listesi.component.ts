@@ -3,6 +3,7 @@ import { YoklamaBaslikService } from 'src/app/services/yoklama-baslik.service';
 import { YoklamaBaslik } from 'src/app/models/YoklamaBaslik';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
+import { ResponseType } from 'src/app/consts/ResponseType';
 
 @Component({
   selector: 'app-yoklama-baslik-listesi',
@@ -25,11 +26,10 @@ export class YoklamaBaslikListesiComponent implements OnInit {
 
   getYoklamaBaslikListesi() {
     this.yoklamaBaslikService.getYoklamaBaslikListesi().subscribe(data => {
-      if (data.length == 0) {
-        this.veriYok = "Hiç yoklama başlığı yoktur.";
-        return;
-      }
-      this.yoklamaBaslikListesi = data;
+      this.yoklamaBaslikListesi = data.result;
+    }, error => {
+      if (error.status == ResponseType.NotFound)
+        this.veriYok = "Hiç yoklama başlığı yok.";
     })
   }
 
@@ -43,6 +43,9 @@ export class YoklamaBaslikListesiComponent implements OnInit {
         }
       ],
       [
+        {
+          text: "Vazgeç",
+        },
         {
           text: "Kaydet",
           handler: (data) => {
@@ -69,9 +72,6 @@ export class YoklamaBaslikListesiComponent implements OnInit {
               })
             }
           }
-        },
-        {
-          text: "Vazgeç",
         }
       ]).then(() => {
         const firstInput: any = document.querySelector('ion-alert input');
@@ -81,6 +81,6 @@ export class YoklamaBaslikListesiComponent implements OnInit {
   }
 
   yoklamaBaslikSil(yoklamaBaslik) {
-    this.alertService.confirmDeleteAlert(yoklamaBaslik.baslik + " başlığı silinsin mi?", this.yoklamaBaslikService.deleteYoklamaBaslik(yoklamaBaslik), this.yoklamaBaslikListesi, yoklamaBaslik, "Yoklama başlığı silindi");
+    this.alertService.confirmDeleteAlert("<b>" + yoklamaBaslik.baslik + "</b> başlığı silinsin mi?", this.yoklamaBaslikService.deleteYoklamaBaslik(yoklamaBaslik), this.yoklamaBaslikListesi, yoklamaBaslik, "Yoklama başlığı silindi");
   }
 }

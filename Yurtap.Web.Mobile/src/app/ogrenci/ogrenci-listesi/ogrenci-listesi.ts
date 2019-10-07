@@ -11,6 +11,7 @@ import { HesapService } from 'src/app/services/hesap/hesap.service';
 import { RolEnum } from 'src/app/enums/RolEnum';
 import { Rol } from 'src/app/models/account/CurrentUser';
 import { IonItemSliding } from '@ionic/angular';
+import { ResponseType } from 'src/app/consts/ResponseType';
 
 @Component({
   selector: 'app-list',
@@ -61,16 +62,16 @@ export class OgrenciListesiComponent implements OnInit {
       this.getOgrenciListesi();
     }
     if (ogrenci)
-    localStorage.removeItem("ogrenci");
+      localStorage.removeItem("ogrenci");
   }
 
   getOgrenciListesi() {
     this.ogrenciService.getOgrenciListesi().subscribe(data => {
-      if (data.length == 0) {
+      this.ogrenciListesi = data.result;
+      this.filteredOgrenciListesi = data.result;
+    }, error => {
+      if (error.status == ResponseType.NotFound)
         this.veriYok = "Kayıtlı öğrenci yok. Eklemek için butona tıklayınız.";
-      }
-      this.ogrenciListesi = data;
-      this.filteredOgrenciListesi = data;
     });
   }
 
@@ -97,7 +98,7 @@ export class OgrenciListesiComponent implements OnInit {
     this.router.navigateByUrl("yeni-ogrenci")
   }
   ogrenciSil(ogrenci) {
-    this.alertService.confirmDeleteAlert(ogrenci.ad + " " + ogrenci.soyad + " silinsin mi?", this.ogrenciService.deleteOgrenci(ogrenci), this.ogrenciListesi, ogrenci, "Kayıt silindi")
+    this.alertService.confirmDeleteAlert("<b>" + ogrenci.ad + " " + ogrenci.soyad + "</b> silinsin mi?", this.ogrenciService.deleteOgrenci(ogrenci), this.ogrenciListesi, ogrenci, "Kayıt silindi")
   }
   ogrenciDuzenle(ogrenci, itemSliding: IonItemSliding) {
     localStorage.setItem("ogrenci", JSON.stringify(ogrenci));

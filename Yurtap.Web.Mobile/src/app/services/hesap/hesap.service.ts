@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtHelper, tokenNotExpired } from 'angular2-jwt';
 import { User } from 'src/app/models/account/User';
 import { ToastService } from '../toast/toast.service';
 import { CurrentUser } from 'src/app/models/account/CurrentUser';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,18 +22,25 @@ export class HesapService {
   //decodedToken: any;
   jwtHelper: JwtHelper = new JwtHelper();
   TOKEN_KEY = "yurtap_yoklama_token";
+  auth: boolean = false;
 
-  login(user: User, redirectUrl: string) {
+  login(user: User, redirectUrl: string, loginBtn, span) {
     let headers = new HttpHeaders();
     headers = headers.append("Content-Type", "application/json");
-    this.httpClient.post(environment.kullaniciPath + "giris", user, { headers: headers })
+    this.httpClient.post<any>(environment.kullaniciPath + "giris", user, { headers: headers })
       .subscribe(data => {
-        this.saveToken(data)
+        this.saveToken(data.result.token)
         //this.userToken = data;
         //this.decodedToken = this.jwtHelper.decodeToken(data.toString())
         this.toastService.showToast("Sisteme giriş yapıldı")
         this.router.navigateByUrl(redirectUrl)
-      })
+      },
+        error => {
+          span.nativeElement.innerHTML="Giriş Yap";
+          loginBtn.disabled = false;
+          throw new HttpErrorResponse({ status: error.status })
+        },
+      )
   }
 
   logOut() {
@@ -50,27 +58,27 @@ export class HesapService {
   }
 
   get getToken() {
-      return localStorage.getItem(this.TOKEN_KEY); // token getir
+    return localStorage.getItem(this.TOKEN_KEY); // token getir
   }
 
   get getDecodeToken() {
-      return this.jwtHelper.decodeToken(this.getToken); // token çöz
+    return this.jwtHelper.decodeToken(this.getToken); // token çöz
   }
 
   isExpired() {
-      return (this.jwtHelper.getTokenExpirationDate(this.getToken) < new Date()) //tokenın süresi dolmuşmu
+    return (this.jwtHelper.getTokenExpirationDate(this.getToken) < new Date()) //tokenın süresi dolmuşmu
   }
 
   getCurrentUser() {
-    if(this.isLoggedIn){
-    var currentUser = new CurrentUser();
-    currentUser.id = this.getDecodeToken.id;
-    currentUser.name = this.getDecodeToken.name;
-    currentUser.password = this.getDecodeToken.password;
-    currentUser.fullName = this.getDecodeToken.fullName;
-    currentUser.isLogged = this.isLoggedIn;
-    currentUser.roles = JSON.parse(this.getDecodeToken.roles);
-    return currentUser;
+    if (this.isLoggedIn) {
+      var currentUser = new CurrentUser();
+      currentUser.id = this.getDecodeToken.id;
+      currentUser.name = this.getDecodeToken.name;
+      currentUser.password = this.getDecodeToken.password;
+      currentUser.fullName = this.getDecodeToken.fullName;
+      currentUser.isLogged = this.isLoggedIn;
+      currentUser.roles = JSON.parse(this.getDecodeToken.roles);
+      return currentUser;
     }
   }
 }

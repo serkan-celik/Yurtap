@@ -2,25 +2,23 @@
   <ion-split-pane [when]="menuDurum">
     <ion-menu type="overlay">
       <ion-header>
-        <ion-toolbar>
+        <ion-toolbar color="primary">
           <ion-title>Menü</ion-title>
           <ion-icon *ngIf="platform.width()>640" (click)="menuyuKapat()" slot="end" name="attach" style="zoom: 1.5">
           </ion-icon>
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <ion-card>
-          <ion-card-header class="ion-text-center">
-            <ion-avatar style="margin:auto">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9Ry3j1IMhdhukL3SXCTW-q5MtEBDHu-oNlydFh-vMaY8h8LJYug">
-            </ion-avatar>
-            <ion-card-subtitle>{{currentUser.fullName}}</ion-card-subtitle>
-            <!--<ion-card-title>{{currentUser.fullName}}</ion-card-title>-->
-          </ion-card-header>
-        </ion-card>
         <ion-list>
           <ion-menu-toggle auto-hide="false">
+            <ion-item *ngIf="false">
+              <!--<ion-icon name="contact"></ion-icon>-->
+              <ion-avatar>
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9Ry3j1IMhdhukL3SXCTW-q5MtEBDHu-oNlydFh-vMaY8h8LJYug">
+              </ion-avatar>
+              <ion-label class="ion-margin-start"><b>{{currentUser.fullName}}</b></ion-label>
+            </ion-item>
             <ion-item [routerLink]="['/ana-sayfa']">
               <ion-icon slot="start" name="home"></ion-icon>
               <ion-label>

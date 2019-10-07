@@ -27,7 +27,7 @@ export class AppComponent extends BaseComponent {
       title: 'Yoklama Listeleri',
       url: '/yoklama-listeleri',
       icon: 'menu',
-      role:[
+      role: [
         RolEnum.YoklamaYonetimi.valueOf()
       ]
     },
@@ -35,7 +35,7 @@ export class AppComponent extends BaseComponent {
       title: 'Yoklama Raporları',
       url: '/yoklama-raporlari',
       icon: 'grid',
-      role:[]
+      role: []
     },
     /*{
       title: 'Yoklama Başlık Listesi',
@@ -47,7 +47,7 @@ export class AppComponent extends BaseComponent {
       title: 'Öğrenci Listesi',
       url: '/ogrenci-listesi',
       icon: 'contacts',
-      role:[
+      role: [
         RolEnum.OgrenciYonetimi.valueOf()
       ]
     },
@@ -55,7 +55,7 @@ export class AppComponent extends BaseComponent {
       title: 'Personel Listesi',
       url: '/personel-listesi',
       icon: 'person',
-      role:[
+      role: [
         RolEnum.PersonelYonetimi.valueOf()
       ]
     }
@@ -69,23 +69,21 @@ export class AppComponent extends BaseComponent {
     public hesapService: HesapService,
   ) {
     super(hesapService);
-   this.initializeApp();
-}
-
-  ngOnInit() {
-
+    this.initializeApp();
   }
 
-  getAktifRol(role:number){
-    return this.getUserRoles.findIndex(p=>p.rolId==role)>-1;
+  menuDurum: boolean;
+
+  getAktifRol(role: number) {
+    return this.getUserRoles.findIndex(p => p.rolId == role) > -1;
   }
 
-  roles(){
+  roles() {
     return this.getUserRoles;
   }
 
   initializeApp() {
-   this.platform.ready().then(() => {
+    this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
@@ -96,7 +94,6 @@ export class AppComponent extends BaseComponent {
     this.menuCtrl.close();
   }
 
-  menuDurum: boolean;
   menuyuKapat() {
     this.menuDurum == false ? this.menuDurum = true : this.menuDurum = false;
   }

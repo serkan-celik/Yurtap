@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { NgForm } from '@angular/forms';
 import { ToastService } from 'src/app/services/toast/toast.service';
+import { ResponseType } from 'src/app/consts/ResponseType';
 
 @Component({
   selector: 'app-yeni-yoklama',
@@ -54,18 +55,17 @@ export class YeniYoklamaComponent implements OnInit {
 
   getYoklamaListesi() {
     this.yoklamaService.getYoklamaListesi().subscribe(data => {
-      if (data.length == 0) {
+      this.yoklama.yoklamaListesi = data.result;
+      this.filteredOgrenciListesi = data.result;
+    }, error => {
+      if (error.status == ResponseType.NotFound)
         this.veriYok = "Öğrenci kaydı olmadan yoklama alınamaz";
-        return;
-      }
-      this.yoklama.yoklamaListesi = data;
-      this.filteredOgrenciListesi = data;
-    });
+    })
   }
 
   getYoklamaBaslikListesi() {
     this.yoklamaBaslikService.getYoklamaBaslikListesi().subscribe(data => {
-      this.yoklamaBaslikListesi = data;
+      this.yoklamaBaslikListesi = data.result;
     });
   }
 
@@ -78,8 +78,8 @@ export class YeniYoklamaComponent implements OnInit {
       }
       else {
         this.yoklamaService.getYoklamaDetayById(param.id).subscribe(data => {
-          this.yoklama = data;
-          this.filteredOgrenciListesi = data.yoklamaListesi;
+          this.yoklama = data.result;
+          this.filteredOgrenciListesi = data.result.yoklamaListesi;
           this.baslik = "Yoklama Düzenle";
           this.duzenlemeModu = true;
         });
@@ -103,12 +103,14 @@ export class YeniYoklamaComponent implements OnInit {
   }
 
   filteredList() {
+    if (this.yoklamaDurum > -1) {
+      this.yoklamaDurum = -1;
+    }
     this.yoklama.yoklamaListesi = this.filteredOgrenciListesi.filter(item => {
-      let result = (item.ad + " " + item.soyad).toLocaleLowerCase().indexOf(this.filterText.trim().toLocaleLowerCase()) > -1
+      let result = (item.ad + " " + item.soyad).toLocaleLowerCase().indexOf(this.filterText.trim().toLocaleLowerCase()) > -1;
       if (result)
         return result
     });
-
   }
 
   yoklamaKaydet(yoklamaForm: NgForm) {
@@ -120,7 +122,7 @@ export class YeniYoklamaComponent implements OnInit {
     if (!this.duzenlemeModu) {
       this.alertService.confirmAlert("Yoklama kaydedilsin mi?", this.yoklamaService.addYoklama(this.yoklama), "Yoklama başarıyla kaydedildi");
       this.yoklamaService.getYoklamaListeleriByTarih().subscribe(data => {
-        localStorage.setItem("yoklamaLength", data.length.toString());
+        localStorage.setItem("yoklamaLength", data.result.length.toString());
       });
     }
     else {

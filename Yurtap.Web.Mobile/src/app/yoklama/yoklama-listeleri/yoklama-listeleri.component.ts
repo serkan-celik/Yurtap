@@ -37,7 +37,7 @@ export class YoklamaListeleriComponent implements OnInit {
       if (data.length == 0) {
         this.veriYok = "Hiç yoklama kaydı yok.";
       }
-      this.yoklamalarListesi = data;
+      this.yoklamalarListesi = data.result;
       this.yoklamalarLength = data.length;
     });
   }

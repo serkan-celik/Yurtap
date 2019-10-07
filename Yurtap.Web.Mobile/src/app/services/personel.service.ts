@@ -12,18 +12,18 @@ export class PersonelService {
     constructor(private httpService: HttpService) {
     }
     getPersonelListesi() {
-        return this.httpService.getHttp<PersonelListe[]>(environment.personelPath, "getPersonelListesi");
+        return this.httpService.getHttp<any>(environment.personelPath, "getPersonelListesi");
     }
     addPersonel(personel: Personel) {
-        return this.httpService.postHttp<Personel>(environment.personelPath, "addPersonel", personel);
+        return this.httpService.postHttp<any>(environment.personelPath, "addPersonel", personel);
     }
     deletePersonel(personel: Personel) {
-        return this.httpService.deleteHttp<boolean>(environment.personelPath, "deletePersonel", personel);
+        return this.httpService.deleteHttp<any>(environment.personelPath, "deletePersonel", personel);
     }
     getPersonelByKisiId(kisiId: number) {
-        return this.httpService.getHttp<Personel>(environment.personelPath, "getPersonelByKisiId?kisiId=" + kisiId);
+        return this.httpService.getHttp<any>(environment.personelPath, "getPersonelByKisiId?kisiId=" + kisiId);
     }
     updatePersonel(personel: Personel) {
-        return this.httpService.putHttp<Ogrenci>(environment.personelPath, "updatePersonel", personel);
+        return this.httpService.putHttp<any>(environment.personelPath, "updatePersonel", personel);
     }
 }

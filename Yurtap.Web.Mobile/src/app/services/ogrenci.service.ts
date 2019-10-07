@@ -12,18 +12,18 @@ export class OgrenciService {
     constructor(private httpService: HttpService) {
     }
     getOgrenciListesi() {
-        return this.httpService.getHttp<OgrenciListe[]>(environment.ogrenciPath, "getOgrenciListesi");
+        return this.httpService.getHttp<any>(environment.ogrenciPath, "getOgrenciListesi");
     }
     addOgrenci(ogrenci: Ogrenci) {
-        return this.httpService.postHttp<Ogrenci>(environment.ogrenciPath, "addOgrenci", ogrenci);
+        return this.httpService.postHttp<any>(environment.ogrenciPath, "addOgrenci", ogrenci);
     }
     deleteOgrenci(ogrenci: Ogrenci) {
-        return this.httpService.deleteHttp<Ogrenci>(environment.ogrenciPath, "deleteOgrenci", ogrenci);
+        return this.httpService.deleteHttp<any>(environment.ogrenciPath, "deleteOgrenci", ogrenci);
     }
     getOgrenciByKisiId(kisiId: number) {
-        return this.httpService.getHttp<Ogrenci>(environment.ogrenciPath, "getOgrenciByKisiId?kisiId=" + kisiId);
+        return this.httpService.getHttp<any>(environment.ogrenciPath, "getOgrenciByKisiId?kisiId=" + kisiId);
     }
     updateOgrenci(ogrenci: Ogrenci) {
-        return this.httpService.putHttp<Ogrenci>(environment.ogrenciPath, "updateOgrenci", ogrenci);
+        return this.httpService.putHttp<any>(environment.ogrenciPath, "updateOgrenci", ogrenci);
     }
 }

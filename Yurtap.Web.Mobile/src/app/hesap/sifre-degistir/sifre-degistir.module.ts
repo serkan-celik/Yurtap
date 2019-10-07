@@ -26,6 +26,7 @@ const routes: Routes = [
       }
     ])
   ],
+  entryComponents:[SifreDegistirComponent],
   declarations: [SifreDegistirComponent]
 })
 export class SifreDegistirModule {}

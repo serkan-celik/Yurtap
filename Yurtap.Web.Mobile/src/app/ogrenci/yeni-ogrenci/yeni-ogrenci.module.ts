@@ -19,6 +19,7 @@ import { PopModule } from 'src/app/popcomponent/pop-module.module';
       }
     ])
   ],
+  entryComponents:[YeniOgrenciComponent],
   declarations: [YeniOgrenciComponent]
 })
 export class YeniOgrenciModule {}

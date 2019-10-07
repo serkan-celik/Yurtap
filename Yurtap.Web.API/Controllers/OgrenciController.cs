@@ -37,76 +37,56 @@ namespace Yurtap.Web.API.Controllers
         [HttpGet("GetOgrenciListesi")]
         public ActionResult GetOgrenciListesi()
         {
-            List<OgrenciModel> ogrenci;
-            try
+            var ogrenciListesi = _ogrenciBll.GetOgrenciListesi();
+            if (ogrenciListesi.Success)
             {
-                ogrenci = _ogrenciBll.GetOgrenciListesi();
+                return Ok(ogrenciListesi);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(ogrenci);
+            return NotFound(ogrenciListesi);
         }
 
         [HttpGet("GetOgrenciByKisiId")]
-        public ActionResult GetOgrenciById(ushort kisiId)
+        public ActionResult GetOgrenciById(int kisiId)
         {
-            OgrenciModel ogrenci;
-            try
+            var ogrenci = _ogrenciBll.GetOgrenciByKisiId(kisiId);
+            if (ogrenci.Success)
             {
-                ogrenci = _ogrenciBll.GetOgrenciByKisiId(kisiId);
+                return Ok(ogrenci);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(ogrenci);
+            return NotFound(ogrenci);
         }
 
         [HttpPost("AddOgrenci")]
         public ActionResult AddOgrenci([FromBody]OgrenciModel ogrenciModel)
         {
-            OgrenciModel ogrenci;         
-            try
+            var ogrenci = _ogrenciBll.AddOgrenci(ogrenciModel);
+            if (ogrenci.Success)
             {
-                ogrenci = _ogrenciBll.AddOgrenci(ogrenciModel);   
+                return Created("", ogrenci);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(ogrenci);
+            return BadRequest(ogrenci);
         }
 
         [HttpPut("UpdateOgrenci")]
         public ActionResult UpdateOgrenci([FromBody]OgrenciModel ogrenciModel)
         {
-            OgrenciModel ogrenci;
-            try
+            var ogrenci = _ogrenciBll.UpdateOgrenci(ogrenciModel);
+            if (ogrenci.Success)
             {
-                ogrenci = _ogrenciBll.UpdateOgrenci(ogrenciModel);
+                return Ok(ogrenci);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(ogrenci);
+            return BadRequest(ogrenci);
         }
 
         [HttpDelete("DeleteOgrenci")]
         public ActionResult Delete([FromBody]OgrenciModel ogrenciModel)
         {
-            bool ogrenci;
-            try
+            var ogrenci = _ogrenciBll.DeleteOgrenci(ogrenciModel);
+            if (ogrenci.Success)
             {
-                ogrenci = _ogrenciBll.DeleteOgrenci(ogrenciModel);
+                return Ok(ogrenci);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(ogrenci);
+            return BadRequest(ogrenci);
         }
     }
 }

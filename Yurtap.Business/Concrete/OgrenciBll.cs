@@ -13,6 +13,7 @@ using Yurtap.Entity;
 using Yurtap.Entity.Enums;
 using Yurtap.Entity.Models;
 using Yurtap.Core.Utilities.ExtensionMethods;
+using Yurtap.Core.Business.Models;
 
 namespace Yurtap.Business.Concrete
 {
@@ -33,11 +34,14 @@ namespace Yurtap.Business.Concrete
             _kullaniciRolBll = kullaniciRolBll;
         }
 
-        public OgrenciModel AddOgrenci(OgrenciModel ogrenciModel)
+        public ServiceResult<object> AddOgrenci(OgrenciModel ogrenciModel)
         {
             using (TransactionScope scope = new TransactionScope())
             {
-                IsOgrenciMi(ogrenciModel);
+                if (!IsOgrenciMi(ogrenciModel).Success)
+                {
+                    return IsOgrenciMi(ogrenciModel);
+                }
                 var kisi = _kisiDal.Add(
                     new KisiEntity
                     {
@@ -71,29 +75,41 @@ namespace Yurtap.Business.Concrete
 
                 }
                 scope.Complete();
+                return new ServiceResult<object>(ogrenciModel, "Öğrenci oluşturuldu", ServiceResultType.Created);
             }
-            return ogrenciModel;
         }
 
-        public List<OgrenciModel> GetOgrenciListesi()
+        public ServiceResult<List<OgrenciModel>> GetOgrenciListesi()
         {
-            return _ogrenciDal.GetOgrenciListesi();
+            var ogrenciListesi = new ServiceResult<List<OgrenciModel>>(_ogrenciDal.GetOgrenciListesi());
+            if (!ogrenciListesi.Result.Any())
+            {
+                return new ServiceResult<List<OgrenciModel>>(ogrenciListesi.Result, "Öğrenci bulunamadı", ServiceResultType.NotFound);
+            }
+            return ogrenciListesi;
         }
 
-        public OgrenciModel GetOgrenciByKisiId(int kisiId)
+        public ServiceResult<OgrenciModel> GetOgrenciByKisiId(int kisiId)
         {
             bool kullaniciMi = _kullaniciBll.IsKullanici(kisiId);
-            OgrenciModel ogrenci = GetOgrenciListesi().SingleOrDefault(o => o.KisiId == kisiId);
+            OgrenciModel ogrenci = _ogrenciDal.GetOgrenci(kisiId);
+            if (ogrenci == null)
+            {
+                return new ServiceResult<OgrenciModel>(ogrenci, "Öğrenci bulunamadı", ServiceResultType.NotFound);
+            }
             if (kullaniciMi)
                 ogrenci.Hesap = true;
             else
                 ogrenci.Hesap = false;
-            return ogrenci;
+            return new ServiceResult<OgrenciModel>(ogrenci);
         }
 
-        public OgrenciModel UpdateOgrenci(OgrenciModel ogrenciModel)
+        public ServiceResult<object> UpdateOgrenci(OgrenciModel ogrenciModel)
         {
-            IsOgrenciMi(ogrenciModel);
+            if (!IsOgrenciMi(ogrenciModel).Success)
+            {
+                return IsOgrenciMi(ogrenciModel);
+            }
             var kullanici = _kullaniciBll.GetKullaniciById(ogrenciModel.KisiId);
             if (kullanici == null && ogrenciModel.Hesap)
             {
@@ -118,45 +134,63 @@ namespace Yurtap.Business.Concrete
                 _kullaniciBll.UpdateKullanici(kullanici);
             }
             var ogrenci = GetOgrenci(ogrenciModel.KisiId);
-            ogrenci.SonGuncelleyenId = CurrentUser.Id;
-            ogrenci.SonGuncellemeTarihi = DateTime.Now;
-            _ogrenciDal.Update(ogrenci);
-            return _kisiBll.UpdateOgrenci(ogrenciModel);
+            if (!ogrenci.Success)
+            {
+                return new ServiceResult<object>(ogrenci.Result, ogrenci.Message, ogrenci.ResultCode);
+            }
+            ogrenci.Result.SonGuncelleyenId = CurrentUser.Id;
+            ogrenci.Result.SonGuncellemeTarihi = DateTime.Now;
+            _ogrenciDal.Update(ogrenci.Result);
+            var updatedOgrenci = _kisiBll.UpdateOgrenci(ogrenciModel);
+            return new ServiceResult<object>(updatedOgrenci, "Öğrenci güncelledi", ServiceResultType.Success);
         }
 
-        public bool DeleteOgrenci(OgrenciModel ogrenciModel)
+        public ServiceResult<object> DeleteOgrenci(OgrenciModel ogrenciModel)
         {
             using (TransactionScope scope = new TransactionScope())
             {
                 var kisi = _kisiBll.GetKisi(ogrenciModel.KisiId);
-                kisi.Durum = DurumEnum.Silinmis;
-                _kisiDal.Update(kisi);
+                if (!kisi.Success)
+                {
+                    return new ServiceResult<object>(kisi.Result, kisi.Message, kisi.ResultCode);
+                }
+                kisi.Result.Durum = DurumEnum.Silinmis;
+                _kisiDal.Update(kisi.Result);
                 var ogrenci = GetOgrenci(ogrenciModel.KisiId);
-                ogrenci.Durum = DurumEnum.Silinmis;
-                _ogrenciDal.Update(ogrenci);
+                if (!ogrenci.Success)
+                {
+                    return new ServiceResult<object>(ogrenci.Result, ogrenci.Message, ogrenci.ResultCode);
+                }
+                ogrenci.Result.Durum = DurumEnum.Silinmis;
+                _ogrenciDal.Update(ogrenci.Result);
                 scope.Complete();
+                return new ServiceResult<object>(null, "Öğrenci silindi", ServiceResultType.Success);
             }
-            return true;
         }
 
-        public bool IsOgrenciMi(OgrenciModel ogrenciModel)
+        public ServiceResult<object> IsOgrenciMi(OgrenciModel ogrenciModel)
         {
             bool isOgrenci = _ogrenciDal.IsOgrenciMi(ogrenciModel);
-            bool isKisi = _kisiDal.Any(k => k.TcKimlikNo == ogrenciModel.TcKimlikNo);
+            //bool isKisi = _kisiDal.Any(k => k.TcKimlikNo == ogrenciModel.TcKimlikNo);
             if (isOgrenci)
             {
-                throw new Exception("Öğrenci daha önceden kayıtlıdır!");
+                return new ServiceResult<object>(null, "Öğrenci zaten kayıtlıdır", ServiceResultType.BadRequest);
             }
-            if (isKisi && ogrenciModel.KisiId == 0)
-            {
-                throw new Exception("Tc kimlik no daha önceden tanımlıdır!");
-            }
-            return true;
+            //if (isKisi && ogrenciModel.KisiId == 0)
+            //{
+            //    throw new Exception("Tc kimlik no daha önceden tanımlıdır!");
+            //}
+            return new ServiceResult<object>(ogrenciModel);
         }
 
-        public OgrenciEntity GetOgrenci(int kisiId)
+        public ServiceResult<OgrenciEntity> GetOgrenci(int kisiId)
         {
-            return _ogrenciDal.Get(o => o.Id == kisiId);
+            var ogrenci = _ogrenciDal.Get(o => o.Id == kisiId && o.Durum == DurumEnum.Aktif);
+            if (ogrenci == null)
+            {
+                return new ServiceResult<OgrenciEntity>(null, "Öğrenci bulunamadı", ServiceResultType.NotFound);
+            }
+            return new ServiceResult<OgrenciEntity>(ogrenci);
         }
     }
 }

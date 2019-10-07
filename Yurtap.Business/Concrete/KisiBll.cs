@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Yurtap.Business.Abstract;
+using Yurtap.Core.Business.Models;
+using Yurtap.Core.Entity.Enums;
 using Yurtap.DataAccess.Abstract;
 using Yurtap.Entity;
 using Yurtap.Entity.Models;
@@ -17,30 +19,37 @@ namespace Yurtap.Business.Concrete
             _kisiDal = kisiDal;
         }
 
-        public KisiEntity GetKisi(int kisiId)
+        public ServiceResult<KisiEntity> GetKisi(int kisiId)
         {
-            return _kisiDal.Get(k => k.Id == kisiId);
+            var kisi = _kisiDal.Get(k => k.Id == kisiId && k.Durum == DurumEnum.Aktif);
+            if (kisi == null)
+            {
+                return new ServiceResult<KisiEntity>(null, "Kişi bulunamadı", ServiceResultType.NotFound);
+            }
+            return new ServiceResult<KisiEntity>(kisi);
         }
 
         public OgrenciModel UpdateOgrenci(OgrenciModel ogrenciModel)
         {
             var kisi = GetKisi(ogrenciModel.KisiId);
-            kisi.Ad = ogrenciModel.Ad;
-            kisi.Soyad = ogrenciModel.Soyad;
-            kisi.SonGuncelleyenId = CurrentUser.Id;
-            kisi.SonGuncellemeTarihi = DateTime.Now;
-            _kisiDal.Update(kisi);
+            if(kisi.Success)
+            kisi.Result.Ad = ogrenciModel.Ad;
+            kisi.Result.Soyad = ogrenciModel.Soyad;
+            kisi.Result.SonGuncelleyenId = CurrentUser.Id;
+            kisi.Result.SonGuncellemeTarihi = DateTime.Now;
+            _kisiDal.Update(kisi.Result);
             return ogrenciModel;
         }
 
         public PersonelModel UpdatePersonel(PersonelModel personelModel)
         {
             var kisi = GetKisi(personelModel.KisiId);
-            kisi.Ad = personelModel.Ad;
-            kisi.Soyad = personelModel.Soyad;
-            kisi.SonGuncelleyenId = CurrentUser.Id;
-            kisi.SonGuncellemeTarihi = DateTime.Now;
-            _kisiDal.Update(kisi);
+            if (kisi.Success)
+            kisi.Result.Ad = personelModel.Ad;
+            kisi.Result.Soyad = personelModel.Soyad;
+            kisi.Result.SonGuncelleyenId = CurrentUser.Id;
+            kisi.Result.SonGuncellemeTarihi = DateTime.Now;
+            _kisiDal.Update(kisi.Result);
             return personelModel;
         }
     }

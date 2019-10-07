@@ -10,7 +10,7 @@ namespace Yurtap.DataAccess.Abstract
     public interface IOgrenciDal : IEntityRepository<OgrenciEntity>
     {
         List<OgrenciModel> GetOgrenciListesi();
-        OgrenciModel GetOgrenci(short kisiId);
+        OgrenciModel GetOgrenci(int kisiId);
         bool IsOgrenciMi(OgrenciModel ogrenciModel);
     }
 }

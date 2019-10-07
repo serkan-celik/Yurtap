@@ -23,9 +23,9 @@ export class YeniOgrenciComponent extends BaseComponent implements OnInit {
     private ogrenciService: OgrenciService,
     private toastService: ToastService,
     private activatedRoute: ActivatedRoute, 
-    public h: HesapService,
+    public hesapService: HesapService,
     private alertService: AlertService) {
-    super(h);
+    super(hesapService);
   }
 
   ogrenci: Ogrenci = new Ogrenci();
@@ -50,7 +50,7 @@ export class YeniOgrenciComponent extends BaseComponent implements OnInit {
       if (param.kisiId) {
         this.paramKisiId = param.kisiId;
         this.ogrenciService.getOgrenciByKisiId(param.kisiId).subscribe(data => {
-          this.ogrenci = data;
+          this.ogrenci = data.result;
           this.baslik = "Öğrenci Düzenle";
           this.duzenlemeModu = true;
           this.hesap = this.ogrenci.hesap;
@@ -62,12 +62,6 @@ export class YeniOgrenciComponent extends BaseComponent implements OnInit {
   ogrenciKaydet(ogrenciForm: NgForm) {
     if (this.duzenlemeModu) {
       this.ogrenciService.updateOgrenci(this.ogrenci).subscribe(data => {
-        if (data) {
-          this.toastService.showToast("Öğrenci güncellendi.");
-        }
-      }, error => {
-        //console.log(error.error);
-        this.toastService.showToast(error.error);
       })
     }
     else {

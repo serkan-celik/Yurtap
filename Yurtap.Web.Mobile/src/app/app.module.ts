@@ -25,7 +25,8 @@ import { YoklamaRaporuComponent } from './rapor/yoklama-raporu/yoklama-raporu.co
   declarations: [
     AppComponent,
     YapimAsamasindaComponent,
-    SortPipe],
+    SortPipe,
+  GirisComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
