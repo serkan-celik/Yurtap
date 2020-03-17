@@ -56,7 +56,7 @@ export class YeniPersonelComponent implements OnInit {
     if (this.duzenlemeModu) {
       this.personelService.updatePersonel(this.personel).subscribe(data => {
         if (data.result) {
-          this.toastService.showToast("Personel güncellendi.");
+          this.toastService.showToast("Personel güncellendi");
         }
       }, error => {
         console.log(error.error);
@@ -67,7 +67,7 @@ export class YeniPersonelComponent implements OnInit {
       this.personelService.addPersonel(this.personel).subscribe(data => {
         if (data) {
           personelForm.reset()
-          this.toastService.showToast("Personel kaydedildi.");
+          this.toastService.showToast("Personel oluşturuldu");
         }
       });
     }
@@ -76,9 +76,5 @@ export class YeniPersonelComponent implements OnInit {
 
   tcKimlikNoDogrula(tcKimlikNo) {
     this.hataMetni = new KimlikIslemleri().tcKimlikNoDogrula(tcKimlikNo);
-  }
-
-  hesapGoster(){
-    this.alertService.advancedAlert("Kullanıcı Hesabı","Kullanıcı Adı: " + this.personel.kullaniciAd + "<br/>Şifre: " + this.personel.sifre);
   }
 }

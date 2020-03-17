@@ -14,6 +14,7 @@ namespace Yurtap.Business.Concrete
     public class KisiBll : BaseManager, IKisiBll
     {
         private readonly IKisiDal _kisiDal;
+        private readonly IPersonelDal _personelDal;
         public KisiBll(IKisiDal kisiDal)
         {
             _kisiDal = kisiDal;
@@ -27,6 +28,11 @@ namespace Yurtap.Business.Concrete
                 return new ServiceResult<KisiEntity>(null, "Kişi bulunamadı", ServiceResultType.NotFound);
             }
             return new ServiceResult<KisiEntity>(kisi);
+        }
+
+        public List<KisiListeModel> GetKisiListesi()
+        {
+            return _kisiDal.GetKisiListesi();
         }
 
         public OgrenciModel UpdateOgrenci(OgrenciModel ogrenciModel)

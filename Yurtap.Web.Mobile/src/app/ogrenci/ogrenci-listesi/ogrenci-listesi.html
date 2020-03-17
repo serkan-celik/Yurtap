@@ -9,15 +9,14 @@
     <pop-account-component slot="end"></pop-account-component>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <ion-searchbar [(ngModel)]="filterText" (ionChange)="filteredList()" placeholder="Öğrenci Ara..."></ion-searchbar>
   <ion-card-subtitle class="ion-text-center" *ngIf="ogrenciListesi.length==0&&filterText.length>0"> '{{filterText}}'
     için sonuç bulunamadı
   </ion-card-subtitle>
   <div style="line-height: 20">
-    <ion-card-subtitle style="white-space: nowrap" class="ion-text-center" *ngIf="ogrenciListesi.length==0&&filterText.length==0"
-      [innerHTML]="veriYok"></ion-card-subtitle>
+    <ion-card-subtitle style="white-space: nowrap" class="ion-text-center"
+      *ngIf="ogrenciListesi.length==0&&filterText.length==0" [innerHTML]="veriYok"></ion-card-subtitle>
   </div>
   <!--<ion-list>
     <ion-item *ngFor="let item of items">
@@ -29,6 +28,9 @@
     </ion-item>
   </ion-list>-->
   <ion-list>
+    <ion-list-header *ngIf="ogrenciListesi.length">
+      {{ogrenciListesi.length}} Öğrenci
+    </ion-list-header>
     <ion-item-sliding *ngFor="let ogrenci of ogrenciListesi; let i = index" #itemSliding>
       <ion-item-options side="start">
         <ion-item-option (click)="ogrenciDuzenle(ogrenci,itemSliding)" class="ion-text-capitalize">
@@ -36,7 +38,10 @@
         </ion-item-option>
       </ion-item-options>
       <ion-item>
-        <b>{{i+1}}.</b>{{ogrenci.ad}} {{ogrenci.soyad}}
+        <ion-avatar slot="start">
+          <text-avatar [text]="i+1" color="#989aa2" textColor="#ffffff"></text-avatar>
+        </ion-avatar>
+        <b>{{ogrenci.ad}} {{ogrenci.soyad}}</b>
       </ion-item>
       <ion-item-options side="end">
         <ion-item-option (click)="ogrenciSil(ogrenci)" class="ion-text-capitalize" color="danger">
@@ -46,7 +51,8 @@
     </ion-item-sliding>
   </ion-list>
   <!-- Skeleton screen -->
-  <ion-list *ngIf="ogrenciListesi.length==0&&veriYok.length==0&&filterText.length==0" class="ion-padding custom-skeleton">
+  <ion-list *ngIf="ogrenciListesi.length==0&&veriYok.length==0&&filterText.length==0"
+    class="ion-padding custom-skeleton">
     <ion-item>
       <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
     </ion-item>

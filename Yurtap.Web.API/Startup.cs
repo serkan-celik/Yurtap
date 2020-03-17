@@ -45,7 +45,7 @@ namespace Yurtap.Web.API
             services.AddTransient<IPersonelDal, EfPersonelDal>();
             services.AddTransient<IPersonelBll, PersonelBll>();
             services.AddTransient<IYoklamaDal, EfYoklamaDal>();
-            services.AddTransient<IYoklamaBll, YoklamaBll>();
+            services.AddTransient<IYoklamaService, YoklamaBll>();
             services.AddTransient<IYoklamaBaslikDal, EfYoklamaBaslikDal>();
             services.AddTransient<IYoklamaBaslikBll, YoklamaBaslikBll>();
             services.AddTransient<IKullaniciDal, EfKullaniciDal>();

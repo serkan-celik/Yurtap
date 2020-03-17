@@ -140,7 +140,7 @@ namespace Yurtap.DataAccess.Concrete.EntityFramework
                         }).ToList(),
                         YoklamaSayisi = y.Count(),
                         KatilimSayisi = y.Count(c => c.Katilim == YoklamaDurumEnum.Var.GetDisplayName()),
-                        GenelKatilimYuzdesi = Math.Floor(
+                        GenelKatilimYuzdesi = Math.Round(
                         (Convert.ToDouble(y.Count(c => c.Katilim == YoklamaDurumEnum.Var.GetDisplayName())) / Convert.ToDouble(y.Count())) * 100).ToString()
                     }).ToList();
                 return items;

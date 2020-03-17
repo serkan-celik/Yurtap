@@ -18,6 +18,9 @@
       *ngIf="personelListesi.length==0&&filterText.length==0" [innerHtml]="veriYok"></ion-card-subtitle>
   </div>
   <ion-list>
+  <ion-list-header *ngIf="personelListesi.length">
+    {{personelListesi.length}} Personel
+  </ion-list-header>
     <ion-item-sliding *ngFor="let personel of personelListesi; index as i" #itemSliding>
       <ion-item-options side="start">
         <ion-item-option (click)="personelDuzenle(personel,itemSliding)" class="ion-text-capitalize">
@@ -25,7 +28,10 @@
         </ion-item-option>
       </ion-item-options>
       <ion-item>
-        <b>{{i+1}}.</b>{{personel.ad}} {{personel.soyad}}
+        <ion-avatar slot="start">
+          <text-avatar [text]="i+1" color="#989aa2" textColor="#ffffff"></text-avatar>
+        </ion-avatar>
+        <b>{{personel.ad}} {{personel.soyad}}</b>
       </ion-item>
       <ion-item-options side="end">
         <ion-item-option (click)="personelSil(personel)" class="ion-text-capitalize" color="danger">

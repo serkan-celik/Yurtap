@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { YoklamaService } from 'src/app/services/yoklama.service';
 import { Yoklama } from 'src/app/models/Yoklama';
 import * as moment from 'moment';
+import { ResponseType } from 'src/app/consts/ResponseType';
 
 @Component({
   selector: 'app-yoklama-listesi',
@@ -28,26 +29,28 @@ export class YoklamaListeleriComponent implements OnInit {
     var length = localStorage.getItem("yoklamaLength");
     if (this.yoklamalarLength == parseInt(length)) {
       this.getYoklamalarListesi();
-      localStorage.removeItem("yoklamaLength")  
+      localStorage.removeItem("yoklamaLength")
     }
   }
 
   getYoklamalarListesi() {
     this.yoklamaService.getYoklamaListeleriByTarih().subscribe(data => {
-      if (data.length == 0) {
-        this.veriYok = "Hiç yoklama kaydı yok.";
-      }
       this.yoklamalarListesi = data.result;
-      this.yoklamalarLength = data.length;
+      this.yoklamalarLength = data.result.length;
+    }, error => {
+      if (error.status == ResponseType.NotFound) {
+        this.veriYok = error.error.message;
+      }
     });
   }
 
   getYoklamalarTakvimi() {
     this.yoklamaService.getYoklamaListeleriByTarih(this.secilenTarih.substring(0, 10)).subscribe(data => {
-      if (data.length == 0) {
-        this.veriYok = "Hiç yoklama kaydı yok.";
-      }
-      this.yoklamalarTakvimi = data;
+      this.yoklamalarTakvimi = data.result;
+    }, error => {
+      if (error.status == ResponseType.NotFound)
+        this.yoklamalarTakvimi = [];
+      this.veriYok = error.error.message;
     });
   }
 

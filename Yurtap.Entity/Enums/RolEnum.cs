@@ -9,11 +9,11 @@ namespace Yurtap.Entity.Enums
     {
         [Display(Name = "Genel Yönetici")]
         GenelYonetici = 1,
-        [Display(Name = "Yoklama Yöneticisi")]
+        [Display(Name = "Yoklama Yönetimi")]
         YoklamaYoneticisi = 2,
-        [Display(Name = "Öğrenci Yöneticisi")]
+        [Display(Name = "Öğrenci Yönetimi")]
         OgrenciYoneticisi = 3,
-        [Display(Name = "Personel Yöneticisi")]
+        [Display(Name = "Personel Yönetimi")]
         PersonelYoneticisi = 4
     }
 }

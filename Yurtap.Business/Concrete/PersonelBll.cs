@@ -52,25 +52,6 @@ namespace Yurtap.Business.Concrete
                     Id = kisi.Id
                 });
                 personelModel.KisiId = personel.Id;
-                if (personelModel.Hesap)
-                {
-                    string ad = personelModel.Ad.ToLower().RemoveEmpty().ConvertTRCharToENChar();
-                    string soyad = personelModel.Soyad.ToLower().ConvertTRCharToENChar();
-                    string defaultKullaniciAd = String.Join(".", ad, soyad);
-                    string defaultSifre = new Random().Next(1234, 9999).ToString();
-
-                    _kullaniciBll.AddKullanici(new KullaniciModel()
-                    {
-                        KisiId = kisi.Id,
-                        Ad = defaultKullaniciAd,
-                        Sifre = defaultSifre,
-                    });
-                    _kullaniciRolBll.AddKullaniciRol(new KullaniciRolEntity
-                    {
-                        KisiId = kisi.Id,
-                        RolId = RolEnum.GenelYonetici.GetHashCode()
-                    });
-                }
                 scope.Complete();
                 return new ServiceResult<object>(personelModel, "Personel oluşturuldu", ServiceResultType.Created);
             }
@@ -114,29 +95,6 @@ namespace Yurtap.Business.Concrete
             if (!IsPersonelMi(personelModel).Success)
             {
                 return IsPersonelMi(personelModel);
-            }
-            var kullanici = _kullaniciBll.GetKullaniciById(personelModel.KisiId);
-            if (kullanici == null && personelModel.Hesap)
-            {
-                string ad = personelModel.Ad.ToLower().RemoveEmpty().ConvertTRCharToENChar();
-                string soyad = personelModel.Soyad.ToLower().RemoveEmpty().ConvertTRCharToENChar();
-                string defaultKullaniciAd = String.Join(".", ad, soyad);
-                string defaultSifre = new Random().Next(1234, 9999).ToString();
-
-                _kullaniciBll.AddKullanici(new KullaniciModel()
-                {
-                    KisiId = personelModel.KisiId,
-                    Ad = defaultKullaniciAd,
-                    Sifre = defaultSifre,
-                });
-            }
-            else if (kullanici != null)
-            {
-                if (personelModel.Hesap)
-                    kullanici.Durum = DurumEnum.Aktif;
-                else
-                    kullanici.Durum = DurumEnum.Pasif;
-                _kullaniciBll.UpdateKullanici(kullanici);
             }
             var personel = GetPersonel(personelModel.KisiId);
             if (!personel.Success)

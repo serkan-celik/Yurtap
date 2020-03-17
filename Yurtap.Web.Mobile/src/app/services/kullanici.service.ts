@@ -5,7 +5,8 @@ import { PersonelListe } from '../models/PersonelListe';
 import { Personel } from '../models/Personel';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/account/User';
-import { Rol } from '../models/account/CurrentUser';
+import { Rol,UserRoleList } from '../models/account/CurrentUser';
+import { Kisi } from '../models/Kisi';
 
 @Injectable({
     providedIn: "root"
@@ -28,7 +29,16 @@ export class KullaniciService {
     deleteKullaniciRol(rol: Rol) {
         return this.httpService.deleteHttp<boolean>(environment.kullaniciPath, "deleteKullaniciRol", rol);
     }
+    deleteKullanici(kullaniciRolListesi: UserRoleList) {
+        return this.httpService.deleteHttp<boolean>(environment.kullaniciPath, "deleteKullanici", kullaniciRolListesi);
+    }
     updateKullaniciRol(rol: Rol) {
         return this.httpService.putHttp<Rol>(environment.kullaniciPath, "updateKullaniciRol", rol);
+    }
+    getKullaniciRolleriListesi() {
+        return this.httpService.getHttp<UserRoleList[]>(environment.kullaniciPath, "getKullaniciRolleriListesi");
+    }
+    getKisiListesi() {
+        return this.httpService.getHttp<Kisi[]>(environment.kullaniciPath, "getKisiListesi");
     }
 }

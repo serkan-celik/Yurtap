@@ -13,6 +13,6 @@ export const environment = {
     personelPath:"http://192.168.1.25:1985/api/personel/",
     yoklamaPath:"http://192.168.1.25:1985/api/yoklama/",
     yoklamaBaslikPath:"http://192.168.1.25:1985/api/yoklamaBaslik/",
-    kullaniciPath:"http://192.168.1.25:1985/api/kullanici/"*/
+    kullaniciPath:"http://http://192.168.1.25:1985/api/ogrenci/api/kullanici/"*/
 };
 

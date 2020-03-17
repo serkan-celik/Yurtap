@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Kullanıcı Hesabı İçin Kişi Seçin
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-searchbar [(ngModel)]="filterText" (ionChange)="filteredList()" placeholder="Kişi Ara..."></ion-searchbar>
+  <ion-card-subtitle class="ion-text-center" *ngIf="kisiListesi.length==0&&filterText.length>0">
+    '{{filterText}}'
+    için sonuç bulunamadı
+  </ion-card-subtitle>
+  <div style="line-height: 20">
+    <ion-card-subtitle style="white-space: nowrap" class="ion-text-center"
+      *ngIf="kisiListesi.length==0&&filterText.length==0" [innerHTML]="veriYok"></ion-card-subtitle>
+  </div>
+  <ion-list>
+    <ion-list-header *ngIf="kisiListesi.length">
+      {{kisiListesi.length}} Kişi
+    </ion-list-header>
+    <ion-item *ngFor="let kisi of kisiListesi; let i = index" [routerLink]="['/yeni-yetki/' + kisi.kisiId + '/' + kisi.adSoyad]">
+      <ion-avatar slot="start">
+        <text-avatar [text]="kisi.kisiTip==0?'P':'Ö'" [color]="kisi.kisiTip==0?'#0074D9':'#2ECC40'" textColor="#ffffff">
+        </text-avatar>
+      </ion-avatar>
+      <b>{{kisi.adSoyad}}</b>
+    </ion-item>
+  </ion-list>
+  <!-- Skeleton screen -->
+  <ion-list *ngIf="kisiListesi.length==0&&veriYok.length==0&&filterText.length==0" class="ion-padding custom-skeleton">
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+  </ion-list>
+</ion-content>

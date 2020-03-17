@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { KullaniciService } from 'src/app/services/kullanici.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { Platform } from '@ionic/angular';
+import { UserRoleList } from 'src/app/models/account/CurrentUser';
 
 @Component({
   selector: 'app-sifre-degistir',
@@ -21,7 +22,6 @@ export class SifreDegistirComponent extends BaseComponent implements OnInit {
     public platform: Platform) {
     super(hesapService);
   }
-
   kullanici = new User();
   kullaniciAd: boolean = false;
 

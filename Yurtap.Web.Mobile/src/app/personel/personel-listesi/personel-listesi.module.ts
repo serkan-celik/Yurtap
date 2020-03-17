@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { PopModule } from 'src/app/popcomponent/pop-module.module';
 import { PersonelListesiComponent } from './personel-listesi.component';
+import { TextAvatarModule } from 'src/app/components/text-avatar';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { PersonelListesiComponent } from './personel-listesi.component';
     FormsModule,
     IonicModule,
     PopModule,
+    TextAvatarModule,
     RouterModule.forChild([
       {
         path: '',

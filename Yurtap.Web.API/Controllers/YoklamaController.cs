@@ -24,21 +24,21 @@ namespace Yurtap.Web.API.Controllers
     [ApiController]
     public class YoklamaController : BaseControllor
     {
-        private readonly IYoklamaBll _yoklamaBll;
+        private readonly IYoklamaService _yoklamaService;
         private readonly IKisiBll _kisiBll;
-        public YoklamaController(IYoklamaBll yoklamaBll, IKisiBll kisiBll)
+        public YoklamaController(IYoklamaService yoklamaService, IKisiBll kisiBll)
         {
-            _yoklamaBll = yoklamaBll;
+            _yoklamaService = yoklamaService;
             _kisiBll = kisiBll;
         }
 
         [HttpPost("AddYoklama")]
-        public ActionResult AddYoklama([FromBody]YoklamaModel yoklamaModel)
+        public async Task<ActionResult> AddYoklama([FromBody]YoklamaModel yoklamaModel)
         {
-            var yoklama = _yoklamaBll.AddYoklama(yoklamaModel);
+            var yoklama = await _yoklamaService.AddYoklama(yoklamaModel);
             if (yoklama.Success)
             {
-                return Ok(yoklama);
+                return Created("",yoklama);
             }
             return BadRequest(yoklama);
         }
@@ -46,7 +46,7 @@ namespace Yurtap.Web.API.Controllers
         [HttpGet("GetYoklamaListeleri")]
         public ActionResult GetYoklamaListesi(DateTime? tarih)
         {
-            var yoklamaListesi = _yoklamaBll.GetYoklamaListeleri(tarih);
+            var yoklamaListesi = _yoklamaService.GetYoklamaListeleri(tarih);
             if (yoklamaListesi.Success)
             {
                 return Ok(yoklamaListesi);
@@ -57,7 +57,7 @@ namespace Yurtap.Web.API.Controllers
         [HttpGet("GetYoklamaDetayById")]
         public ActionResult GetYoklamaDetayById(int id)
         {
-            var yoklama = _yoklamaBll.GetYoklamaDetayById(id);
+            var yoklama = _yoklamaService.GetYoklamaDetayById(id);
             if (yoklama.Success)
             {
                 return Ok(yoklama);
@@ -68,7 +68,7 @@ namespace Yurtap.Web.API.Controllers
         [HttpGet("GetYoklamaListesi")]
         public ActionResult GetYoklamaListesi()
         {
-            var yoklamaListesi = _yoklamaBll.GetYoklamaListesi();
+            var yoklamaListesi = _yoklamaService.GetYoklamaListesi();
             if (yoklamaListesi.Success)
             {
                 return Ok(yoklamaListesi);
@@ -79,7 +79,7 @@ namespace Yurtap.Web.API.Controllers
         [HttpPut("UpdateYoklama")]
         public ActionResult UpdateYoklama(YoklamaModel yoklamaModel)
         {
-            var yoklama = _yoklamaBll.UpdateYoklama(yoklamaModel);
+            var yoklama = _yoklamaService.UpdateYoklama(yoklamaModel);
             if (yoklama.Success)
             {
                 return Ok(yoklama);
@@ -90,22 +90,34 @@ namespace Yurtap.Web.API.Controllers
         [HttpPost("ExportToExcelVakitlikYoklamaRaporu")]
         public IActionResult ExportToExcelVakitlikYoklamaRaporu(YoklamaModel yoklama)
         {
-            var result = _yoklamaBll.ExportToExcelVakitlikYoklamaRaporu(yoklama);
-            return File(result, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            var result = _yoklamaService.ExportToExcelVakitlikYoklamaRaporu(yoklama);
+            if (result.Success)
+            {
+                return File(result.Result, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            }
+            return NotFound(result);     
         }
 
         [HttpGet("ExportToExcelAylikYoklamaKatilimDurumuRaporu")]
         public ActionResult ExportToExcelAylikYoklamaKatilimDurumuRaporu(DateTime tarih, byte yoklamaBaslikId,string yoklamaBaslik)
         {
-            var result = _yoklamaBll.ExportToExcelAylikYoklamaKatilimDurumuRaporu(tarih, yoklamaBaslikId, yoklamaBaslik);
-            return File(result, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            var result = _yoklamaService.ExportToExcelAylikYoklamaKatilimDurumuRaporu(tarih, yoklamaBaslikId, yoklamaBaslik);
+            if (result.Success)
+            {
+                return File(result.Result, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            }
+            return NotFound(result);
         }
 
         [HttpGet("ExportToExcelAylikYoklamaKatilimYuzdesiRaporu")]
         public ActionResult ExportToExcelAylikYoklamaKatilimYuzdesiRaporu(DateTime tarih)
         {
-            var result = _yoklamaBll.ExportToExcelAylikYoklamaKatilimYuzdesiRaporu(tarih);
-            return File(result, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            var result = _yoklamaService.ExportToExcelAylikYoklamaKatilimYuzdesiRaporu(tarih);
+            if (result.Success)
+            {
+                return File(result.Result, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            }
+            return NotFound(result);
         }
     }
 }

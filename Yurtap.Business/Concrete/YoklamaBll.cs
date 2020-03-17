@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Yurtap.Business.Abstract;
 using Yurtap.Core.Business.Models;
 using Yurtap.Core.Enums;
@@ -16,7 +17,7 @@ using Yurtap.Model.ReportModels.YoklamaModels;
 
 namespace Yurtap.Business.Concrete
 {
-    public class YoklamaBll : BaseManager, IYoklamaBll
+    public class YoklamaBll : BaseManager, IYoklamaService
     {
         private readonly IYoklamaDal _yoklamaDal;
         private readonly IKisiBll _kisiBll;
@@ -26,12 +27,12 @@ namespace Yurtap.Business.Concrete
             _kisiBll = kisiBll;
         }
 
-        public ServiceResult<object> AddYoklama(YoklamaModel yoklamaModel)
+        public async Task<ServiceResult<object>> AddYoklama(YoklamaModel yoklamaModel)
         {
             if (!IsYoklama(yoklamaModel).Success){
                 return IsYoklama(yoklamaModel);
             }
-            var yoklamaEntity = _yoklamaDal.Add(new YoklamaEntity()
+            var yoklamaEntity = await _yoklamaDal.AddAsync(new YoklamaEntity()
             {
                 YoklamaBaslikId = yoklamaModel.YoklamaBaslikId,
                 Tarih = yoklamaModel.Tarih,
@@ -51,7 +52,11 @@ namespace Yurtap.Business.Concrete
         public ServiceResult<List<YoklamaModel>> GetYoklamaListeleri(DateTime? tarih)
         {
             var yoklamaListeleri = _yoklamaDal.GetYoklamaListeleriByTarih(tarih);
-            return new ServiceResult<List<YoklamaModel>>(yoklamaListeleri, "Yoklamalar listelendi", ServiceResultType.Success);
+            if(!yoklamaListeleri.Any())
+            {
+                return new ServiceResult<List<YoklamaModel>>(yoklamaListeleri, "Yoklama bulunamadı", ServiceResultType.NotFound);
+            }
+            return new ServiceResult<List<YoklamaModel>>(yoklamaListeleri);
         }
 
         public ServiceResult<List<YoklamaListeModel>> GetYoklamaListesi()
@@ -90,7 +95,7 @@ namespace Yurtap.Business.Concrete
             return new ServiceResult<object>(yoklama, "Yoklama güncellendi", ServiceResultType.Success);
         }
 
-        public byte[] ExportToExcelVakitlikYoklamaRaporu(YoklamaModel yoklama)
+        public ServiceResult<byte[]> ExportToExcelVakitlikYoklamaRaporu(YoklamaModel yoklama)
         {
 
             var kisi = _kisiBll.GetKisi(yoklama.EkleyenId);
@@ -178,6 +183,11 @@ namespace Yurtap.Business.Concrete
                     yoklama.YoklamaListesi.Add(new YoklamaListeModel());
                 }
 
+                if (!yoklama.YoklamaListesi.Any())
+                {
+                    return new ServiceResult<byte[]>(null, "Rapor bulunamadı.", ServiceResultType.NotFound);
+                }
+
                 foreach (var yoklamaItem in yoklama.YoklamaListesi)
                 {
                     if (rowCount > 50) //50. kayıttan sonra veriler sayfanın sağ bölmesine yerleştirir.
@@ -203,11 +213,11 @@ namespace Yurtap.Business.Concrete
                 //S.N-1 Kolonu
                 worksheet.Cells["A4:A50"].AutoFitColumns(3.5, 3.5);
                 result = package.GetAsByteArray();
-                return result;
+                return new ServiceResult<byte[]>(result);
             }
         }
 
-        public byte[] ExportToExcelAylikYoklamaKatilimDurumuRaporu(DateTime tarih, byte yoklamaBaslikId, string yoklamaBaslik)
+        public ServiceResult<byte[]> ExportToExcelAylikYoklamaKatilimDurumuRaporu(DateTime tarih, byte yoklamaBaslikId, string yoklamaBaslik)
         {
             //var kisi = _kisiBll.GetKisi(yoklama.EkleyenId);
             var comlumHeadrs = new string[]
@@ -307,7 +317,10 @@ namespace Yurtap.Business.Concrete
                 //Dökümana veriler ekleniyor.
                 var j = 5;
                 var yoklamaListesi = _yoklamaDal.GetYoklamaKatilimDurumuAylikRaporListesi(tarih, yoklamaBaslikId);
-
+                if (!yoklamaListesi.Any())
+                {
+                    return new Core.Business.Models.ServiceResult<byte[]>(null,"Rapor bulunamadı.",ServiceResultType.NotFound);
+                }
 
                 foreach (var yoklama in yoklamaListesi)
                 {
@@ -362,11 +375,11 @@ namespace Yurtap.Business.Concrete
                 //worksheet.Cells.AutoFitColumns();
 
                 result = package.GetAsByteArray();
-                return result;
+                return new Core.Business.Models.ServiceResult<byte[]>(result);
             }
         }
 
-        public byte[] ExportToExcelAylikYoklamaKatilimYuzdesiRaporu(DateTime tarih)
+        public ServiceResult<byte[]> ExportToExcelAylikYoklamaKatilimYuzdesiRaporu(DateTime tarih)
         {
 
                 //var kisi = _kisiBll.GetKisi(yoklama.EkleyenId);
@@ -378,105 +391,110 @@ namespace Yurtap.Business.Concrete
 
                 byte[] result;
 
-                using (var package = new ExcelPackage())
+            using (var package = new ExcelPackage())
+            {
+                //Yeni bir excel dökümanı ve yoklama başlığı adında sekme oluşturuluyor
+                var worksheet = package.Workbook.Worksheets.Add("AYLIK YOKLAMALARA KATILIM ORANLARI");
+
+                //Yoklama başlıklarının tümü ortalanıyor
+                using (var cells = worksheet.Cells[4, 1, 4, 33]) //(1,1) (1,5)
                 {
-                    //Yeni bir excel dökümanı ve yoklama başlığı adında sekme oluşturuluyor
-                    var worksheet = package.Workbook.Worksheets.Add("AYLIK YOKLAMALARA KATILIM ORANLARI");
+                    cells.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                }
 
-                    //Yoklama başlıklarının tümü ortalanıyor
-                    using (var cells = worksheet.Cells[4, 1, 4, 33]) //(1,1) (1,5)
-                    {
-                        cells.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                    }
-
-                    //Dökümanın yazıcı ayarları
-                    //worksheet.PrinterSettings.FitToPage = true;
-                    worksheet.PrinterSettings.PaperSize = ePaperSize.A4;
-                    worksheet.PrinterSettings.Orientation = eOrientation.Portrait;
-                    worksheet.PrinterSettings.HorizontalCentered = true;
-                    worksheet.PrinterSettings.TopMargin = (decimal).5 / 2.54M;
-                    worksheet.PrinterSettings.RightMargin = (decimal).5 / 2.54M;
-                    worksheet.PrinterSettings.LeftMargin = (decimal).5 / 2.54M;
-                    worksheet.PrinterSettings.BottomMargin = (decimal).5 / 2.54M;
+                //Dökümanın yazıcı ayarları
+                //worksheet.PrinterSettings.FitToPage = true;
+                worksheet.PrinterSettings.PaperSize = ePaperSize.A4;
+                worksheet.PrinterSettings.Orientation = eOrientation.Portrait;
+                worksheet.PrinterSettings.HorizontalCentered = true;
+                worksheet.PrinterSettings.TopMargin = (decimal).5 / 2.54M;
+                worksheet.PrinterSettings.RightMargin = (decimal).5 / 2.54M;
+                worksheet.PrinterSettings.LeftMargin = (decimal).5 / 2.54M;
+                worksheet.PrinterSettings.BottomMargin = (decimal).5 / 2.54M;
 
                 //Döküman yapılandırması
                 worksheet.Cells["A1:H1"].Merge = true;
-                    worksheet.Cells["A2:H2"].Merge = true;
-                    worksheet.Cells["A3:H3"].Merge = true;
+                worksheet.Cells["A2:H2"].Merge = true;
+                worksheet.Cells["A3:H3"].Merge = true;
 
-                    worksheet.Cells["A1"].Value = "MERKEZ ÖĞRENCİ YURDU";
-                    worksheet.Cells["A2"].Value = string.Join(' ', Enum.Parse<MonthsEnum>(tarih.Month.ToString()).GetDisplayName().ToUpper(), tarih.Year.ToString(), "YOKLAMALARA KATILIM ORANLARI ÇİZELGESİ");
-                    worksheet.Cells["A1:A2"].Style.Font.Size = 16;
-                    //worksheet.Cells["A3:B3"].Value = "Personel: " + kisi?.Ad + " " + kisi?.Soyad;
-                    worksheet.Cells["A3:B3"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
-                    //worksheet.Cells["E3:F3"].Value = "Tarih: " + yoklama.Tarih.ToString("dd.MM.yyyy HH:mm");
-                    worksheet.Cells["E3:F3"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
-                    worksheet.Cells["A1:H4"].Style.Font.Bold = true;
-                    worksheet.Cells["A5:B50"].Style.Font.Bold = true;
-                    worksheet.Cells["A1:A2"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                worksheet.Cells["A1"].Value = "MERKEZ ÖĞRENCİ YURDU";
+                worksheet.Cells["A2"].Value = string.Join(' ', Enum.Parse<MonthsEnum>(tarih.Month.ToString()).GetDisplayName().ToUpper(), tarih.Year.ToString(), "YOKLAMALARA KATILIM ORANLARI ÇİZELGESİ");
+                worksheet.Cells["A1:A2"].Style.Font.Size = 16;
+                //worksheet.Cells["A3:B3"].Value = "Personel: " + kisi?.Ad + " " + kisi?.Soyad;
+                worksheet.Cells["A3:B3"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                //worksheet.Cells["E3:F3"].Value = "Tarih: " + yoklama.Tarih.ToString("dd.MM.yyyy HH:mm");
+                worksheet.Cells["E3:F3"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
+                worksheet.Cells["A1:H4"].Style.Font.Bold = true;
+                worksheet.Cells["A5:B50"].Style.Font.Bold = true;
+                worksheet.Cells["A1:A2"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 
-                    //Tüm döküman hücrelerine kenarlık ekleniyor.
-                    worksheet.Cells.Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                    worksheet.Cells.Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                    worksheet.Cells.Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                    worksheet.Cells.Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                    worksheet.Cells.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                //Tüm döküman hücrelerine kenarlık ekleniyor.
+                worksheet.Cells.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
 
-                    //Döküman başlıklarının kenarlıkları kaldırılıyor.
-                    worksheet.Cells["A1:H3"].Style.Border.Right.Style = ExcelBorderStyle.None;
-                    worksheet.Cells["A1:H3"].Style.Border.Left.Style = ExcelBorderStyle.None;
-                    worksheet.Cells["A1:H3"].Style.Border.Right.Style = ExcelBorderStyle.None;
-                    worksheet.Cells["A1:H3"].Style.Border.Top.Style = ExcelBorderStyle.None;
-                    worksheet.Cells["A1:H3"].Style.Border.Bottom.Style = ExcelBorderStyle.None;
+                //Döküman başlıklarının kenarlıkları kaldırılıyor.
+                worksheet.Cells["A1:H3"].Style.Border.Right.Style = ExcelBorderStyle.None;
+                worksheet.Cells["A1:H3"].Style.Border.Left.Style = ExcelBorderStyle.None;
+                worksheet.Cells["A1:H3"].Style.Border.Right.Style = ExcelBorderStyle.None;
+                worksheet.Cells["A1:H3"].Style.Border.Top.Style = ExcelBorderStyle.None;
+                worksheet.Cells["A1:H3"].Style.Border.Bottom.Style = ExcelBorderStyle.None;
 
-                    //Dökümana veriler ekleniyor.
-                    var j = 5;
-                    int column = 3;
+                //Dökümana veriler ekleniyor.
+                var j = 5;
+                int column = 3;
 
 
-                    var yoklamaListesi = _yoklamaDal.GetYoklamaKatilimYuzdesiAylikRaporListesi(tarih);
-                        foreach (var item in yoklamaListesi[0].YoklamaIstatistikleri)
-                        {
-                            comlumHeaders.Add(item.YoklamaBaslik.Substring(0, item.YoklamaBaslik.IndexOf(' ')).ToUpper());
-                        }
-
-                    //Yoklama başlıkları ekleniyor
-                    comlumHeaders.Add("GENEL");
-                    for (var i = 0; i < comlumHeaders.Count(); i++)
-                    {
-                        worksheet.Cells[4, i + 1].Value = comlumHeaders[i];
-                    }
-
-                    foreach (var yoklama in yoklamaListesi)
-                    {
-                        worksheet.Cells["A" + j].Value = j - 4;
-                        worksheet.Cells["B" + j].Value = yoklama.AdSoyad.Insert(0, " ");
-                        foreach (var item in yoklama.YoklamaIstatistikleri)
-                        {
-                            if (column > comlumHeaders.Count())
-                            {
-                                break;
-                            }
-                            worksheet.Cells[j, column].Value = '%' + item.KatilimYuzdesi;
-                            ++column;
-                        }
-                        worksheet.Cells[j, column].Value = '%' + yoklama.GenelKatilimYuzdesi;
-                        column = 3;
-                        ++j;
-
-                    }
-
-                    //Döküman verilerinin tümü ortalalanıyor.
-                    worksheet.Cells["A4:A50"].AutoFitColumns(3.5, 3.5);
-                    worksheet.Cells["B4:B50"].AutoFitColumns();
-                    worksheet.Cells.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                    worksheet.Cells["B5:B50"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-
-                    //worksheet.Cells.AutoFitColumns();
-
-                    result = package.GetAsByteArray();
-                    return result;
+                var yoklamaListesi = _yoklamaDal.GetYoklamaKatilimYuzdesiAylikRaporListesi(tarih);
+                if (!yoklamaListesi.Any())
+                {
+                    return new ServiceResult<byte[]>(null, "Rapor bulunamadı.", ServiceResultType.NotFound);
                 }
+
+                foreach (var item in yoklamaListesi[0].YoklamaIstatistikleri)
+                {
+                    comlumHeaders.Add(item.YoklamaBaslik.Substring(0, item.YoklamaBaslik.IndexOf(' ')).ToUpper());
+                }
+
+                //Yoklama başlıkları ekleniyor
+                comlumHeaders.Add("GENEL");
+                for (var i = 0; i < comlumHeaders.Count(); i++)
+                {
+                    worksheet.Cells[4, i + 1].Value = comlumHeaders[i];
+                }
+
+                foreach (var yoklama in yoklamaListesi)
+                {
+                    worksheet.Cells["A" + j].Value = j - 4;
+                    worksheet.Cells["B" + j].Value = yoklama.AdSoyad.Insert(0, " ");
+                    foreach (var item in yoklama.YoklamaIstatistikleri)
+                    {
+                        if (column > comlumHeaders.Count())
+                        {
+                            break;
+                        }
+                        worksheet.Cells[j, column].Value = '%' + item.KatilimYuzdesi;
+                        ++column;
+                    }
+                    worksheet.Cells[j, column].Value = '%' + yoklama.GenelKatilimYuzdesi;
+                    column = 3;
+                    ++j;
+
+                }
+
+                //Döküman verilerinin tümü ortalalanıyor.
+                worksheet.Cells["A4:A50"].AutoFitColumns(3.5, 3.5);
+                worksheet.Cells["B4:B50"].AutoFitColumns();
+                worksheet.Cells.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                worksheet.Cells["B5:B50"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+
+                //worksheet.Cells.AutoFitColumns();
+
+                result = package.GetAsByteArray();
+                return new ServiceResult<byte[]>(result);
+            }
             
         }
     }

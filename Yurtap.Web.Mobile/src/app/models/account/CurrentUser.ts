@@ -18,3 +18,11 @@ export class Rol {
     listeleme: boolean;
     arama: boolean;
 }
+
+export class UserRoleList {
+    kisiId:number;
+    adSoyad:string;
+    kullaniciAd:string;
+    sifre:string;
+    roller: string[]=[];
+}

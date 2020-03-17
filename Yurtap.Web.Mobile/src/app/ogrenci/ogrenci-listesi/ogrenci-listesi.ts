@@ -98,7 +98,7 @@ export class OgrenciListesiComponent implements OnInit {
     this.router.navigateByUrl("yeni-ogrenci")
   }
   ogrenciSil(ogrenci) {
-    this.alertService.confirmDeleteAlert("<b>" + ogrenci.ad + " " + ogrenci.soyad + "</b> silinsin mi?", this.ogrenciService.deleteOgrenci(ogrenci), this.ogrenciListesi, ogrenci, "Kayıt silindi")
+    this.alertService.confirmDeleteAlert("<b>" + ogrenci.ad + " " + ogrenci.soyad + "</b> silinsin mi?", this.ogrenciService.deleteOgrenci(ogrenci), this.ogrenciListesi, ogrenci, "Öğrenci silindi")
   }
   ogrenciDuzenle(ogrenci, itemSliding: IonItemSliding) {
     localStorage.setItem("ogrenci", JSON.stringify(ogrenci));

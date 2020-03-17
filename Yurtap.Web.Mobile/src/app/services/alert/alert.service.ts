@@ -5,6 +5,7 @@ import { HttpService } from '../http.service';
 import { Observable } from 'rxjs';
 import { ToastService } from '../toast/toast.service';
 import { NgForm } from '@angular/forms';
+import { ResponseType } from 'src/app/consts/ResponseType';
 
 @Injectable({
   providedIn: 'root'
@@ -66,7 +67,7 @@ export class AlertService {
             text: "Evet",
             handler: () => {
               method.subscribe(data => {
-                if (data) {
+                if (data.resultCode == ResponseType.Created) {
                   this.toastService.showToast(successMessage);
                 }
               })

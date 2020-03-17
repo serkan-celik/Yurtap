@@ -5,13 +5,8 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Net;
 using System.Security.Claims;
-using System.Security.Principal;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Yurtap.Business.Abstract;
 using Yurtap.Core.Web.Mvc;
 using Yurtap.Entity;
@@ -27,12 +22,14 @@ namespace Yurtap.Web.API.Controllers
         private readonly IKullaniciBll _kullaniciBll;
         private readonly IKullaniciRolBll _kullaniciRolBll;
         private IConfiguration _configuration;
+        IKisiBll _kisiBll;
 
-        public KullaniciController(IKullaniciBll kullaniciBll, IConfiguration configuration, IKullaniciRolBll kullaniciRolBll)
+        public KullaniciController(IKullaniciBll kullaniciBll, IConfiguration configuration, IKullaniciRolBll kullaniciRolBll, IKisiBll kisiBll)
         {
             _kullaniciBll = kullaniciBll;
             _configuration = configuration;
             _kullaniciRolBll = kullaniciRolBll;
+            _kisiBll = kisiBll;
         }
 
         [HttpPost("Giris")]
@@ -76,19 +73,26 @@ namespace Yurtap.Web.API.Controllers
             return Ok(kullanici);
         }
 
-        [HttpGet("GetKullaniciListesi")]
-        public ActionResult GetKullaniciListesi()
+        [HttpGet("GetKullaniciRolleriListesi")]
+        public ActionResult GetKullaniciRolleriListesi()
         {
-            List<KullaniciModel> kullaniciModel;
+            List<KullaniciRolListeModel> kullaniciModel;
             try
             {
-                kullaniciModel = _kullaniciBll.GetKullaniciListesi();
+                kullaniciModel = _kullaniciRolBll.GetKullaniciRolleriListesi();
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
             return Ok(kullaniciModel);
+        }
+
+        [HttpGet("GetKisiListesi")]
+        public ActionResult GetKisiListesi()
+        {
+            var kisiler = _kisiBll.GetKisiListesi();
+            return Ok(kisiler);
         }
 
         [HttpGet("GetKullaniciRolleriById")]
@@ -157,21 +161,6 @@ namespace Yurtap.Web.API.Controllers
             return "sekooooooooooo";
         }
 
-        [HttpPost("AddKullanici")]
-        public ActionResult AddKullanici([FromBody]KullaniciModel kullaniciModel)
-        {
-            KullaniciEntity kullaniciEntity;
-            try
-            {
-                kullaniciEntity = _kullaniciBll.AddKullanici(kullaniciModel);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(kullaniciEntity);
-        }
-
         [HttpPut("UpdateKullanici")]
         public ActionResult UpdateKullanici([FromBody]KullaniciModel kullaniciModel)
         {
@@ -188,12 +177,12 @@ namespace Yurtap.Web.API.Controllers
         }
 
         [HttpDelete("DeleteKullanici")]
-        public ActionResult DeleteKullanici([FromBody]KullaniciEntity kullaniciEntity)
+        public ActionResult DeleteKullanici([FromBody]KullaniciRolListeModel kullaniciRolListeModel)
         {
             bool kullanici;
             try
             {
-                kullanici = _kullaniciBll.DeleteKullanici(kullaniciEntity);
+                kullanici = _kullaniciBll.DeleteKullanici(kullaniciRolListeModel);
             }
             catch (Exception ex)
             {

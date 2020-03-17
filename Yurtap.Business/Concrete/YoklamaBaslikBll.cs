@@ -46,6 +46,11 @@ namespace Yurtap.Business.Concrete
                     Id = y.Id,
                     Baslik = y.Baslik.ToTitleCase()
                 }).ToList();
+
+            if (!yoklamaBaslik.Any())
+            {
+                return new ServiceResult<List<YoklamaBaslikModel>>(yoklamaBaslik, "Yoklama başlığı bulunamadı", ServiceResultType.NotFound);
+            }
             return new ServiceResult<List<YoklamaBaslikModel>>(yoklamaBaslik, "Yoklama başlıkları listelendi", ServiceResultType.Success);
         }
 

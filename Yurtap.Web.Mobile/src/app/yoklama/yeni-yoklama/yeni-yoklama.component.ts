@@ -123,6 +123,8 @@ export class YeniYoklamaComponent implements OnInit {
       this.alertService.confirmAlert("Yoklama kaydedilsin mi?", this.yoklamaService.addYoklama(this.yoklama), "Yoklama başarıyla kaydedildi");
       this.yoklamaService.getYoklamaListeleriByTarih().subscribe(data => {
         localStorage.setItem("yoklamaLength", data.result.length.toString());
+      },error=>{
+        
       });
     }
     else {

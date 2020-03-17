@@ -46,9 +46,13 @@ export class ErrorsHandler implements ErrorHandler {
         case 401://Unauthorized
           return this.toastService.showToast("Yanlış kullanıcı adı veya şifre", "danger");
         case 400://BadRequest
-          return this.toastService.showToast(error.error.message, "danger");
+          if (error.error.message)
+            return this.toastService.showToast(error.error.message, "danger");
+          return this.toastService.showToast(error.error, "danger");
         case 404://NotFound
-          return this.toastService.showToast(error.error.message, "danger");
+          if (error.error.message)
+            return this.toastService.showToast(error.error.message);
+          return this.toastService.showToast(error.error);
       }
 
       // Http Error

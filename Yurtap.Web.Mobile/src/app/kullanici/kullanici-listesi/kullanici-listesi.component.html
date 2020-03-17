@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Kullanıcı Listesi
+    </ion-title>
+    <pop-account-component slot="end"></pop-account-component>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-searchbar [(ngModel)]="filterText" (ionChange)="filteredList()" placeholder="Kullanıcı Ara..."></ion-searchbar>
+  <ion-card-subtitle class="ion-text-center" *ngIf="kullaniciRolleriListesi.length==0&&filterText.length>0">
+    '{{filterText}}'
+    için sonuç bulunamadı
+  </ion-card-subtitle>
+  <div style="line-height: 20">
+    <ion-card-subtitle style="white-space: nowrap" class="ion-text-center"
+      *ngIf="kullaniciRolleriListesi.length==0&&filterText.length==0" [innerHTML]="veriYok"></ion-card-subtitle>
+  </div>
+  <ion-list>
+    <ion-list-header *ngIf="kullaniciRolleriListesi.length">
+      {{kullaniciRolleriListesi.length}} Kullanıcı
+    </ion-list-header>
+    <ion-item-sliding *ngFor="let kullanici of kullaniciRolleriListesi; let i = index" #itemSliding>
+      <ion-item-options side="start">
+        <ion-item-option (click)="yetkiDuzenle(kullanici,itemSliding)" class="ion-text-capitalize">
+          <ion-icon name="create" slot="icon-only"></ion-icon>
+        </ion-item-option>
+        <ion-item-option (click)="hesapGoster(kullanici)" color="light">
+          <ion-icon name="person" slot="icon-only"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item>
+        <ion-avatar slot="start">
+          <text-avatar [text]="kullanici.adSoyad" color="#0074D9" textColor="#ffffff">
+          </text-avatar>
+        </ion-avatar>
+        <b>{{kullanici.adSoyad}}</b>
+        <div style="margin-left:auto">
+          <ion-badge *ngFor="let rol of kullanici.roller" class="ion-margin-start" color="primary">{{rol}}
+          </ion-badge>
+        </div>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="kullaniciSil(kullanici)" class="ion-text-capitalize" color="danger">
+          <ion-icon name="trash" slot="icon-only"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <!-- Skeleton screen -->
+  <ion-list *ngIf="kullaniciRolleriListesi.length==0&&veriYok.length==0&&filterText.length==0"
+    class="ion-padding custom-skeleton">
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+    </ion-item>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="kullaniciEkle()">
+      <ion-icon name="person-add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

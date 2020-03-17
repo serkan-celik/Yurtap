@@ -9,7 +9,6 @@ namespace Yurtap.DataAccess.Abstract
 {
     public interface IKullaniciDal : IEntityRepository<KullaniciEntity>
     {
-        IEnumerable<KullaniciModel> GetKullaniciListesi();
         KullaniciModel GetKullaniciBilgileri(string kullaniciAd, string sifre);
     }
 }

@@ -54,26 +54,26 @@ namespace Yurtap.Business.Concrete
                     Id = kisi.Id,
                 });
                 ogrenciModel.KisiId = ogrenci.Id;
-                if (ogrenciModel.Hesap)
-                {
-                    string ad = ogrenciModel.Ad.ToLower().RemoveEmpty().ConvertTRCharToENChar();
-                    string soyad = ogrenciModel.Soyad.ToLower().ConvertTRCharToENChar();
-                    string defaultKullaniciAd = String.Join(".", ad, soyad);
-                    string defaultSifre = new Random().Next(1234, 9999).ToString();
+                //if (ogrenciModel.Hesap)
+                //{
+                //    string ad = ogrenciModel.Ad.ToLower().RemoveEmpty().ConvertTRCharToENChar();
+                //    string soyad = ogrenciModel.Soyad.ToLower().ConvertTRCharToENChar();
+                //    string defaultKullaniciAd = String.Join(".", ad, soyad);
+                //    string defaultSifre = new Random().Next(1234, 9999).ToString();
 
-                    _kullaniciBll.AddKullanici(new KullaniciModel()
-                    {
-                        KisiId = kisi.Id,
-                        Ad = defaultKullaniciAd,
-                        Sifre = defaultSifre
-                    });
-                    _kullaniciRolBll.AddKullaniciRol(new KullaniciRolEntity
-                    {
-                        KisiId = kisi.Id,
-                        RolId = RolEnum.GenelYonetici.GetHashCode()
-                    });
+                //    _kullaniciBll.AddKullanici(new KullaniciModel()
+                //    {
+                //        KisiId = kisi.Id,
+                //        Ad = defaultKullaniciAd,
+                //        Sifre = defaultSifre
+                //    });
+                //    _kullaniciRolBll.AddKullaniciRol(new KullaniciRolEntity
+                //    {
+                //        KisiId = kisi.Id,
+                //        RolId = RolEnum.GenelYonetici.GetHashCode()
+                //    });
 
-                }
+                //}
                 scope.Complete();
                 return new ServiceResult<object>(ogrenciModel, "Öğrenci oluşturuldu", ServiceResultType.Created);
             }
@@ -111,28 +111,6 @@ namespace Yurtap.Business.Concrete
                 return IsOgrenciMi(ogrenciModel);
             }
             var kullanici = _kullaniciBll.GetKullaniciById(ogrenciModel.KisiId);
-            if (kullanici == null && ogrenciModel.Hesap)
-            {
-                string ad = ogrenciModel.Ad.ToLower().RemoveEmpty().ConvertTRCharToENChar();
-                string soyad = ogrenciModel.Soyad.ToLower().ConvertTRCharToENChar();
-                string defaultKullaniciAd = String.Join(".", ad, soyad);
-                string defaultSifre = new Random().Next(1234, 9999).ToString();          
-
-                _kullaniciBll.AddKullanici(new KullaniciModel()
-                {
-                    KisiId = ogrenciModel.KisiId,
-                    Ad = defaultKullaniciAd,
-                    Sifre = defaultSifre,
-                });
-            }
-            else if (kullanici != null)
-            {
-                if (ogrenciModel.Hesap)
-                    kullanici.Durum = DurumEnum.Aktif;
-                else
-                    kullanici.Durum = DurumEnum.Pasif;
-                _kullaniciBll.UpdateKullanici(kullanici);
-            }
             var ogrenci = GetOgrenci(ogrenciModel.KisiId);
             if (!ogrenci.Success)
             {

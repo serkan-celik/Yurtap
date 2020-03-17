@@ -20,9 +20,17 @@ import { YoklamaGuard } from './hesap/guards/yoklama.guard';
 import { OgrenciGuard } from './hesap/guards/ogrenci.guard';
 import { LoginGuard } from './hesap/guards/login.guard';
 import { YoklamaRaporuComponent } from './rapor/yoklama-raporu/yoklama-raporu.component';
+import { KullaniciListesiComponent } from './kullanici/kullanici-listesi/kullanici-listesi.component';
+import { KisiListesiComponent } from './kullanici/kisi-listesi/kisi-listesi.component';
+import { TextAvatarModule } from './components/text-avatar';
+import { TextAvatarComponent } from './components/text-avatar/text-avatar.component';
+import { PopModule } from './popcomponent/pop-module.module';
 
 @NgModule({
   declarations: [
+    YoklamaRaporuComponent,
+    TextAvatarComponent,
+    KisiListesiComponent,
     AppComponent,
     YapimAsamasindaComponent,
     SortPipe,
@@ -35,6 +43,7 @@ import { YoklamaRaporuComponent } from './rapor/yoklama-raporu/yoklama-raporu.co
     HttpClientModule,
     FormsModule,
     ErrorsModule,
+    TextAvatarModule, PopModule,
   ],
 
   providers: [

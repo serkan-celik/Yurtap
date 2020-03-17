@@ -24,7 +24,7 @@ export class PopoverComponent  extends BaseComponent {
   }
 
   sifreDegistir(){
-    this.router.navigateByUrl("sifre-degistir");
+    this.router.navigateByUrl("hesap/sifre-degistir");
     this.popoverController.dismiss();
   }
 }

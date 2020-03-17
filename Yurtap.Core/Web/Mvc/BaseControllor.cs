@@ -11,22 +11,22 @@ namespace Yurtap.Core.Web.Mvc
 {
     public class BaseControllor : ControllerBase
     {
-        private CurrentUser currentUser;
+        private CurrentUser _currentUser;
         public CurrentUser CurrentUser
         {
             get
             {
                 if (User != null)
                 {
-                    currentUser = new CurrentUser();
+                    _currentUser = new CurrentUser();
                     if (User.FindFirst(ClaimTypes.NameIdentifier) != null)
                     {
-                        currentUser.Id = ushort.Parse(User.FindFirst("id").Value);
-                        currentUser.Name = User.FindFirst("name").Value;
-                        currentUser.FullName = User.FindFirst("fullName").Value;
+                        _currentUser.Id = ushort.Parse(User.FindFirst("id").Value);
+                        _currentUser.Name = User.FindFirst("name").Value;
+                        _currentUser.FullName = User.FindFirst("fullName").Value;
                     }
                 }
-                return currentUser;
+                return _currentUser;
             }
         }
     }

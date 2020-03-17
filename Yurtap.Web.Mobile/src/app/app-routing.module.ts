@@ -15,6 +15,8 @@ import { YeniOgrenciComponent } from './ogrenci/yeni-ogrenci/yeni-ogrenci.compon
 import { LoginGuard } from './hesap/guards/login.guard';
 import { OgrenciListesiComponent } from './ogrenci/ogrenci-listesi/ogrenci-listesi';
 import { YoklamaRaporuComponent } from './rapor/yoklama-raporu/yoklama-raporu.component';
+import { KullaniciListesiComponent } from './kullanici/kullanici-listesi/kullanici-listesi.component';
+import { KisiListesiComponent } from './kullanici/kisi-listesi/kisi-listesi.component';
 
 const routes: Routes = [
   {
@@ -53,8 +55,8 @@ const routes: Routes = [
     canActivate: [PersonelGuard]
   },
   {
-    path: 'ogrenci-yetki/:kisiId',
-    loadChildren: './ogrenci/ogrenci-yetki/ogrenci-yetki.module#OgrenciYetkiModule',
+    path: 'yeni-yetki/:kisiId/:adSoyad',
+    loadChildren: './kullanici/yeni-yetki/yeni-yetki.module#YeniYetkiModule',
     canActivate: [AdminGuard]
   },
   {
@@ -93,7 +95,7 @@ const routes: Routes = [
     component: GirisComponent
   },
   {
-    path: 'sifre-degistir',
+    path: 'hesap/sifre-degistir',
     loadChildren: './hesap/sifre-degistir/sifre-degistir.module#SifreDegistirModule',
     canActivate: [LoginGuard]
   },
@@ -104,7 +106,18 @@ const routes: Routes = [
   },
   {
     path: 'yoklama-raporlari',
-    loadChildren: './rapor/yoklama-raporu/yoklama-raporu.module#YoklamaRaporuModule',
+    //loadChildren: './rapor/yoklama-raporu/yoklama-raporu.module#YoklamaRaporuModule',
+    component:YoklamaRaporuComponent,
+    canActivate: [AdminGuard]
+  },
+  {
+    path: 'kullanici-listesi',
+    loadChildren: './kullanici/kullanici-listesi/kullanici-listesi.module#KullaniciListesiModule',
+    canActivate: [AdminGuard]
+  },
+  {
+    path: 'kisi-listesi',
+   component:KisiListesiComponent,
     canActivate: [AdminGuard]
   }
 ];

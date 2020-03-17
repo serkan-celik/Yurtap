@@ -67,22 +67,26 @@
       <ion-col *ngIf="rapor=='saatlik'">
         <ion-item>
           <ion-label style="font-weight :bold">Yoklamalar</ion-label>
-          <ion-select style="max-width:100%" name="yoklamaBaslikId" [(ngModel)]="yoklama" placeholder="Yoklama seçiniz" interface="popover">
-            <ion-select-option *ngFor="let yoklama of yoklamalar" [value]="yoklama">{{yoklama.baslik}}
-              ({{yoklama.tarih | date:'HH:mm'}})
+          <ion-select [disabled]="yoklamalarListesi.length==0" #select style="max-width:100%" id="yoklamaListesi.id"
+            name="yoklamaListesi.id" [(ngModel)]="yoklamaListesi"
+            [placeholder]="yoklamalarListesi.length==0?'Yoklama bulunamadı':'Yoklama seçiniz'" interface="popover">
+            <ion-select-option *ngFor="let yoklamaListesi of yoklamalarListesi" [value]="yoklamaListesi">
+              {{yoklamaListesi.baslik}}
+              ({{yoklamaListesi.tarih | date:'HH:mm'}})
             </ion-select-option>
           </ion-select>
         </ion-item>
       </ion-col>
       <ion-col *ngIf="katilim=='durumluk'&&rapor=='aylık'">
         <ion-item>
-            <ion-label style="font-weight :bold">Yoklamalar</ion-label>
-            <ion-select style="max-width:100%" name="yoklamaBaslik" [(ngModel)]="yoklamaBaslik" placeholder="Yoklama seçiniz"
-              interface="popover">
-              <ion-select-option *ngFor="let yoklamaBaslik of yoklamaBaslikListesi" [value]="yoklamaBaslik">
-                {{yoklamaBaslik.baslik}}
-              </ion-select-option>
-            </ion-select>
+          <ion-label style="font-weight :bold">Yoklama Başlıkları</ion-label>
+          <ion-select [(ngModel)]="yoklamaBaslik" name="yoklamaBaslik"
+            placeholder="Başlık seçiniz" style="max-width:100%"
+            interface="popover">
+            <ion-select-option *ngFor="let yoklamaBaslik of yoklamaBaslikListesi" [value]="yoklamaBaslik">
+              {{yoklamaBaslik.baslik}}
+            </ion-select-option>
+          </ion-select>
         </ion-item>
       </ion-col>
     </ion-row>

@@ -8,6 +8,7 @@ namespace Yurtap.Business.Abstract
 {
     public interface IKisiBll
     {
+        List<KisiListeModel> GetKisiListesi();
         ServiceResult<KisiEntity> GetKisi(int kisiId);
         OgrenciModel UpdateOgrenci(OgrenciModel ogrenciModel);
         PersonelModel UpdatePersonel(PersonelModel personelModel);

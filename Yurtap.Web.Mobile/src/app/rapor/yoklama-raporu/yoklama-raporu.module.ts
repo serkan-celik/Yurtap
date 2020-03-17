@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { PopModule } from 'src/app/popcomponent/pop-module.module';
 import { YoklamaRaporuComponent } from './yoklama-raporu.component';
 
-@NgModule({
+/*@NgModule({
   imports: [
     CommonModule,
     FormsModule,
@@ -19,7 +19,7 @@ import { YoklamaRaporuComponent } from './yoklama-raporu.component';
       }
     ])
   ],
-  entryComponents:[YoklamaRaporuComponent],
+  //entryComponents:[YoklamaRaporuComponent],
   declarations: [YoklamaRaporuComponent],
 })
-export class YoklamaRaporuModule { }
+export class YoklamaRaporuModule { }*/

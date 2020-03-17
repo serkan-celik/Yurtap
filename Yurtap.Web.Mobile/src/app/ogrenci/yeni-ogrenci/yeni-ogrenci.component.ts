@@ -62,18 +62,18 @@ export class YeniOgrenciComponent extends BaseComponent implements OnInit {
   ogrenciKaydet(ogrenciForm: NgForm) {
     if (this.duzenlemeModu) {
       this.ogrenciService.updateOgrenci(this.ogrenci).subscribe(data => {
+        if (data) {
+          this.toastService.showToast("Öğrenci güncellendi");
+        }
       })
     }
     else {
       this.ogrenciService.addOgrenci(this.ogrenci).subscribe(data => {
         if (data) {
           ogrenciForm.reset()
-          this.toastService.showToast("Öğrenci kaydedildi.");
+          this.toastService.showToast("Öğrenci oluşturuldu");
         }
-      }/*, error => {  //Custom Sistem Hatası
-        console.log(error.error);
-        this.toastService.showToast(error.error);
-      }*/)
+      })
     }
     localStorage.setItem("ogrenci",JSON.stringify(this.ogrenci));
   }
@@ -81,9 +81,4 @@ export class YeniOgrenciComponent extends BaseComponent implements OnInit {
   tcKimlikNoDogrula(tcKimlikNo) {
     this.hataMetni = new KimlikIslemleri().tcKimlikNoDogrula(tcKimlikNo);
   }
-
-  hesapGoster(){
-    this.alertService.advancedAlert("Kullanıcı Hesabı","Kullanıcı Adı: " + this.ogrenci.kullaniciAd + "<br/>Şifre: " + this.ogrenci.sifre);
-  }
-
 }

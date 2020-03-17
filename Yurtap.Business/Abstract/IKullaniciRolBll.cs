@@ -7,6 +7,7 @@ namespace Yurtap.Business.Abstract
 {
     public interface IKullaniciRolBll
     {
+        List<KullaniciRolListeModel> GetKullaniciRolleriListesi();
         KullaniciRolEntity AddKullaniciRol(KullaniciRolEntity kullaniciRolEntity);
         List<KullaniciRolModel> GetKullaniciRolleriById(int kisiId);
         bool IsKullaniciRol(int kisiId, int rolId);

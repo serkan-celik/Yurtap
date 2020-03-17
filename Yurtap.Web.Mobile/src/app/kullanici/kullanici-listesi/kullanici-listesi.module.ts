@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
-import{OgrenciYetkiComponent} from './ogrenci-yetki.component'
 import { PopModule } from 'src/app/popcomponent/pop-module.module';
+import { KullaniciListesiComponent } from './kullanici-listesi.component';
+import { TextAvatarModule } from 'src/app/components/text-avatar';
 
 @NgModule({
   imports: [
@@ -12,14 +13,15 @@ import { PopModule } from 'src/app/popcomponent/pop-module.module';
     FormsModule,
     IonicModule,
     PopModule,
+    TextAvatarModule,
     RouterModule.forChild([
       {
         path: '',
-        component: OgrenciYetkiComponent
+        component: KullaniciListesiComponent
       }
     ])
   ],
-  entryComponents:[OgrenciYetkiComponent],
-  declarations: [OgrenciYetkiComponent]
+  entryComponents:[KullaniciListesiComponent],
+  declarations: [KullaniciListesiComponent]
 })
-export class OgrenciYetkiModule {}
+export class KullaniciListesiModule {}

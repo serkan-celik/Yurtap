@@ -8,15 +8,16 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 import { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
-  selector: 'app-ogrenci-yetki',
-  templateUrl: './ogrenci-yetki.component.html',
-  styleUrls: ['./ogrenci-yetki.component.scss'],
+  selector: 'app-yeni-yetki',
+  templateUrl: './yeni-yetki.component.html',
+  styleUrls: ['./yeni-yetki.component.scss'],
 })
-export class OgrenciYetkiComponent extends BaseComponent implements OnInit {
+export class YeniYetkiComponent extends BaseComponent implements OnInit {
 
   constructor(
     public hesapService: HesapService,
     private kullaniciService: KullaniciService,
+    private kisiService: KullaniciService,
     private activatedRoute: ActivatedRoute, 
     private toastService: ToastService,
     private alertService:AlertService) {
@@ -25,6 +26,7 @@ export class OgrenciYetkiComponent extends BaseComponent implements OnInit {
   roller: Rol[] = []
   rol: Rol = new Rol();
   kisiId: number;
+  kisiAdSoyad:string
 
   ngOnInit() {
     this.getkullaniciRolleri();
@@ -32,10 +34,11 @@ export class OgrenciYetkiComponent extends BaseComponent implements OnInit {
 
   getkullaniciRolleri() {
     this.activatedRoute.params.subscribe(param => {
-      if (param.kisiId) {
+      if (param.kisiId && param.adSoyad) {
         this.kisiId = param.kisiId;
         this.kullaniciService.getKullaniciRolleriById(param.kisiId).subscribe(data => {
           this.roller = data;
+          this.kisiAdSoyad = param.adSoyad;
         })
       }
     })
@@ -50,13 +53,13 @@ export class OgrenciYetkiComponent extends BaseComponent implements OnInit {
     this.kullaniciService.addKullaniciRol(rol).subscribe(data => {
       if (data)
         this.getkullaniciRolleri();
-        this.toastService.showToast("Kullanıcı yetkisi eklendi")
+        this.toastService.showToast("Kullanıcı yetkisi oluşturuldu")
     });
 
   }
 
 rolSil(rol) {
-    this.alertService.confirmDeleteAlert(rol.ad + " yetkisi silinsin mi?", this.kullaniciService.deleteKullaniciRol(rol), this.roller, rol, "Kullanıcı rolü silindi");
+    this.alertService.confirmDeleteAlert("<b>" + rol.ad + "</b> yetkisi silinsin mi?", this.kullaniciService.deleteKullaniciRol(rol), this.roller, rol, "Kullanıcı yetkisi silindi");
   }
 
   rolGuncelle(rol:Rol){

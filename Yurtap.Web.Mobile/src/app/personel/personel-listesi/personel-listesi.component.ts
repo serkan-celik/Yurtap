@@ -56,7 +56,7 @@ export class PersonelListesiComponent implements OnInit {
     this.router.navigateByUrl("yeni-personel")
   }
   personelSil(personel) {
-    this.alertService.confirmDeleteAlert("<b>" + personel.ad + " " + personel.soyad + "</b> silinsin mi?", this.personelService.deletePersonel(personel), this.personelListesi, personel, "Personel başarıyla silindi");
+    this.alertService.confirmDeleteAlert("<b>" + personel.ad + " " + personel.soyad + "</b> silinsin mi?", this.personelService.deletePersonel(personel), this.personelListesi, personel, "Personel silindi");
   }
   personelDuzenle(personel, itemSliding: IonItemSliding) {
     localStorage.setItem("personel", JSON.stringify(personel));

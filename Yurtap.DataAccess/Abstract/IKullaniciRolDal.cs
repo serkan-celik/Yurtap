@@ -9,6 +9,6 @@ namespace Yurtap.DataAccess.Abstract
 {
     public interface IKullaniciRolDal : IEntityRepository<KullaniciRolEntity>
     {
-
+        List<KullaniciRolListeModel> GetKullaniciRolleriListesi();
     }
 }

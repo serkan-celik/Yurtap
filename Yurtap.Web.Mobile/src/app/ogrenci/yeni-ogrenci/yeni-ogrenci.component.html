@@ -27,23 +27,7 @@
         </ion-input>
         <span style="color:#f25454" *ngIf="hataMetni">{{hataMetni}}</span>
       </ion-item>
-      <ion-item>
-        <ion-checkbox name="hesap" [(ngModel)]="ogrenci.hesap" color="dark" ngModel></ion-checkbox>
-        <ion-label>&nbsp;Kullanıcı hesabı oluştur</ion-label>
-        <ion-button *ngIf="ogrenci.hesap&&ogrenci.kullaniciAd&&ogrenci.sifre" style="z-index: 2;" (click)="hesapGoster()">Hesap Göster</ion-button>
-      </ion-item>
-      <ion-item>
-        <ion-card-subtitle>
-          Kullanıcı adı ' ad.soyad ' şeklinde, şifre 4 haneli otomatik olarak oluşturulur.
-        </ion-card-subtitle>
-      </ion-item>
       <ion-button type="submit" [disabled]="ogrenciForm.invalid" expand="full">Kaydet</ion-button>
     </form>
   </ion-list>
 </ion-content>
-<ion-footer *ngIf="hesap">
-  <ion-toolbar class="ion-text-center" [routerLink]="['/ogrenci-yetki/' + paramKisiId]">
-    <ion-icon name="settings"></ion-icon>
-    <ion-label>Kullanıcı Ayarları</ion-label>
-  </ion-toolbar>
-</ion-footer>

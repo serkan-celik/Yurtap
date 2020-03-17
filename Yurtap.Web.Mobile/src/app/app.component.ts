@@ -54,9 +54,17 @@ export class AppComponent extends BaseComponent {
     {
       title: 'Personel Listesi',
       url: '/personel-listesi',
-      icon: 'person',
+      icon: 'people',
       role: [
         RolEnum.PersonelYonetimi.valueOf()
+      ]
+    },
+    {
+      title: 'Kullanıcı Listesi',
+      url: '/kullanici-listesi',
+      icon: 'person',
+      role: [
+        RolEnum.Admin.valueOf()
       ]
     }
   ];

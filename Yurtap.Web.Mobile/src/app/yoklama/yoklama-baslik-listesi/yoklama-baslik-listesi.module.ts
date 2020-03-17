@@ -11,7 +11,6 @@ import { YoklamaBaslikListesiComponent } from './yoklama-baslik-listesi.componen
     CommonModule,
     FormsModule,
     IonicModule,
-    PopModule,
     RouterModule.forChild([
       {
         path: '',

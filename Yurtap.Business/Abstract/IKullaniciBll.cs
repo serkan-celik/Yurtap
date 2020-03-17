@@ -8,13 +8,13 @@ namespace Yurtap.Business.Abstract
 {
     public interface IKullaniciBll
     {
-        List<KullaniciModel> GetKullaniciListesi();
-        KullaniciEntity AddKullanici(KullaniciModel kullaniciModel);
+
+        KullaniciEntity AddGenerateKullanici(KullaniciRolEntity kullaniciRolEntity);
         KullaniciEntity GetKullaniciById(int kisiId);
         ServiceResult<KullaniciModel> GetKullaniciBilgileri(string kullaniciAdi, string kullaniciSifre);
         KullaniciEntity UpdateKullanici(KullaniciModel kullaniciModel);
         KullaniciEntity UpdateKullanici(KullaniciEntity kullaniciEntity);
-        bool DeleteKullanici(KullaniciEntity kullaniciModel);
+        bool DeleteKullanici(KullaniciRolListeModel kullaniciModel);
         bool IsKullanici(int kisiId);
         bool IsKullanici(string kullaniciAd);
     }
